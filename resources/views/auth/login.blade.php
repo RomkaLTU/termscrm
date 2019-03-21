@@ -1,73 +1,114 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+    <script>
+        WebFont.load({
+            google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
+            active: function() {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+    <link href="{{ asset('assets/app/custom/login/login-v3.default.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/demo/default/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+    <title>{{ __('Prisijungti') }} - Terms CRM</title>
+</head>
+<body class="kt-header--fixed kt-header-mobile--fixed kt-subheader--fixed kt-subheader--enabled kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+    <div class="kt-grid kt-grid--ver kt-grid--root">
+    <div class="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v3 kt-login--signin" id="kt_login">
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" style="background-image: url({{ asset('assets/media//bg/bg-3.jpg') }});">
+            <div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
+                <div class="kt-login__container">
+                    <div class="kt-login__logo">
+                        <a href="#">
+                            <img src="{{ asset('assets/media/logos/logo-5.png') }}">
+                        </a>
+                    </div>
+                    <div class="kt-login__signin">
+                        <div class="kt-login__head">
+                            <h3 class="kt-login__title">{{ __('Prisijungti') }}</h3>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                        <form class="kt-form" action="">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="{{ __('El. paštas') }}" name="email" autocomplete="off">
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
+                            <div class="input-group">
+                                <input class="form-control" type="password" placeholder="{{ __('Slaptažodis') }}" name="password">
+                            </div>
+                            <div class="row kt-login__extra">
+                                <div class="col">
+                                    <label class="kt-checkbox">
+                                        <input type="checkbox" name="remember"> {{ __('Atsiminti mane') }}
+                                        <span></span>
                                     </label>
                                 </div>
+                                <div class="col kt-align-right">
+                                    <a href="javascript:;" id="kt_login_forgot" class="kt-login__link">{{ __('Pamiršai slaptažodį ?') }}</a>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
+                            <div class="kt-login__actions">
+                                <button id="kt_login_signin_submit" class="btn btn-brand btn-elevate kt-login__btn-primary">{{ __('Prisijungti') }}</button>
                             </div>
+                        </form>
+                    </div>
+                    <div class="kt-login__forgot">
+                        <div class="kt-login__head">
+                            <h3 class="kt-login__title">{{ __('Pamišai slaptažodį ?') }}</h3>
+                            <div class="kt-login__desc">{{ __('Įveskite savo el. pašto adresą:') }}</div>
                         </div>
-                    </form>
+                        <form class="kt-form" action="">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="{{ __('El. paštas') }}" name="email" id="kt_email" autocomplete="off">
+                            </div>
+                            <div class="kt-login__actions">
+                                <button id="kt_login_forgot_submit" class="btn btn-brand btn-elevate kt-login__btn-primary">{{ __('Atstatyti') }}</button>&nbsp;&nbsp;
+                                <button id="kt_login_forgot_cancel" class="btn btn-light btn-elevate kt-login__btn-secondary">{{ __('Nutraukti') }}</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
+
+    <script>
+        window.KTAppOptions = {
+            "colors": {
+                "state": {
+                    "brand": "#5d78ff",
+                    "dark": "#282a3c",
+                    "light": "#ffffff",
+                    "primary": "#5867dd",
+                    "success": "#34bfa3",
+                    "info": "#36a3f7",
+                    "warning": "#ffb822",
+                    "danger": "#fd3995"
+                },
+                "base": {
+                    "label": ["#c5cbe3", "#a1a8c3", "#3d4465", "#3e4466"],
+                    "shape": ["#f0f3ff", "#d9dffa", "#afb4d4", "#646c9a"]
+                }
+            }
+        };
+    </script>
+
+    <script src="{{ asset('assets/vendors/general/jquery/dist/jquery.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/general/js-cookie/src/js.cookie.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/general/sticky-js/dist/sticky.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/general/jquery-validation/dist/jquery.validate.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/custom/components/vendors/jquery-validation/init.js') }}" type="text/javascript"></script>
+
+    <script src="{{ asset('assets/demo/default/base/scripts.bundle.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/app/custom/login/login-general.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/app/bundle/app.bundle.js') }}" type="text/javascript"></script>
+</body>
+</html>
