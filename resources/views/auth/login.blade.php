@@ -18,7 +18,7 @@
     <link href="{{ asset('assets/app/custom/login/login-v3.default.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/demo/default/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 
-    <title>{{ __('Prisijungti') }} - Terms CRM</title>
+    <title>{{ __('Prisijungti') }} -- Terms CRM</title>
 </head>
 <body class="kt-header--fixed kt-header-mobile--fixed kt-subheader--fixed kt-subheader--enabled kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
 
