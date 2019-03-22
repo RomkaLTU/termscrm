@@ -28,20 +28,29 @@
             <div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
                 <div class="kt-login__container">
                     <div class="kt-login__logo">
-                        <a href="#">
+                        <a href="/">
                             <img src="{{ asset('assets/media/logos/logo-5.png') }}">
                         </a>
                     </div>
                     <div class="kt-login__signin">
                         <div class="kt-login__head">
-                            <h3 class="kt-login__title">{{ __('Prisijungti') }}</h3>
+                            <h3 class="kt-login__title">{{ __('Terminų valdymo sistema') }}</h3>
+                            <div class="text-center font-weight-bold">UAB Ekometrija</div>
                         </div>
-                        <form class="kt-form" action="">
+
+                        @if ($errors->has('email'))
+                            <div class="alert alert-warning mb-0 mt-3" role="alert">
+                                <div class="alert-text">{{ $errors->first('email') }}</div>
+                            </div>
+                        @endif
+
+                        <form class="kt-form" action="{{ route('login') }}" method="post">
+                            @csrf
                             <div class="input-group">
-                                <input class="form-control" type="text" placeholder="{{ __('El. paštas') }}" name="email" autocomplete="off">
+                                <input class="form-control" type="text" placeholder="{{ __('El. paštas') }}" name="email" autocomplete="off" required>
                             </div>
                             <div class="input-group">
-                                <input class="form-control" type="password" placeholder="{{ __('Slaptažodis') }}" name="password">
+                                <input class="form-control" type="password" placeholder="{{ __('Slaptažodis') }}" name="password" required>
                             </div>
                             <div class="row kt-login__extra">
                                 <div class="col">
@@ -49,9 +58,6 @@
                                         <input type="checkbox" name="remember"> {{ __('Atsiminti mane') }}
                                         <span></span>
                                     </label>
-                                </div>
-                                <div class="col kt-align-right">
-                                    <a href="javascript:;" id="kt_login_forgot" class="kt-login__link">{{ __('Pamiršai slaptažodį ?') }}</a>
                                 </div>
                             </div>
                             <div class="kt-login__actions">
@@ -108,7 +114,6 @@
     <script src="{{ asset('assets/vendors/custom/components/vendors/jquery-validation/init.js') }}" type="text/javascript"></script>
 
     <script src="{{ asset('assets/demo/default/base/scripts.bundle.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/app/custom/login/login-general.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/app/bundle/app.bundle.js') }}" type="text/javascript"></script>
 </body>
 </html>
