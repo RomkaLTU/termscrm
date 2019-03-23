@@ -14,5 +14,10 @@
 Auth::routes();
 
 Route::group(['middleware' => ['auth:web'] ], function() {
-    Route::get('/', 'HomeController@index')->name('dashboard');
+
+    Route::get('/', function(){
+        return redirect('users');
+    })->name('dashboard');
+
+    Route::resource('users', 'UsersController')->middleware(['role:Admin']);
 });
