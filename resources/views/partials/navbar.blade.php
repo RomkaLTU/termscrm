@@ -47,7 +47,7 @@
             <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-lg">
                 <form>
                     <!--begin: Head -->
-                    <div class="kt-head kt-head--skin-dark kt-head--fit-x kt-head--fit-b" style="background-image: url(../assets/media/misc/bg-1.jpg)">
+                    <div class="kt-head kt-head--skin-dark kt-head--fit-x kt-head--fit-b" style="background-image: url({{ asset('assets/media/misc/bg-1.jpg') }})">
                         <h3 class="kt-head__title">
                             User Notifications
                             &nbsp;
@@ -433,14 +433,14 @@
                 <div class="kt-header__topbar-user">
                     <span class="kt-header__topbar-welcome kt-hidden-mobile">Labas,</span>
                     <span class="kt-header__topbar-username kt-hidden-mobile">{{ auth()->user()->name }}</span>
-                    <img class="kt-hidden" alt="Pic" src="../assets/media/users/300_25.jpg" />
+                    <img class="kt-hidden" alt="Pic" src="{{ asset('assets/media/users/300_25.jpg') }}" />
                     <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">{{ auth()->user()->name[0] }}</span>
                 </div>
             </div>
             <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
-                <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" style="background-image: url(../assets/media/misc/bg-1.jpg)">
+                <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" style="background-image: url({{ asset('assets/media/misc/bg-1.jpg') }})">
                     <div class="kt-user-card__avatar">
-                        <img class="kt-hidden" alt="Pic" src="../assets/media/users/300_25.jpg" />
+                        <img class="kt-hidden" alt="Pic" src="{{ asset('assets/media/users/300_25.jpg') }}" />
                         <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">{{ auth()->user()->name[0] }}</span>
                     </div>
                     <div class="kt-user-card__name">
