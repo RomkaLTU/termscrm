@@ -20,10 +20,19 @@ class UsersTableSeeder extends Seeder
         Role::create(['name' => 'User']);
 
         $user = \App\User::create([
-            'name' => 'Admin',
+            'name' => 'Jack Doe',
+            'duties' => 'Direktorius',
             'email' => 'admin@example.com',
             'password' => 'admin',
         ]);
         $user->assignRole('Admin');
+
+        $user = \App\User::create([
+            'name' => 'Mary Jane',
+            'duties' => 'Administratorė',
+            'email' => 'maryj@example.com',
+            'password' => 'admin',
+        ]);
+        $user->assignRole('User');
     }
 }
