@@ -20,4 +20,5 @@ Route::group(['middleware' => ['auth:web'] ], function() {
     })->name('dashboard');
 
     Route::resource('users', 'UsersController')->middleware(['role:Admin']);
+    Route::resource('contracts', 'ContractsController')->middleware(['role:Admin']);
 });
