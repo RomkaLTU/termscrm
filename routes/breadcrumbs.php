@@ -1,7 +1,7 @@
 <?php
 
 Breadcrumbs::for('dashboard', function ($trail) {
-    $trail->push('Dashboard', route('dashboard'));
+    $trail->push('Pagrindinis', route('dashboard'));
 });
 
 Breadcrumbs::for('users', function ($trail) {

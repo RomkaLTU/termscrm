@@ -16,8 +16,6 @@
         });
     </script>
 
-    <link href="{{ asset('assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
-
     <!--begin:: Global Optional Vendors -->
     <link href="{{ asset('assets/vendors/general/tether/dist/css/tether.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/vendors/general/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css') }}" rel="stylesheet" type="text/css" />
@@ -46,6 +44,10 @@
     <link href="{{ asset('assets/demo/default/skins/header/menu/light.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/demo/default/skins/brand/dark.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/demo/default/skins/aside/dark.css') }}" rel="stylesheet" type="text/css" />
+
+    @yield('header-css')
+
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
 </head>
@@ -161,8 +163,9 @@
     <script src="{{ asset('assets/vendors/general/dompurify/dist/purify.js') }}"></script>
 
     <script src="{{ asset('assets/demo/default/base/scripts.bundle.js') }}"></script>
-    <script src="{{ asset('assets/vendors/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/app/bundle/app.bundle.js') }}"></script>
+
+    <script src="{{ mix('/js/app.js') }}"></script>
 
     @yield('footer-js')
 </body>

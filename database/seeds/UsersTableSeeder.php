@@ -34,5 +34,13 @@ class UsersTableSeeder extends Seeder
             'password' => 'admin',
         ]);
         $user->assignRole('User');
+
+        $user = \App\User::create([
+            'name' => 'Oliver Smith',
+            'duties' => 'Vadybininkas',
+            'email' => 'oliver@example.com',
+            'password' => 'admin',
+        ]);
+        $user->assignRole('User');
     }
 }

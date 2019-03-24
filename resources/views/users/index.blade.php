@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
+@section('header-css')
+    <link href="{{ asset('assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('footer-js')
+    <script src="{{ asset('assets/vendors/custom/datatables/datatables.bundle.js') }}"></script>
     <script>
         const table = $('#dtable');
 
@@ -66,6 +71,25 @@
 @endsection
 
 @section('content')
+
+    @if (Session::has('message'))
+        <div class="alert alert-success alert-dismissible fade show">
+            <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="la la-close"></i>
+            </button>
+            <span><strong>Atlikta:</strong> {{ Session::get('message') }}</span>
+        </div>
+    @endif
+
+    @if (Session::has('error'))
+        <div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="la la-close"></i>
+            </button>
+            <span><strong>Klaida:</strong> {{ Session::get('error') }}</span>
+        </div>
+    @endif
+
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
