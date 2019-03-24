@@ -65,16 +65,12 @@ class ContractsController extends Controller
         return Redirect::to('users');
     }
 
-    public function destroy( User $user )
+    public function destroy( Contract $contract )
     {
-        if ( $user->id == auth()->user()->id ) {
-            Session::flash('error', 'Savo paskyros trynimas negalimas');
-            return Redirect::back();
-        }
 
-        $user->delete();
+        $contract->delete();
 
-        Session::flash('message', 'Vartotojas ' . $user->name . ' ištrintas!');
+        Session::flash('message', 'Sutartis ' . $contract->contract_nr . ' ištrinta!');
         return Redirect::back();
     }
 }
