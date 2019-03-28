@@ -16,6 +16,8 @@ class CreateContractsTable extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('contract_nr')->unique()->nullable();
+            $table->string('customer')->nullable();
+            $table->string('customer_address')->nullable();
             $table->enum('contract_status', ['galiojanti','sustabdyta','ivykdyta'])->default('galiojanti');
             $table->string('validity')->nullable();
             $table->date('validity_extend_till_value')->nullable();

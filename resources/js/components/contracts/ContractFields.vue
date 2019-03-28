@@ -6,7 +6,7 @@
         </div>
         <div class="form-group">
             <label>Adresas</label>
-            <input type="text" class="form-control" v-model="formData.address" name="address" placeholder="Adresas">
+            <input type="text" class="form-control" v-model="formData.customer_address" name="customer_address" placeholder="Adresas">
         </div>
         <div class="form-group">
             <label>Užsakovas</label>
@@ -99,6 +99,57 @@
             <label>Sutarties suma</label>
             <input type="number" class="form-control" v-model="formData.contract_value" name="contract_value" placeholder="Sutarties suma">
         </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_invoice"><i class="fa fa-plus"></i> Pridėti sąskaitą</button>
+            <div class="modal fade" id="add_invoice" tabindex="-1" role="dialog" aria-labelledby="addInvoice" aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Nauja sąskaita</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div v-if="formData.contract_nr">
+                                <div class="form-group">
+                                    <label for="invoice_value" class="form-control-label">Sąskaita (Eur):</label>
+                                    <input type="number" v-model="contractInvoiceData.total" class="form-control" id="invoice_value">
+                                </div>
+                                <div class="form-group">
+                                    <label>Mokėjimo statusas</label>
+                                    <div class="kt-radio-inline mt-2">
+                                        <label class="kt-radio">
+                                            <input type="radio" v-model="contractInvoiceData.status" value="1"> Apmokėta
+                                            <span></span>
+                                        </label>
+                                        <label class="kt-radio">
+                                            <input type="radio" v-model="contractInvoiceData.status" value="0"> Neapmokėta
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Mokėjimo terminas IKI</label>
+                                    <datepicker
+                                        :monday-first="true"
+                                        v-model="contractInvoiceData.due_date"
+                                        input-class="form-control"
+                                        format="yyyy-MM-dd"
+                                        :language="lt" placeholder="Mokėjimo terminas IKI"></datepicker>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <p>Sąskaitą bus galima įvesti po sutarties sukūrimo</p>
+                            </div>
+                        </div>
+                        <div v-if="formData.contract_nr" class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Uždaryti</button>
+                            <button type="button" class="btn btn-primary">Įvesti</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -108,22 +159,28 @@
 
     export default {
         name: 'contract-fields',
+        props: ['contract','research_areas'],
         data() {
             return {
                 en: en,
                 lt: lt,
                 formData: {
-                    contract_nr: ( this.contract_nr ? this.contract_nr : null ),
-                    address: ( this.address ? this.address : null ),
-                    customer: ( this.customer ? this.customer : null ),
-                    contract_value: ( this.contract_value ? this.contract_value : null ),
-                    validity: ( this.validity ? this.validity : null ),
-                    validity_value: ( this.validity_value ? this.validity_value : null ),
-                    validity_extend_till: ( this.validity_extend_till ? this.validity_extend_till : null ),
-                    validity_extend_till_value: ( this.validity_extend_till_value ? this.validity_extend_till_value : null ),
-                    validity_verbal: ( this.validity_verbal ? this.validity_verbal : null ),
-                    research_area: ( this.research_area ? this.research_area : [] ),
-                    contract_status: ( this.contract_status ? this.contract_status : [] ),
+                    contract_nr: ( this.contract ? this.contract.contract_nr : null ),
+                    customer_address: ( this.contract ? this.contract.customer_address : null ),
+                    customer: ( this.contract ? this.contract.customer : null ),
+                    contract_value: ( this.contract ? this.contract.contract_value : null ),
+                    validity: ( this.contract ? this.contract.validity : null ),
+                    validity_value: ( this.contract ? this.contract.validity_value : null ),
+                    validity_extend_till: ( this.contract ? this.contract.validity_extend_till : null ),
+                    validity_extend_till_value: ( this.contract ? this.contract.validity_extend_till_value : null ),
+                    validity_verbal: ( this.contract ? this.contract.validity_verbal : null ),
+                    research_area: ( this.research_areas ? this.research_areas : [] ),
+                    contract_status: ( this.contract ? this.contract.contract_status : [] ),
+                },
+                contractInvoiceData: {
+                    total: null,
+                    status: 0,
+                    due_date: null,
                 },
             }
         },
@@ -133,7 +190,21 @@
         },
 
         mounted() {
-
+            this.contractInvoiceData.due_date = this.defaultDueDate();
         },
+
+        methods: {
+            defaultDueDate() {
+                const now = new Date();
+                if (now.getMonth() === 11) {
+                    return new Date(now.getFullYear() + 1, 0, 1).format("Y-m-d");
+                } else {
+                    let date = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+                    let m = ("0" + (date.getMonth())).slice(-2);
+                    let d = ("0" + (date.getDate())).slice(-2);
+                    return `${date.getFullYear()}-${m}-${d}`;
+                }
+            },
+        }
     }
 </script>

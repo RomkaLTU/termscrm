@@ -30,7 +30,7 @@ class ContractsController extends Controller
     public function store( Request $request )
     {
         try {
-            $contract = Contract::create( $request->except('_token','contract_status','research_area','address','customer','validity_extend_till') );
+            $contract = Contract::create( $request->except('_token','contract_status','research_area','validity_extend_till') );
             $contract->researchAreas()->attach($request->research_area);
         } catch (\Exception $e) {
             Session::flash('error', $e->getMessage());
@@ -38,31 +38,31 @@ class ContractsController extends Controller
         }
 
         Session::flash('message', 'Sutartis ' . $request->contract_nr . ' sukurta.');
-        return Redirect::to('contracts');
+        return Redirect::route('contracts.edit', $contract->id);
     }
 
-    public function edit( User $user )
+    public function edit( Contract $contract )
     {
-        return view('users.edit', [
-            'user' => $user,
-            'roles' => Role::all(),
+        return view('contracts.edit', [
+            'contract' => $contract,
+            'research_areas' => $contract->researchAreas->pluck('id'),
         ]);
     }
 
-    public function update( User $user, Request $request )
+    public function update( Contract $contract, Request $request )
     {
         try {
-            $user->update( array_filter( $request->except('role') ) );
+            $contract->update( array_filter($request->except('_token','contract_status','research_area','validity_extend_till')) );
         } catch (\Exception $e) {
-            Session::flash('error', 'Vartotojas su tokiu el. pašto adresu jau yra!');
+            Session::flash('error', $e->getMessage());
             return Redirect::back();
         }
 
-        $user->syncRoles( $request->role );
+        $contract->researchAreas()->sync($request->research_area);
 
-        Session::flash('message', 'Vartotojas atnaujintas!');
+        Session::flash('message', 'Sutartis atnaujinta!');
 
-        return Redirect::to('users');
+        return Redirect::back();
     }
 
     public function destroy( Contract $contract )
