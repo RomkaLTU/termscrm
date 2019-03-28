@@ -144,7 +144,7 @@
                         </div>
                         <div v-if="formData.contract_nr" class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Uždaryti</button>
-                            <button type="button" class="btn btn-primary">Įvesti</button>
+                            <button type="button" class="btn btn-primary" @click.prevent="submitInvoice">Įvesti</button>
                         </div>
                     </div>
                 </div>
@@ -204,6 +204,12 @@
                     let d = ("0" + (date.getDate())).slice(-2);
                     return `${date.getFullYear()}-${m}-${d}`;
                 }
+            },
+
+            submitInvoice() {
+                this.$http.post('invoices', this.contractInvoiceData).then((response) => {
+                    console.log(response.data)
+                })
             },
         }
     }
