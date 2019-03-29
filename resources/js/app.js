@@ -1,11 +1,15 @@
+import Vue from 'vue'
+import axios from 'axios'
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+export const HTTP = axios.create({
+    baseURL: ( process.env.NODE_ENV === 'production' ? `https://terms.srv1.single5.com/api/` : `http://termscrm.test/api/` ),
+    headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    }
+});
 
-window.Vue = require('vue');
+Vue.prototype.$http = HTTP;
 
 /**
  * The following block of code may be used to automatically register your
@@ -26,6 +30,6 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
+new Vue({
     el: '#app'
 });

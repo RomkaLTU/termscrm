@@ -21,4 +21,5 @@ Route::group(['middleware' => ['auth:web'] ], function() {
 
     Route::resource('users', 'UsersController')->middleware(['role:Admin']);
     Route::resource('contracts', 'ContractsController')->middleware(['role:Admin']);
+
 });

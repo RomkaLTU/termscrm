@@ -144,9 +144,22 @@
                         </div>
                         <div v-if="formData.contract_nr" class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Uždaryti</button>
-                            <button type="button" class="btn btn-primary">Įvesti</button>
+                            <button type="button" class="btn btn-primary" @click.prevent="submitInvoice">Įvesti</button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="kt-list-timeline">
+            <div class="kt-list-timeline__items">
+                <div class="kt-list-timeline__item" v-for="(invoice,index) in invoices" :key="`invoice_${index}`">
+                    <span class="kt-list-timeline__badge"></span>
+                    <span class="kt-list-timeline__text">
+                        Sąsk. nr. {{ invoice.id }} Suma {{ invoice.total }} {{ invoice.status ? 'Apmokėta' : 'Neapmokėta' }}
+                        <a href="javascript:" class="kt-badge kt-badge--brand kt-badge--inline">redaguoti</a>
+                        <a href="javascript:" class="kt-badge kt-badge--danger kt-badge--inline" @click.prevent="deleteInvoice(invoice.id)">trinti</a>
+                    </span>
+                    <span class="kt-list-timeline__time">{{ invoice.updated_at }}</span>
                 </div>
             </div>
         </div>
@@ -178,10 +191,12 @@
                     contract_status: ( this.contract ? this.contract.contract_status : [] ),
                 },
                 contractInvoiceData: {
+                    contract_id: this.contract.id,
                     total: null,
                     status: 0,
                     due_date: null,
                 },
+                invoices: [],
             }
         },
 
@@ -191,6 +206,7 @@
 
         mounted() {
             this.contractInvoiceData.due_date = this.defaultDueDate();
+            this.invoices = this.getInvoices();
         },
 
         methods: {
@@ -204,6 +220,35 @@
                     let d = ("0" + (date.getDate())).slice(-2);
                     return `${date.getFullYear()}-${m}-${d}`;
                 }
+            },
+
+            submitInvoice() {
+                this.$http.post('invoices', this.contractInvoiceData).then((response) => {
+                    const invoice = response.data;
+
+                    if ( typeof invoice.id !== 'undefined' ) {
+                        $('.modal').modal('hide');
+                        this.invoices.push(invoice);
+                        toastr.success("Sąskaita pridėta.");
+                    }
+                })
+            },
+
+            getInvoices() {
+                this.$http.get(`invoices/${this.contract.id}`).then( (response) => {
+                    this.invoices = response.data;
+                } );
+            },
+
+            deleteInvoice(invoice_id) {
+                this.$http.delete(`invoices/${invoice_id}`).then( (response) => {
+                    const invoice = response.data;
+
+                    if ( typeof invoice.id !== 'undefined' ) {
+                        this.getInvoices();
+                        toastr.success("Sąskaita panaikinta.");
+                    }
+                } );
             },
         }
     }
