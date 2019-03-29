@@ -17,6 +17,8 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
 
+    $api->get('invoices/{contract_id}', 'App\Http\Controllers\Api\InvoicesController@index');
     $api->post('invoices', 'App\Http\Controllers\Api\InvoicesController@store');
+    $api->delete('invoices/{invoice}', 'App\Http\Controllers\Api\InvoicesController@destroy');
 
 });
