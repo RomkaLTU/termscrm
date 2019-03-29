@@ -150,7 +150,7 @@
                 </div>
             </div>
         </div>
-        <div class="kt-list-timeline">
+        <div class="kt-list-timeline" v-if="invoices">
             <div class="kt-list-timeline__items">
                 <div class="kt-list-timeline__item" v-for="(invoice,index) in invoices" :key="`invoice_${index}`">
                     <span class="kt-list-timeline__badge"></span>
@@ -191,7 +191,7 @@
                     contract_status: ( this.contract ? this.contract.contract_status : [] ),
                 },
                 contractInvoiceData: {
-                    contract_id: this.contract.id,
+                    contract_id: ( this.contract ? this.contract.id : false ),
                     total: null,
                     status: 0,
                     due_date: null,
@@ -235,9 +235,11 @@
             },
 
             getInvoices() {
-                this.$http.get(`invoices/${this.contract.id}`).then( (response) => {
-                    this.invoices = response.data;
-                } );
+                if ( typeof this.contract !== 'undefined' ) {
+                    this.$http.get(`invoices/${this.contract.id}`).then( (response) => {
+                        this.invoices = response.data;
+                    } );
+                }
             },
 
             deleteInvoice(invoice_id) {
