@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 
 export const HTTP = axios.create({
-    baseURL: ( process.env.NODE_ENV === 'production' ? `https://terms.srv1.single5.com/api/` : `http://termscrm.test/api/` ),
+    baseURL: window.API_DOMAIN,
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
         'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content'),

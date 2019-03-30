@@ -11,7 +11,12 @@ class InvoicesController extends Controller
 {
     public function index( Contract $contract, Request $request )
     {
-        $invoices = $contract->find($request->contract_id)->invoices();
+        $cont = $contract->find($request->contract_id);
+        $invoices = $cont->invoices();
+
+        if ( $request->invoice_id ) {
+            return $cont->invoice();
+        }
 
         return $invoices->get();
     }
@@ -23,6 +28,15 @@ class InvoicesController extends Controller
         } catch (\Exception $e) {
             return $e->getMessage();
         }
+
+        return $invoice;
+    }
+
+    public function update(  Contract $contract, Request $request )
+    {
+        $cont = $contract->find($request->contract_id);
+        $invoice = $cont->invoices()->find($request->id);
+        $invoice->update($request->all());
 
         return $invoice;
     }

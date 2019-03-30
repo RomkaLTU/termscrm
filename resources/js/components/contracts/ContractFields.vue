@@ -105,7 +105,7 @@
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Nauja sąskaita</h5>
+                            <h5 class="modal-title">Nauja sąskaita</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             </button>
                         </div>
@@ -156,10 +156,53 @@
                     <span class="kt-list-timeline__badge"></span>
                     <span class="kt-list-timeline__text">
                         Sąsk. nr. {{ invoice.id }} Suma {{ invoice.total }} {{ invoice.status ? 'Apmokėta' : 'Neapmokėta' }}
-                        <a href="javascript:" class="kt-badge kt-badge--brand kt-badge--inline">redaguoti</a>
+                        <a href="javascript:" class="kt-badge kt-badge--brand kt-badge--inline" data-toggle="modal" data-target="#edit_invoice" @click="getInvoice(invoice.id)">redaguoti</a>
                         <a href="javascript:" class="kt-badge kt-badge--danger kt-badge--inline" @click.prevent="deleteInvoice(invoice.id)">trinti</a>
                     </span>
                     <span class="kt-list-timeline__time">{{ invoice.updated_at }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="edit_invoice" tabindex="-1" role="dialog" aria-labelledby="editInvoice" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Redaguoti sąskaita {{ editingInvoice.id }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="editable_invoice_value" class="form-control-label">Sąskaita (Eur):</label>
+                            <input type="number" v-model="editingInvoice.total" class="form-control" id="editable_invoice_value">
+                        </div>
+                        <div class="form-group">
+                            <label>Mokėjimo statusas</label>
+                            <div class="kt-radio-inline mt-2">
+                                <label class="kt-radio">
+                                    <input type="radio" v-model="editingInvoice.status" value="1"> Apmokėta
+                                    <span></span>
+                                </label>
+                                <label class="kt-radio">
+                                    <input type="radio" v-model="editingInvoice.status" value="0"> Neapmokėta
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Mokėjimo terminas IKI</label>
+                            <datepicker
+                                :monday-first="true"
+                                v-model="editingInvoice.due_date"
+                                input-class="form-control"
+                                format="yyyy-MM-dd"
+                                :language="lt" placeholder="Mokėjimo terminas IKI"></datepicker>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Uždaryti</button>
+                        <button type="button" class="btn btn-primary" @click.prevent="updateInvoice">Išsaugoti</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -196,6 +239,7 @@
                     status: 0,
                     due_date: null,
                 },
+                editingInvoice: false,
                 invoices: [],
             }
         },
@@ -234,10 +278,30 @@
                 })
             },
 
+            updateInvoice() {
+                this.$http.put(`invoices/${this.contract.id}`, this.editingInvoice).then((response) => {
+                    const invoice = response.data;
+
+                    if ( typeof invoice.id !== 'undefined' ) {
+                        $('.modal').modal('hide');
+                        this.getInvoices();
+                        toastr.success("Sąskaita atnaujinta.");
+                    }
+                })
+            },
+
             getInvoices() {
                 if ( typeof this.contract !== 'undefined' ) {
                     this.$http.get(`invoices/${this.contract.id}`).then( (response) => {
                         this.invoices = response.data;
+                    } );
+                }
+            },
+
+            getInvoice(invoice_id) {
+                if ( typeof this.contract !== 'undefined' ) {
+                    this.$http.get(`invoices/${this.contract.id}/${invoice_id}`).then( (response) => {
+                        this.editingInvoice = response.data;
                     } );
                 }
             },

@@ -15,7 +15,13 @@ class Contract extends Model
         return $this->belongsToMany( ResearchArea::class );
     }
 
-    public function invoices() {
+    public function invoices()
+    {
         return $this->hasMany( Invoice::class );
+    }
+
+    public function invoice()
+    {
+        return $this->hasMany( Invoice::class )->where('id', '=', request('invoice_id'))->first();
     }
 }
