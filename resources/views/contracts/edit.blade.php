@@ -6,6 +6,8 @@
 
 @section('content')
 <div>
+    @include('partials.notifications')
+
     <form id="form" class="form-horizontal" action="{{ route('contracts.update', $contract->id) }}" method="post" novalidate="">
         <input type="hidden" name="_method" value="PUT">
         @csrf
@@ -18,7 +20,7 @@
                 </div>
             </div>
             <div class="kt-portlet__body">
-                <contract-fields :contract="{{ $contract }}" :research_areas="{{ $research_areas }}"></contract-fields>
+                <contract-fields :contract="{{ $contract }}" :documents="{{ json_encode($documents) }}" :research_areas="{{ $research_areas }}"></contract-fields>
             </div>
             <div class="kt-portlet__foot">
                 <div class="row align-items-center">

@@ -3,12 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Contract extends Model
+class Contract extends Model implements HasMedia
 {
+    use HasMediaTrait;
+
     protected $guarded = ['id'];
 
-    protected $with = ['researchAreas','invoices'];
+    protected $with = ['researchAreas','invoices','media'];
 
     public function researchAreas()
     {

@@ -96,6 +96,14 @@
             </div>
         </div>
         <div class="form-group">
+            <vue-dropzone
+                ref="myVueDropzone"
+                id="dropzone"
+                @vdropzone-success="fileUploaded"
+                @vdropzone-removed-file="fileRemoved"
+                :options="dropzoneOptions"></vue-dropzone>
+        </div>
+        <div class="form-group">
             <label>Sutarties suma</label>
             <input type="number" class="form-control" v-model="formData.contract_value" name="contract_value" placeholder="Sutarties suma">
         </div>
@@ -150,6 +158,7 @@
                 </div>
             </div>
         </div>
+       <div class="font-weight-bold mb-3">Sąskaitos</div>
         <div class="kt-list-timeline" v-if="invoices">
             <div class="kt-list-timeline__items">
                 <div class="kt-list-timeline__item" v-for="(invoice,index) in invoices" :key="`invoice_${index}`">
@@ -206,16 +215,21 @@
                 </div>
             </div>
         </div>
+        <div v-if="files">
+            <input type="hidden" name="documents[]" :value="file.name" v-for="(file,index) in files" :key="`file_${index}`">
+        </div>
     </div>
 </template>
 
 <script>
     import Datepicker from 'vuejs-datepicker'
+    import vue2Dropzone from 'vue2-dropzone'
+    import 'vue2-dropzone/dist/vue2Dropzone.min.css'
     import {en, lt} from 'vuejs-datepicker/dist/locale'
 
     export default {
         name: 'contract-fields',
-        props: ['contract','research_areas'],
+        props: ['contract','research_areas','documents'],
         data() {
             return {
                 en: en,
@@ -239,21 +253,52 @@
                     status: 0,
                     due_date: null,
                 },
+                dropzoneOptions: {
+                    url: `${window.API_DOMAIN}/media`,
+                    thumbnailWidth: 150,
+                    thumbnailHeight: 150,
+                    addRemoveLinks: true,
+                    maxFilesize: 5,
+                    headers: { "X-CSRF-TOKEN": window.CSRF }
+                },
                 editingInvoice: false,
                 invoices: [],
+                files: [],
             }
         },
 
         components: {
             'datepicker': Datepicker,
+            'vueDropzone': vue2Dropzone,
         },
 
         mounted() {
             this.contractInvoiceData.due_date = this.defaultDueDate();
             this.invoices = this.getInvoices();
+            this.files = this.documents;
+
+            if ( this.files ) {
+                this.files.forEach( (file) => {
+                    this.$refs.myVueDropzone.manuallyAddFile(file, file.url);
+                } );
+            }
         },
 
         methods: {
+            fileUploaded(file, response) {
+                this.files.push(response);
+            },
+
+            fileRemoved(file) {
+                this.files = this.files.filter( (obj) => {
+                    return obj.original_name !== file.name;
+                } );
+
+                console.log(file);
+
+                this.$http.delete(`media/${file.id}`);
+            },
+
             defaultDueDate() {
                 const now = new Date();
                 if (now.getMonth() === 11) {

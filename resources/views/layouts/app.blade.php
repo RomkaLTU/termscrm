@@ -7,7 +7,8 @@
     <title>Terminų valdymo sistema - UAB Ekometrija</title>
 
     <script>
-        window.API_DOMAIN = '{{ env('API_DOMAIN') }}/api'
+        window.API_DOMAIN = '{{ env('APP_URL') }}/api';
+        window.CSRF = '{{ csrf_token() }}';
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
@@ -31,7 +32,6 @@
     <link href="{{ asset('assets/vendors/general/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/vendors/general/select2/dist/css/select2.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/vendors/general/ion-rangeslider/css/ion.rangeSlider.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/vendors/general/dropzone/dist/dropzone.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/vendors/general/summernote/dist/summernote.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/vendors/general/bootstrap-markdown/css/bootstrap-markdown.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/vendors/general/animate.css/animate.css') }}" rel="stylesheet" type="text/css" />
@@ -142,7 +142,6 @@
     <script src="{{ asset('assets/vendors/general/inputmask/dist/inputmask/inputmask.numeric.extensions.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/autosize/dist/autosize.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/clipboard/dist/clipboard.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/general/dropzone/dist/dropzone.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/summernote/dist/summernote.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/markdown/lib/markdown.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/bootstrap-markdown/js/bootstrap-markdown.js') }}"></script>

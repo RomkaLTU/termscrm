@@ -22,4 +22,7 @@ Route::group(['middleware' => ['auth:web'] ], function() {
     Route::resource('users', 'UsersController')->middleware(['role:Admin']);
     Route::resource('contracts', 'ContractsController')->middleware(['role:Admin']);
 
+    Route::post('api/media', 'MediaController@upload')->name('upload');
+    Route::delete('api/media/{media}', 'MediaController@remove')->name('remove');
+
 });

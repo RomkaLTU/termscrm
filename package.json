@@ -21,6 +21,7 @@
         "vue-template-compiler": "^2.6.9"
     },
     "dependencies": {
+        "vue2-dropzone": "^3.5.8",
         "vuejs-datepicker": "^1.5.4"
     }
 }
