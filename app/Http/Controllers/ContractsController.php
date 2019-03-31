@@ -31,7 +31,7 @@ class ContractsController extends Controller
     public function store( Request $request )
     {
         try {
-            $contract = Contract::create( $request->except('_token','contract_status','research_area','validity_extend_till') );
+            $contract = Contract::create( $request->except('_token','contract_status','research_area','validity_extend_till','documents') );
             $contract->researchAreas()->attach($request->research_area);
             $this->attachMedia($contract, $request);
         } catch (\Exception $e) {

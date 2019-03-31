@@ -275,7 +275,7 @@
         mounted() {
             this.contractInvoiceData.due_date = this.defaultDueDate();
             this.invoices = this.getInvoices();
-            this.files = this.documents;
+            this.files = (typeof this.documents !== 'undefined' ? this.documents : []);
 
             if ( this.files ) {
                 this.files.forEach( (file) => {
