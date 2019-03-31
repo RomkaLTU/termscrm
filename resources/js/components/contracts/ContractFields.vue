@@ -294,9 +294,9 @@
                     return obj.original_name !== file.name;
                 } );
 
-                console.log(file);
-
-                this.$http.delete(`media/${file.id}`);
+                if ( typeof file.id !== 'undefined' ) {
+                    this.$http.delete(`media/${file.id}`);
+                }
             },
 
             defaultDueDate() {
