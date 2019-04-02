@@ -44,6 +44,7 @@
             </div>
             <div class="kt-checkbox-inline mt-3">
                 <label class="kt-checkbox">
+                    <input type="hidden" name="validity_verbal" value="0">
                     <input type="checkbox" name="validity_verbal" v-model="formData.validity_verbal" value="1"> Žodinė
                     <span></span>
                 </label>
@@ -243,7 +244,7 @@
                     validity_value: ( this.contract ? this.contract.validity_value : null ),
                     validity_extend_till: ( this.contract ? this.contract.validity_extend_till : null ),
                     validity_extend_till_value: ( this.contract ? this.contract.validity_extend_till_value : null ),
-                    validity_verbal: ( this.contract ? this.contract.validity_verbal : null ),
+                    validity_verbal: ( this.contract ? this.contract.validity_verbal : 0 ),
                     research_area: ( this.research_areas ? this.research_areas : [] ),
                     contract_status: ( this.contract ? this.contract.contract_status : [] ),
                 },
