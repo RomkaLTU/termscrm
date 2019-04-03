@@ -31,9 +31,6 @@
     <link href="{{ asset('assets/vendors/general/bootstrap-select/dist/css/bootstrap-select.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/vendors/general/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/vendors/general/select2/dist/css/select2.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/vendors/general/ion-rangeslider/css/ion.rangeSlider.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/vendors/general/summernote/dist/summernote.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/vendors/general/bootstrap-markdown/css/bootstrap-markdown.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/vendors/general/animate.css/animate.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/vendors/general/toastr/build/toastr.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/vendors/general/morris.js/morris.css') }}" rel="stylesheet" type="text/css" />
@@ -134,18 +131,12 @@
     <script src="{{ asset('assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js') }}"></script>
     <script src="{{ asset('assets/vendors/custom/components/vendors/bootstrap-switch/init.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/select2/dist/js/select2.full.js') }}"></script>
-    <script src="{{ asset('assets/vendors/general/ion-rangeslider/js/ion.rangeSlider.js') }}"></script>
-    <script src="{{ asset('assets/vendors/general/typeahead.js/dist/typeahead.bundle.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/handlebars/dist/handlebars.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/inputmask/dist/jquery.inputmask.bundle.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/inputmask/dist/inputmask/inputmask.date.extensions.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/inputmask/dist/inputmask/inputmask.numeric.extensions.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/autosize/dist/autosize.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/clipboard/dist/clipboard.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/general/summernote/dist/summernote.js') }}"></script>
-    <script src="{{ asset('assets/vendors/general/markdown/lib/markdown.js') }}"></script>
-    <script src="{{ asset('assets/vendors/general/bootstrap-markdown/js/bootstrap-markdown.js') }}"></script>
-    <script src="{{ asset('assets/vendors/custom/components/vendors/bootstrap-markdown/init.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/custom/components/vendors/bootstrap-notify/init.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/jquery-validation/dist/jquery.validate.js') }}"></script>
@@ -154,10 +145,7 @@
     <script src="{{ asset('assets/vendors/general/toastr/build/toastr.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/raphael/raphael.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/morris.js/morris.js') }}"></script>
-    <script src="{{ asset('assets/vendors/general/chart.js/dist/Chart.bundle.js') }}"></script>
     <script src="{{ asset('assets/vendors/custom/vendors/bootstrap-session-timeout/dist/bootstrap-session-timeout.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/custom/vendors/jquery-idletimer/idle-timer.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/general/waypoints/lib/jquery.waypoints.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/counterup/jquery.counterup.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/es6-promise-polyfill/promise.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/jquery.repeater/src/lib.js') }}"></script>

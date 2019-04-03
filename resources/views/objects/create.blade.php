@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="kt-portlet__body">
-                    <object-fields></object-fields>
+                    <object-fields :research_areas="{{ json_encode($research_areas) }}"></object-fields>
                 </div>
                 <div class="kt-portlet__foot">
                     <div class="row align-items-center">

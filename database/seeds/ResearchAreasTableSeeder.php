@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use \App\ResearchArea;
 
 class ResearchAreasTableSeeder extends Seeder
 {
@@ -11,23 +12,15 @@ class ResearchAreasTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\ResearchArea::create([
-            'name' => 'Orai'
-        ]);
-        \App\ResearchArea::create([
-            'name' => 'Nuotekos'
-        ]);
-        \App\ResearchArea::create([
-            'name' => 'Geriamas vanduo'
-        ]);
-        \App\ResearchArea::create([
-            'name' => 'Geologija'
-        ]);
-        \App\ResearchArea::create([
-            'name' => 'Rasto darbai'
-        ]);
-        \App\ResearchArea::create([
-            'name' => 'Kita'
-        ]);
+        $data = [
+            ['name' => 'Orai'],
+            ['name' => 'Nuotekos'],
+            ['name' => 'Geriamas vanduo'],
+            ['name' => 'Geologija'],
+            ['name' => 'Rasto darbai'],
+            ['name' => 'Kita'],
+        ];
+
+        ResearchArea::insert($data);
     }
 }

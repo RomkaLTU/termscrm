@@ -68,35 +68,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label>Tyrimo sritys</label>
-            <div class="kt-checkbox-inline mt-2">
-                <label class="kt-checkbox">
-                    <input type="checkbox" name="research_area[]" v-model="formData.research_area" value="1"> Orai
-                    <span></span>
-                </label>
-                <label class="kt-checkbox">
-                    <input type="checkbox" name="research_area[]" v-model="formData.research_area" value="2"> Nuotekos
-                    <span></span>
-                </label>
-                <label class="kt-checkbox">
-                    <input type="checkbox" name="research_area[]" v-model="formData.research_area" value="3"> Geriamas vanduo
-                    <span></span>
-                </label>
-                <label class="kt-checkbox">
-                    <input type="checkbox" name="research_area[]" v-model="formData.research_area" value="4"> Geologija
-                    <span></span>
-                </label>
-                <label class="kt-checkbox">
-                    <input type="checkbox" name="research_area[]" v-model="formData.research_area" value="5"> Rašto darbai
-                    <span></span>
-                </label>
-                <label class="kt-checkbox">
-                    <input type="checkbox" name="research_area[]" v-model="formData.research_area" value="6"> Kita
-                    <span></span>
-                </label>
-            </div>
-        </div>
-        <div class="form-group">
             <vue-dropzone
                 ref="myVueDropzone"
                 id="dropzone"
@@ -245,7 +216,6 @@
                     validity_extend_till: ( this.contract ? this.contract.validity_extend_till : null ),
                     validity_extend_till_value: ( this.contract ? this.contract.validity_extend_till_value : null ),
                     validity_verbal: ( this.contract ? this.contract.validity_verbal : 0 ),
-                    research_area: ( this.research_areas ? this.research_areas : [] ),
                     contract_status: ( this.contract ? this.contract.contract_status : [] ),
                 },
                 contractInvoiceData: {
