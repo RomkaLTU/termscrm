@@ -122,6 +122,9 @@
                         <td>{{ $contract->updated_at }}</td>
                         <td nowrap>
                             <div class="d-flex">
+                                <a href="{{ route('contracts.objects.index', $contract->id) }}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="{{ __('Objektai') }}">
+                                    <i class="la la-map-marker"></i>
+                                </a>
                                 <a href="{{ route('contracts.edit', $contract->id) }}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="{{ __('Redaguoti') }}">
                                     <i class="la la-edit"></i>
                                 </a>
