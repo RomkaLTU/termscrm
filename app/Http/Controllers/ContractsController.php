@@ -67,7 +67,7 @@ class ContractsController extends Controller
 
     public function update( Contract $contract, Request $request )
     {
-        
+
         try {
             $contract->update( $request->except('_token','research_area','validity_extend_till','documents') );
         } catch (\Exception $e) {
