@@ -55,7 +55,7 @@
 
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
 </head>
-<body class="kt-header--fixed kt-header-mobile--fixed kt-subheader--fixed kt-subheader--enabled kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
+<body class="kt-header--fixed kt-header-mobile--fixed kt-subheader--fixed kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
     <div id="app">
         <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
             <div class="kt-header-mobile__logo">
@@ -75,7 +75,7 @@
                 <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
                     @include('partials.navbar')
                     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
-                        @include('partials.subnavbar')
+
                         <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
                             @yield('content')
                         </div>
