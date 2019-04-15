@@ -12,12 +12,7 @@ class Contract extends Model implements HasMedia
 
     protected $guarded = ['id'];
 
-    protected $with = ['researchAreas','invoices','media'];
-
-    public function researchAreas()
-    {
-        return $this->belongsToMany( ResearchArea::class );
-    }
+    protected $with = ['invoices','media'];
 
     public function invoices()
     {
@@ -27,5 +22,15 @@ class Contract extends Model implements HasMedia
     public function invoice()
     {
         return $this->hasMany( Invoice::class )->where('id', '=', request('invoice_id'))->first();
+    }
+
+    public function objs()
+    {
+        return $this->belongsToMany( Obj::class );
+    }
+
+    public function researchAreas()
+    {
+
     }
 }

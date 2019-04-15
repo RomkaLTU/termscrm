@@ -36,7 +36,10 @@
                 </div>
             </div>
             <div class="kt-portlet__body">
-                <contract-fields :contract="{{ $contract }}" :documents="{{ json_encode($documents) }}" :research_areas="{{ $research_areas }}"></contract-fields>
+                <contract-fields
+                    :contract="{{ $contract }}"
+                    :documents="{{ json_encode($documents) }}">
+                </contract-fields>
             </div>
             <div class="kt-portlet__foot">
                 <div class="row align-items-center">
@@ -48,5 +51,18 @@
             </div>
         </div>
     </form>
+
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">
+                    {{ __('Sutarties objektai') }}
+                </h3>
+            </div>
+        </div>
+        <div class="kt-portlet__body">
+            
+        </div>
+    </div>
 </div>
 @endsection

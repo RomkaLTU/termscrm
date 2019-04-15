@@ -31,8 +31,7 @@ class ContractsController extends Controller
     public function store( Request $request )
     {
         try {
-            $contract = Contract::create( $request->except('_token','contract_status','research_area','validity_extend_till','documents') );
-            $contract->researchAreas()->attach($request->research_area);
+            $contract = Contract::create( $request->except('_token','contract_status','validity_extend_till','documents') );
             $this->attachMedia($contract, $request);
         } catch (\Exception $e) {
             Session::flash('error', $e->getMessage());
@@ -60,7 +59,6 @@ class ContractsController extends Controller
 
         return view('contracts.edit', [
             'contract' => $contract,
-            'research_areas' => $contract->researchAreas->pluck('id'),
             'documents' => $documents,
         ]);
     }
@@ -69,13 +67,12 @@ class ContractsController extends Controller
     {
 
         try {
-            $contract->update( $request->except('_token','research_area','validity_extend_till','documents') );
+            $contract->update( $request->except('_token','validity_extend_till','documents') );
         } catch (\Exception $e) {
             Session::flash('error', $e->getMessage());
             return Redirect::back();
         }
 
-        $contract->researchAreas()->sync($request->research_area);
         $this->attachMedia($contract, $request);
 
         Session::flash('message', 'Sutartis atnaujinta!');

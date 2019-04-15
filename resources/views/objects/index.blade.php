@@ -19,27 +19,7 @@
                 'lengthMenu': 'Rodyti _MENU_',
             },
             order: [],
-            headerCallback: function(thead, data, start, end, display) {
-                thead.getElementsByTagName('th')[0].innerHTML = `
-                    <label class="kt-checkbox kt-checkbox--single kt-checkbox--solid">
-                        <input type="checkbox" value="" class="m-group-checkable">
-                        <span></span>
-                    </label>`;
-            },
             columnDefs: [
-                {
-                    targets: 0,
-                    width: '30px',
-                    className: 'dt-right',
-                    orderable: false,
-                    render: function(data, type, full, meta) {
-                        return `
-                        <label class="kt-checkbox kt-checkbox--single kt-checkbox--solid">
-                            <input type="checkbox" value="" class="m-checkable">
-                            <span></span>
-                        </label>`;
-                    },
-                },
                 {
                     targets: -1,
                     title: 'Veiksmai',
@@ -95,7 +75,53 @@
             </div>
         </div>
         <div class="kt-portlet__body">
-
+            <table class="table table-md table-hover table-checkable" id="dtable">
+                <thead>
+                <tr>
+                    <th>{{ __('Numeris') }}</th>
+                    <th>{{ __('Objektas') }}</th>
+                    <th>{{ __('Rekvizitai') }}</th>
+                    <th>{{ __('Regionas') }}</th>
+                    <th>{{ __('Tyrimo sritys') }}</th>
+                    <th>{{ __('Pastabos 1') }}</th>
+                    <th>{{ __('Pastabos 2') }}</th>
+                    <th>{{ __('Pažymėti aplankytus') }}</th>
+                    <th>{{ __('Istorija') }}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($objs as $obj)
+                    <td>{{ $obj->id }}</td>
+                    <td>{{ $obj->name }}</td>
+                    <td>{{ $obj->details }}</td>
+                    <td></td>
+                    <td>
+                        {{ implode(', ', $obj->researchAreas->pluck('name')->toArray()) }}
+                    </td>
+                    <td>{{ $obj->notes_1 }}</td>
+                    <td>{{ $obj->notes_2 }}</td>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td></td>
+                    <td nowrap>
+                        <div class="d-flex">
+                            <a href="{{ route('contracts.objects.edit', [$contract->id,$obj->id]) }}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="{{ __('Redaguoti') }}">
+                                <i class="la la-edit"></i>
+                            </a>
+                            <form action="{{ route('contracts.objects.destroy', [$contract->id,$obj->id]) }}" method="post">
+                                @csrf
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" rel="tooltip" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                    <i class="la la-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection

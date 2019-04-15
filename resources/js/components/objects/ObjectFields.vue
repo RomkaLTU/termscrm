@@ -50,17 +50,19 @@
     import {en, lt} from 'vuejs-datepicker/dist/locale'
 
     export default {
-        name: 'object-fields',
-        props: ['object','research_areas'],
+        name: 'obj-fields',
+        props: ['obj','research_areas','research_area','contract','documents'],
 
         data() {
             return {
                 en: en,
                 lt: lt,
                 formData: {
-                    name: ( this.object ? this.object.name : null ),
-                    details: ( this.object ? this.object.details : null ),
-                    research_area: ( this.research_areas ? this.research_areas : [] ),
+                    name: ( this.obj ? this.obj.name : null ),
+                    details: ( this.obj ? this.obj.details : null ),
+                    notes_1: ( this.obj ? this.obj.notes_1 : null ),
+                    notes_2: ( this.obj ? this.obj.notes_2 : null ),
+                    research_area: ( this.research_area ? this.research_area : [] ),
                 },
                 dropzoneOptions: {
                     url: `${window.API_DOMAIN}/media`,
@@ -77,6 +79,15 @@
         components: {
             'datepicker': Datepicker,
             'vueDropzone': vue2Dropzone,
+        },
+
+        mounted() {
+            this.files = (typeof this.documents !== 'undefined' ? this.documents : []);
+            if ( this.files ) {
+                this.files.forEach( (file) => {
+                    this.$refs.myVueDropzone.manuallyAddFile(file, file.url);
+                } );
+            }
         },
 
         methods: {
