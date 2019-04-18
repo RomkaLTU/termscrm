@@ -22,4 +22,6 @@ $api->version('v1', [ 'prefix' => 'api' ], function ($api) {
     $api->put('invoices/{contract_id}', 'App\Http\Controllers\Api\InvoicesController@update');
     $api->delete('invoices/{invoice}', 'App\Http\Controllers\Api\InvoicesController@destroy');
 
+    $api->post('visits', 'App\Http\Controllers\Api\ObjVisitsController@visits');
+
 });

@@ -9,6 +9,7 @@
     <script>
         window.API_DOMAIN = '{{ env('APP_URL') }}/api';
         window.CSRF = '{{ csrf_token() }}';
+        window.USER_ID = '{{ auth()->user()->id }}';
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>

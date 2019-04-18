@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import axios from 'axios'
+import store from './store'
 
 export const HTTP = axios.create({
     baseURL: window.API_DOMAIN,
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
         'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-    }
+    },
 });
 
 Vue.prototype.$http = HTTP;
@@ -31,5 +32,6 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  */
 
 new Vue({
-    el: '#app'
+    el: '#app',
+    store
 });

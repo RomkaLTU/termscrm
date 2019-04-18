@@ -70,6 +70,7 @@
                             <i class="la la-plus"></i>
                             {{ __('Pridėti objektą') }}
                         </a>
+                        <save-visited :contract_id="{{ $contract->id }}"></save-visited>
                     </div>
                 </div>
             </div>
@@ -92,33 +93,39 @@
                 </thead>
                 <tbody>
                 @foreach($objs as $obj)
-                    <td>{{ $obj->id }}</td>
-                    <td>{{ $obj->name }}</td>
-                    <td>{{ $obj->details }}</td>
-                    <td></td>
-                    <td>
-                        {{ implode(', ', $obj->researchAreas->pluck('name')->toArray()) }}
-                    </td>
-                    <td>{{ $obj->notes_1 }}</td>
-                    <td>{{ $obj->notes_2 }}</td>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td></td>
-                    <td nowrap>
-                        <div class="d-flex">
-                            <a href="{{ route('contracts.objects.edit', [$contract->id,$obj->id]) }}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="{{ __('Redaguoti') }}">
-                                <i class="la la-edit"></i>
-                            </a>
-                            <form action="{{ route('contracts.objects.destroy', [$contract->id,$obj->id]) }}" method="post">
-                                @csrf
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button type="submit" rel="tooltip" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                    <i class="la la-trash"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </td>
+                    <tr>
+                        <td>{{ $obj->id }}</td>
+                        <td>{{ $obj->name }}</td>
+                        <td>{{ $obj->details }}</td>
+                        <td></td>
+                        <td>
+                            {{ implode(', ', $obj->researchAreas->pluck('name')->toArray()) }}
+                        </td>
+                        <td>{{ $obj->notes_1 }}</td>
+                        <td>{{ $obj->notes_2 }}</td>
+                        <td>
+                            <div class="text-center">
+                                <check-visited :contract_id="{{ $contract->id }}" :object_id="{{ $obj->id }}"></check-visited>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="javascript:">{{ __('Peržiūrėti') }}</a>
+                        </td>
+                        <td nowrap>
+                            <div class="d-flex">
+                                <a href="{{ route('contracts.objects.edit', [$contract->id,$obj->id]) }}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="{{ __('Redaguoti') }}">
+                                    <i class="la la-edit"></i>
+                                </a>
+                                <form action="{{ route('contracts.objects.destroy', [$contract->id,$obj->id]) }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" rel="tooltip" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                        <i class="la la-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
                 @endforeach
                 </tbody>
             </table>

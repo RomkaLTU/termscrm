@@ -8,6 +8,18 @@
             <input type="hidden" name="_method" value="PUT">
             @csrf
             <div class="kt-portlet kt-portlet--mobile">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            {{ __('Redaguoti objektą') }}: <strong>{{ $obj->id }}</strong>
+                        </h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <a href="{{ route('contracts.objects.index') }}">
+                            <button type="button" class="btn btn-secondary"><i class="la la-caret-square-o-left"></i></button>
+                        </a>
+                    </div>
+                </div>
                 <div class="kt-portlet__body">
                     <object-fields
                         :contract="{{ $contract }}"
