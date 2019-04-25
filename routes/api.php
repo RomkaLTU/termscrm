@@ -23,5 +23,6 @@ $api->version('v1', [ 'prefix' => 'api' ], function ($api) {
     $api->delete('invoices/{invoice}', 'App\Http\Controllers\Api\InvoicesController@destroy');
 
     $api->post('visits', 'App\Http\Controllers\Api\ObjVisitsController@visits');
+    $api->get('visits/{contract_id}/{object_id}', 'App\Http\Controllers\Api\ObjVisitsController@get_visits');
 
 });

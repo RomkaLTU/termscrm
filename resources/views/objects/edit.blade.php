@@ -15,7 +15,7 @@
                         </h3>
                     </div>
                     <div class="kt-portlet__head-toolbar">
-                        <a href="{{ route('contracts.objects.index') }}">
+                        <a href="{{ route('contracts.objects.index',[$contract->id, $obj->id]) }}">
                             <button type="button" class="btn btn-secondary"><i class="la la-caret-square-o-left"></i></button>
                         </a>
                     </div>

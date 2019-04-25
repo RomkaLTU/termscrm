@@ -109,14 +109,14 @@
                             </div>
                         </td>
                         <td>
-                            <a href="javascript:">{{ __('Peržiūrėti') }}</a>
+                            <visit-history :contract_id="{{ $contract->id }}" :object_id="{{ $obj->id }}"></visit-history>
                         </td>
                         <td nowrap>
                             <div class="d-flex">
-                                <a href="{{ route('contracts.objects.edit', [$contract->id,$obj->id]) }}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="{{ __('Redaguoti') }}">
+                                <a href="{{ route('contracts.objects.edit', [$contract->id, $obj->id]) }}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="{{ __('Redaguoti') }}">
                                     <i class="la la-edit"></i>
                                 </a>
-                                <form action="{{ route('contracts.objects.destroy', [$contract->id,$obj->id]) }}" method="post">
+                                <form action="{{ route('contracts.objects.destroy', [$contract->id, $obj->id]) }}" method="post">
                                     @csrf
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button type="submit" rel="tooltip" class="btn btn-sm btn-clean btn-icon btn-icon-md">
