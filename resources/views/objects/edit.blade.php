@@ -15,9 +15,20 @@
                         </h3>
                     </div>
                     <div class="kt-portlet__head-toolbar">
-                        <a href="{{ route('contracts.objects.index',[$contract->id, $obj->id]) }}">
-                            <button type="button" class="btn btn-secondary"><i class="la la-caret-square-o-left"></i></button>
-                        </a>
+                        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                            <a href="{{ route('contracts.objects.index',[$contract->id, $obj->id]) }}">
+                                <button type="button" class="btn btn-secondary"><i class="la la-caret-square-o-left"></i></button>
+                            </a>
+                            <div class="btn-group" role="group">
+                                <button id="tasksBtn" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ __('Darbai') }}
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="tasksBtn">
+                                    <a class="dropdown-item" href="{{ route('contracts.objects.tasks.index', [$contract->id, $obj->id]) }}">{{ __('Objekto darbai') }}</a>
+                                    <a class="dropdown-item" href="{{ route('contracts.objects.tasks.create', [$contract->id, $obj->id]) }}">{{ __('Pridėti užduotį') }}</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="kt-portlet__body">
