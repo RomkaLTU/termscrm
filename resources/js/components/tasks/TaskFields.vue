@@ -7,19 +7,19 @@
             </div>
             <div class="col-lg-6">
                 <label for="tyrimoSritys">Tyrimo sritis</label>
-                <select class="form-control" v-model="formData.research_area" id="tyrimoSritys" >
-                    <option value="0">Pasirinkite</option>
+                <select class="form-control" v-model="formData.research_area" name="research_area_id" id="tyrimoSritys" >
+                    <option value="">Pasirinkite</option>
                     <option v-for="area in research_areas" :key="`area_${area.id}`" :value="area.id">
                         {{ area.name }}
                     </option>
                 </select>
             </div>
         </div>
-        <template v-if="formData.research_area !== '0'">
+        <template v-if="formData.research_area !== ''">
             <div class="form-group row">
                 <div class="col-lg-12">
                     <label class="kt-checkbox mb-0 mr-3" v-show="fields.special_task.some((item) => Number(item) === formData.research_area)">
-                        <input type="checkbox" name="special_task" v-model="formData.special_task" value="requiring"> Spec. užduotis
+                        <input type="checkbox" name="special_task" v-model="formData.special_task" value="1"> Spec. užduotis
                         <span></span>
                     </label>
                 </div>
@@ -30,28 +30,21 @@
                     <div class="d-flex align-items-center mt-1">
                         <div class="d-flex">
                             <div class="d-flex align-items-center mr-5">
-                                <label class="kt-radio mb-0 mr-3">
-                                    <input type="radio" name="deadline" v-model="formData.deadline" value="todate"> Pasirinkta data:
-                                    <span></span>
-                                </label>
                                 <div>
                                     <datepicker
-                                        v-model="formData.deadline_value"
+                                        v-model="formData.due_date"
                                         :monday-first="true"
                                         input-class="form-control"
                                         format="yyyy-MM-dd"
                                         :language="lt"
                                         placeholder="Atlikti iki..."
-                                        name="validity_value"></datepicker>
+                                        name="due_date"></datepicker>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center">
-                                <label class="kt-radio mb-0 mr-3">
-                                    <input type="radio" name="deadline" v-model="formData.requiring" value="requiring"> Reguliarus:
-                                    <span></span>
-                                </label>
                                 <div>
-                                    <select class="form-control" v-model="formData.requiring_value" name="requiring_value">
+                                    <select class="form-control" v-model="formData.requiring_int" name="requiring_int">
+                                        <option value="">Reguliariai</option>
                                         <option value="2_m">2k. / mėn.</option>
                                         <option value="1_m">1k. / mėn.</option>
                                         <option value="1_q">1k. / ketv.</option>
@@ -67,12 +60,12 @@
             </div>
             <div class="form-group row">
                 <div class="col-lg-6">
-                    <label for="note_1">Pastabos 1</label>
-                    <input type="text" class="form-control" id="note_1" v-model="formData.note_1" name="note_1" placeholder="Pastabos 1">
+                    <label for="notes_1">Pastabos 1</label>
+                    <input type="text" class="form-control" id="notes_1" v-model="formData.notes_1" name="notes_1" placeholder="Pastabos 1">
                 </div>
                 <div class="col-lg-6">
-                    <label for="note_2">Pastabos 2</label>
-                    <input type="text" class="form-control" id="note_2" v-model="formData.note_2" name="note_2" placeholder="Pastabos 2">
+                    <label for="notes_2">Pastabos 2</label>
+                    <input type="text" class="form-control" id="notes_2" v-model="formData.notes_2" name="notes_2" placeholder="Pastabos 2">
                 </div>
             </div>
             <div class="form-group row">
@@ -103,14 +96,14 @@
                     ecog: ['4'],
                 },
                 formData: {
-                    research_area: '0',
+                    research_area: '',
                     name: ( this.task ? this.task.name : null ),
                     deadline: null,
                     requiring: null,
-                    requiring_value: '2_m',
-                    deadline_value: null,
-                    note_1: null,
-                    note_2: null,
+                    requiring_int: '',
+                    due_date: null,
+                    notes_1: null,
+                    notes_2: null,
                     special_task: null,
                     ecog: null,
                 },

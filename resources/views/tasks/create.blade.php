@@ -4,6 +4,8 @@
     @include('partials.notifications')
     <div>
         <form id="form" class="form-horizontal" action="{{ route('contracts.objects.tasks.store', [$contract->id,$obj->id]) }}" method="post" novalidate="">
+            <input type="hidden" name="object_id" value="{{ $obj->id }}">
+            <input type="hidden" name="contract_id" value="{{ $contract->id }}">
             @csrf
             <div class="kt-portlet kt-portlet--mobile">
                 <div class="kt-portlet__head">
