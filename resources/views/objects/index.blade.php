@@ -113,6 +113,9 @@
                         </td>
                         <td nowrap>
                             <div class="d-flex">
+                                <a href="{{ route('contracts.objects.tasks.index', [$contract->id, $obj->id]) }}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="{{ __('Užduotys') }}">
+                                    <i class="la la-list-alt"></i>
+                                </a>
                                 <a href="{{ route('contracts.objects.edit', [$contract->id, $obj->id]) }}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="{{ __('Redaguoti') }}">
                                     <i class="la la-edit"></i>
                                 </a>

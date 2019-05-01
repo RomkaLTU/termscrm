@@ -3,7 +3,7 @@
 @section('content')
     @include('partials.notifications')
     <div>
-        <form id="form" class="form-horizontal" action="{{ route('contracts.objects.tasks.store', [$contract->id,$obj->id]) }}" method="post" novalidate="">
+        <form id="form" class="form-horizontal" action="{{ route('contracts.objects.tasks.store', [$contract->id,$obj->id]) }}" method="post">
             <input type="hidden" name="object_id" value="{{ $obj->id }}">
             <input type="hidden" name="contract_id" value="{{ $contract->id }}">
             @csrf

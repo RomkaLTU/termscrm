@@ -17,6 +17,7 @@ class TasksController extends Controller
         return view('tasks.index', [
             'contract' => $contract,
             'obj' => $object,
+            'tasks' => ObjTask::where('contract_id', $contract->id)->where('object_id', $object->id)->get(),
         ]);
     }
 
@@ -33,7 +34,7 @@ class TasksController extends Controller
     {
         try {
 
-            $task = ObjTask::create( $request->except('_token', 'research_area','deadline') );
+            $task = ObjTask::create( $request->except('_token', 'research_area') );
 
         } catch (\Exception $e) {
 
@@ -44,6 +45,46 @@ class TasksController extends Controller
 
         Session::flash('message', 'Užduotis sukurta.');
 
+        return Redirect::back();
+    }
+
+    public function edit( Contract $contract, Obj $object, ObjTask $task )
+    {
+        $documents = [];
+
+        return view('tasks.edit', [
+            'contract' => $contract,
+            'obj' => $object,
+            'documents' => $documents,
+            'task' => $task,
+            'research_area' => $task->research_area_id,
+            'research_areas' => ResearchArea::all(),
+        ]);
+    }
+
+    public function update( Request $request, Contract $contract, Obj $object, ObjTask $task )
+    {
+        try {
+
+            $task->update($request->except('_method','_token'));
+
+        } catch (\Exception $e) {
+
+            Session::flash('error', $e->getMessage());
+            return Redirect::back();
+
+        }
+
+        Session::flash('message', 'Užduotis atnaujinta');
+
+        return Redirect::back();
+    }
+
+    public function destroy( Contract $contract, Obj $object, ObjTask $task )
+    {
+        $task->delete();
+
+        Session::flash('message', 'Užduotis ' . $task->name . ' ištrinta!');
         return Redirect::back();
     }
 }

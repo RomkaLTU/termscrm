@@ -20,9 +20,6 @@
                 </div>
                 <div class="kt-portlet__head-toolbar">
                     <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                        <a href="{{ route('contracts.index') }}">
-                            <button type="button" class="btn btn-secondary"><i class="la la-caret-square-o-left"></i></button>
-                        </a>
                         <div class="btn-group" role="group">
                             <button id="objektaiBtn" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{ __('Objektai') }}

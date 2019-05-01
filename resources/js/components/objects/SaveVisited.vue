@@ -1,7 +1,7 @@
 <template>
     <button class="btn btn-success btn-icon-sm" @click.prevent="saveVisited" v-if="getMarkedVisited.length">
         <i class="la la-check"></i>
-        Saugoti aplankytus
+        Saugoti aplankytus ({{ getMarkedVisited.length }})
     </button>
 </template>
 
