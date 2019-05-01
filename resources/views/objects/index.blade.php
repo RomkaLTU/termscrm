@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('header-css')
-    <link href="{{ asset('assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/custom/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('footer-js')
-    <script src="{{ asset('assets/vendors/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('assets/vendors/custom/datatables/datatables.min.js') }}"></script>
     <script>
         const table = $('#dtable');
 

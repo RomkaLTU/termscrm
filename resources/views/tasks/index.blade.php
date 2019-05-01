@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('header-css')
-    <link href="{{ asset('assets/vendors/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/vendors/custom/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('footer-js')
-    <script src="{{ asset('assets/vendors/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('assets/vendors/custom/datatables/datatables.min.js') }}"></script>
     <script>
         const table = $('#dtable');
 
@@ -56,9 +56,6 @@
     <div class="kt-portlet kt-portlet--mobile">
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
-                <span class="kt-portlet__head-icon">
-                    <i class="fa kt-font-brand fa-map-marker-alt"></i>
-                </span>
                 <h3 class="kt-portlet__head-title">
                     {{ __('Sutarties') }} {{ $contract->contract_nr }} {{ __('objekto') }} {{ $obj->name }} {{ __('darbai') }}
                 </h3>

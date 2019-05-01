@@ -133,7 +133,6 @@
     <script src="{{ asset('assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js') }}"></script>
     <script src="{{ asset('assets/vendors/custom/components/vendors/bootstrap-switch/init.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/select2/dist/js/select2.full.js') }}"></script>
-    <script src="{{ asset('assets/vendors/general/handlebars/dist/handlebars.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/inputmask/dist/jquery.inputmask.bundle.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/inputmask/dist/inputmask/inputmask.date.extensions.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/inputmask/dist/inputmask/inputmask.numeric.extensions.js') }}"></script>
@@ -145,7 +144,6 @@
     <script src="{{ asset('assets/vendors/general/jquery-validation/dist/additional-methods.js') }}"></script>
     <script src="{{ asset('assets/vendors/custom/components/vendors/jquery-validation/init.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/toastr/build/toastr.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/general/raphael/raphael.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/morris.js/morris.js') }}"></script>
     <script src="{{ asset('assets/vendors/custom/vendors/bootstrap-session-timeout/dist/bootstrap-session-timeout.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/counterup/jquery.counterup.js') }}"></script>
