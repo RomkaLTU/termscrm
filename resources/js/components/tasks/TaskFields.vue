@@ -7,8 +7,7 @@
             </div>
             <div class="col-lg-6">
                 <label for="tyrimoSritys">Tyrimo sritis</label>
-                <select class="form-control" v-model="formData.research_area" name="research_area_id" id="tyrimoSritys" >
-                    <option value="">Pasirinkite</option>
+                <select class="form-control" v-model="formData.research_area" name="research_area_id" id="tyrimoSritys">
                     <option v-for="area in research_areas" :key="`area_${area.id}`" :value="area.id">
                         {{ area.name }}
                     </option>
@@ -23,6 +22,15 @@
                         <input type="checkbox" name="special_task" v-model="formData.special_task" value="1"> Spec. užduotis
                         <span></span>
                     </label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label for="kt_select2_11">Parametrai</label>
+                    <select class="form-control m-select2 select2_task_params" multiple name="param">
+                        <option></option>
+                        <option v-for="param in task_params" :key="`param_${param.id}`" :value="param.id">{{ param.name }}</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">
@@ -88,7 +96,7 @@
 
     export default {
         name: 'task-fields',
-        props: ['obj','research_areas','research_area','contract','documents','task'],
+        props: ['obj','research_areas','research_area','contract','documents','task','task_params'],
         data() {
             return {
                 en: en,
@@ -98,7 +106,7 @@
                     ecog: ['4'],
                 },
                 formData: {
-                    research_area: ( this.research_area ? this.research_area : '' ),
+                    research_area: ( this.research_area ? this.research_area : '1' ),
                     name: ( this.task ? this.task.name : null ),
                     requiring_int: ( this.task ? this.task.requiring_int : '' ),
                     due_date: ( this.task ? this.task.due_date : '' ),

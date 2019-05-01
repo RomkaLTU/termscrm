@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('footer-js')
+    <script src="{{ asset('js/tasks.js') }}"></script>
+@stop
+
 @section('content')
     @include('partials.notifications')
     <div>
@@ -16,7 +20,11 @@
                     </div>
                 </div>
                 <div class="kt-portlet__body">
-                    <task-fields :obj="{{ $obj }}" :research_areas="{{ $research_areas }}" :contract="{{ $contract }}"></task-fields>
+                    <task-fields
+                        :obj="{{ $obj }}"
+                        :research_areas="{{ $research_areas }}"
+                        :task_params="{{ $task_params }}"
+                        :contract="{{ $contract }}"/>
                 </div>
                 <div class="kt-portlet__foot">
                     <div class="row align-items-center">

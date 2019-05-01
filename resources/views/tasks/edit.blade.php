@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
-@section('content')
-    <div>
-        @include('partials.notifications')
+@section('footer-js')
+    <script src="{{ asset('js/tasks.js') }}"></script>
+@stop
 
+@section('content')
+    @include('partials.notifications')
+    <div>
         <form id="form" class="form-horizontal" action="{{ route('contracts.objects.tasks.update', [ $contract->id, $obj->id, $task->id ]) }}" method="post" novalidate="">
             <input type="hidden" name="_method" value="PUT">
             @csrf
@@ -20,6 +23,7 @@
                         :obj="{{ $obj }}"
                         :task="{{ $task }}"
                         :contract="{{ $contract }}"
+                        :task_params="{{ $task_params }}"
                         :research_area="{{ json_encode($research_area) }}"
                         :research_areas="{{ json_encode($research_areas) }}"
                     />
@@ -35,4 +39,4 @@
             </div>
         </form>
     </div>
-@endsection
+@stop

@@ -25,4 +25,6 @@ $api->version('v1', [ 'prefix' => 'api' ], function ($api) {
     $api->post('visits', 'App\Http\Controllers\Api\ObjVisitsController@visits');
     $api->get('visits/{contract_id}/{object_id}', 'App\Http\Controllers\Api\ObjVisitsController@get_visits');
 
+    $api->post('tasks/params', 'App\Http\Controllers\Api\ObjTasksController@createParam');
+
 });
