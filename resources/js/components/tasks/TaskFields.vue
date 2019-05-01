@@ -27,7 +27,7 @@
             <div class="form-group row">
                 <div class="col-lg-6">
                     <label for="kt_select2_11">Parametrai</label>
-                    <select class="form-control m-select2 select2_task_params" multiple name="param">
+                    <select class="form-control m-select2 select2_task_params" multiple name="task_params">
                         <option></option>
                         <option v-for="param in task_params" :key="`param_${param.id}`" :value="param.id">{{ param.name }}</option>
                     </select>
