@@ -6,6 +6,7 @@ use App\Contract;
 use App\Invoice;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Role;
@@ -14,11 +15,45 @@ class ContractsController extends Controller
 {
     public function index()
     {
-        $contracts = Contract::paginate('10');
-
         return view('contracts.index', [
-            'contracts' => $contracts
+
         ]);
+    }
+
+    public function json( Request $request )
+    {
+        $query = DB::table('contracts');
+        $recordsTotal = $query->count();
+        $recordsFiltered = $recordsTotal;
+        $start = $request->input( 'start' );
+        $length = $request->input( 'length' );
+
+        $data = $query->skip ( $start )->take ( $length )->get();
+        $col_data = [];
+
+        foreach ($data as $col) {
+            $col_data[] = [
+                'DT_RowData' => [
+                    'contractid' => $col->id,
+                ],
+                $col->contract_nr,
+                $col->contract_status,
+                $col->validity_value,
+                $col->validity_extend_till_value,
+                str_replace('.00','',money_format('%i', $col->contract_value)),
+                $col->created_at,
+                $col->updated_at,
+            ];
+        }
+
+        $response = [
+            'draw' => intval( $request->input( 'draw' ) ),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            "data" => $col_data,
+        ];
+
+        return $response;
     }
 
     public function create()

@@ -19,6 +19,8 @@ Route::group(['middleware' => ['auth:web'] ], function() {
         return redirect('users');
     })->name('dashboard');
 
+    Route::get('contracts/json', 'ContractsController@json');
+
     Route::resource('users', 'UsersController')->middleware(['role:Admin']);
     Route::resource('contracts', 'ContractsController')->middleware(['role:Admin']);
     Route::resource('contracts.objects', 'ObjsController')->middleware(['role:Admin']);

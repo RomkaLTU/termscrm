@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use \Illuminate\Support\Facades\DB;
 use \App\Contract;
+use Carbon\Carbon;
+use Faker\Factory as Faker;
 
 class ContractsSeeder extends Seeder
 {
@@ -13,32 +15,26 @@ class ContractsSeeder extends Seeder
      */
     public function run()
     {
-        $data = [
-            [
-                'contract_nr' => 'LT0001',
-                'customer' => 'Jack Doe',
-                'customer_address' => 'Baker Street, 221B',
-                'contract_status' => 'galiojanti',
-                'validity' => 'todate',
-                'validity_extend_till_value' => null,
-                'validity_value' => '2019-11-16',
-                'validity_verbal' => 0,
-                'contract_value' => '4000'
-            ],
-            [
-                'contract_nr' => 'LT0002',
-                'customer' => 'Mary Jane',
-                'customer_address' => 'Clinton St., Apt. #3B',
-                'contract_status' => 'galiojanti',
-                'validity' => 'todate',
-                'validity_extend_till_value' => null,
-                'validity_value' => '2019-11-16',
-                'validity_verbal' => 1,
-                'contract_value' => '12000'
-            ],
-        ];
+        $faker = Faker::create();
+        $contracts = [];
 
-        Contract::insert($data);
+        for ($i = 0; $i < 500; $i++) {
+            $contracts[] = [
+                'contract_nr' => 'LT' . $faker->unique()->numberBetween(1000,9999),
+                'customer' => $faker->name,
+                'customer_address' => $faker->address,
+                'contract_status' => 1,
+                'validity' => 'todate',
+                'validity_extend_till_value' => null,
+                'validity_value' => $faker->dateTimeThisYear(),
+                'validity_verbal' => $faker->boolean,
+                'contract_value' => $faker->numberBetween(1000,50000),
+                'updated_at' => Carbon::now(),
+                'created_at' => Carbon::now(),
+            ];
+        }
+
+        Contract::insert($contracts);
 
         $contract_invoices_data = [
             [
