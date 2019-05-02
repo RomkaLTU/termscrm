@@ -26,24 +26,39 @@
             </div>
             <div class="form-group row">
                 <div class="col-lg-6">
-                    <label for="kt_select2_11">Parametrai</label>
-                    <select class="form-control m-select2 select2_task_params" multiple name="task_params">
+                    <label for="task_params">Parametrai</label>
+                    <select id="task_params" class="form-control m-select2 select2_task_params" multiple name="task_params[]">
                         <option></option>
                         <option v-for="param in task_params" :key="`param_${param.id}`" :value="param.id">{{ param.name }}</option>
                     </select>
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-lg-12">
+                <div class="col-lg-6">
+                    <label for="task_params_groups">Parametų grupės</label>
+                    <div class="d-flex">
+                        <select id="task_params_groups" class="form-control m-select2 select2_task_params_groups" multiple name="task_params_groups[]">
+                            <option></option>
+                            <option v-for="params_group in task_params_groups" :key="`param_${params_group.id}`" :value="params_group.id">{{ params_group.id }}</option>
+                        </select>
+                        <button type="button" class="btn btn-outline-hover-success btn-elevate btn-pill d-flex ml-2" data-toggle="modal" data-target="#task_params_groups_modal">
+                            <i class="flaticon-plus"></i>
+                            Pridėti
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
                     <label>Atlikti iki</label>
                     <div class="d-flex align-items-center mt-1">
-                        <div class="d-flex">
-                            <div class="d-flex align-items-center mr-5">
-                                <div>
+                        <div class="d-flex w-100">
+                            <div class="d-flex align-items-center mr-2" style="flex:1">
+                                <div class="w-100">
                                     <datepicker
                                         v-model="formData.due_date"
                                         :monday-first="true"
-                                        input-class="form-control"
+                                        input-class="form-control w-100"
                                         format="yyyy-MM-dd"
                                         :language="lt"
                                         v-on:selected="dueDateChange"
@@ -51,9 +66,9 @@
                                         name="due_date"></datepicker>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <select class="form-control" v-model="formData.requiring_int" @change="requiringIntChange" name="requiring_int">
+                            <div class="d-flex align-items-center" style="flex:1">
+                                <div class="w-100">
+                                    <select id="requiring_int" class="select2 w-100" v-model="formData.requiring_int" @change="requiringIntChange" name="requiring_int">
                                         <option value="0">Reguliariai</option>
                                         <option value="2_m">2k. / mėn.</option>
                                         <option value="1_m">1k. / mėn.</option>
@@ -87,6 +102,34 @@
                 </div>
             </div>
         </template>
+
+        <div class="modal fade" id="task_params_groups_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Parametrų grupės</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <div class="col-lg-12">
+                                <div class="d-flex flex-column">
+                                    <label for="recipient-name" class="form-control-label">Parametrai:</label>
+                                    <div class="d-flex">
+                                        <input type="text" class="form-control" id="recipient-name">
+                                        <button type="button" class="btn btn-outline-hover-success btn-elevate btn-pill d-flex ml-2">
+                                            <i class="flaticon-plus"></i>
+                                            Sukurti
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -96,7 +139,7 @@
 
     export default {
         name: 'task-fields',
-        props: ['obj','research_areas','research_area','contract','documents','task','task_params'],
+        props: ['obj','research_areas','research_area','contract','documents','task','task_params','task_params_groups'],
         data() {
             return {
                 en: en,
@@ -120,12 +163,18 @@
         components: {
             'datepicker': Datepicker,
         },
+        mounted() {
+            $('#requiring_int').on('select2:select', () => {
+                this.formData.due_date = null;
+            });
+        },
         methods: {
             requiringIntChange(){
                 this.formData.due_date = null;
             },
             dueDateChange(){
                 this.formData.requiring_int = '';
+                $('#requiring_int').val('').change();
             },
         },
     }
