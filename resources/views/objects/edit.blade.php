@@ -40,7 +40,7 @@
                 <div class="kt-portlet__foot">
                     <div class="row align-items-center">
                         <div class="col-lg-12">
-                            <button type="submit" class="btn btn-success">{{ __('Sukurti') }}</button>
+                            <button type="submit" class="btn btn-success">{{ __('Atnaujinti') }}</button>
                             <a href="{{ route('contracts.index') }}" class="btn btn-secondary">{{ __('Nutraukti') }}</a>
                         </div>
                     </div>

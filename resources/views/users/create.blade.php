@@ -18,7 +18,7 @@
                 <div class="kt-portlet__foot">
                     <div class="row align-items-center">
                         <div class="col-lg-12">
-                            <button type="submit" class="btn btn-success">{{ __('Sukurti') }}</button>
+                            <button type="submit" class="btn btn-success">{{ __('Išsaugoti') }}</button>
                             <a href="{{ route('users.index') }}" class="btn btn-secondary">Nutraukti</a>
                         </div>
                     </div>
