@@ -90,7 +90,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div v-if="formData.contract_nr">
+                            <div v-if="!creating">
                                 <div class="form-group">
                                     <label for="invoice_value" class="form-control-label">Sąskaita (Eur):</label>
                                     <input type="number" v-model="contractInvoiceData.total" class="form-control" id="invoice_value">
@@ -122,7 +122,7 @@
                                 <p>Sąskaitą bus galima įvesti po sutarties sukūrimo</p>
                             </div>
                         </div>
-                        <div v-if="formData.contract_nr" class="modal-footer">
+                        <div v-if="!creating" class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Uždaryti</button>
                             <button type="button" class="btn btn-primary" @click.prevent="submitInvoice">Įvesti</button>
                         </div>
@@ -201,7 +201,7 @@
 
     export default {
         name: 'contract-fields',
-        props: ['contract','research_areas','documents'],
+        props: ['contract','research_areas','documents','creating'],
         data() {
             return {
                 en: en,

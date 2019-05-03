@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="kt-portlet__body">
-                    <contract-fields></contract-fields>
+                    <contract-fields :creating="true"></contract-fields>
                 </div>
                 <div class="kt-portlet__foot">
                     <div class="row align-items-center">
