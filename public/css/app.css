@@ -1,10 +1,1 @@
-.vue-dropzone {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.dz-default {
-  width: 100%;
-}
-
+.vue-dropzone{display:flex;flex-wrap:wrap;align-items:center}.dz-default{width:100%}

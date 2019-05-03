@@ -27,4 +27,6 @@ $api->version('v1', [ 'prefix' => 'api' ], function ($api) {
 
     $api->post('tasks/params', 'App\Http\Controllers\Api\ObjTasksController@createParam');
 
+    $api->get('contracts', 'App\Http\Controllers\Api\ContractsController@search');
+
 });
