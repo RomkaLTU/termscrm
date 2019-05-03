@@ -28,7 +28,7 @@ class ContractsController extends Controller
         $start = $request->input( 'start' );
         $length = $request->input( 'length' );
 
-        $data = $query->skip ( $start )->take ( $length )->get();
+        $data = $query->skip ( $start )->take ( $length )->orderBy('updated_at','desc')->get();
         $col_data = [];
 
         foreach ($data as $col) {

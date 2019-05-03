@@ -41,7 +41,9 @@ class ObjsController extends Controller
             echo $e->getMessage();
         }
 
-        Session::flash('message', 'Objektas ' . $obj->name . ' sukurtas.');
+        $objects_list_url = route('contracts.objects.index', $contract->id);
+
+        Session::flash('message', "Objektas {$obj->name} sukurtas. <a class='text-white' href='{$objects_list_url}'><u>Grįžti į sąrašą</u></a>.");
 
         return Redirect::route('contracts.objects.edit', [ $contract->id, $obj->id ]);
     }

@@ -3,7 +3,7 @@
         <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
             <i class="la la-close"></i>
         </button>
-        <span><strong>{{ __('Atlikta:') }}</strong> {{ Session::get('message') }}</span>
+        <span><strong>{{ __('Atlikta:') }}</strong> {!! Session::get('message') !!}</span>
     </div>
 @endif
 
@@ -12,6 +12,6 @@
         <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
             <i class="la la-close"></i>
         </button>
-        <span><strong>{{ __('Klaida:') }}</strong> {{ Session::get('error') }}</span>
+        <span><strong>{{ __('Klaida:') }}</strong> {!! Session::get('error') !!}</span>
     </div>
 @endif
