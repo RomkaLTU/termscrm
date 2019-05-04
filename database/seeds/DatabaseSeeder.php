@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
          $this->call(DistrictsSeeder::class);
          $this->call(ContractsSeeder::class);
          $this->call(ObjsSeeder::class);
+         $this->call(TaskParamsSeeder::class);
     }
 }

@@ -67,8 +67,6 @@ class TasksController extends Controller
 
     public function update( Request $request, Contract $contract, Obj $object, ObjTask $task )
     {
-        dd( $request->all() );
-
         try {
 
             $task->update($request->except('_method','_token'));
