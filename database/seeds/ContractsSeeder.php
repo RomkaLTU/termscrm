@@ -1,5 +1,6 @@
 <?php
 
+use App\Obj;
 use Illuminate\Database\Seeder;
 use \Illuminate\Support\Facades\DB;
 use \App\Contract;
@@ -16,10 +17,11 @@ class ContractsSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $contracts = [];
 
-        for ($i = 0; $i < 500; $i++) {
-            $contracts[] = [
+        for ($i = 1; $i < 20; $i++) {
+            $contract_objs_data = [];
+
+            $contract = Contract::create([
                 'contract_nr' => 'LT' . $faker->unique()->numberBetween(1000,9999),
                 'customer' => $faker->name,
                 'customer_address' => $faker->address,
@@ -29,12 +31,24 @@ class ContractsSeeder extends Seeder
                 'validity_value' => $faker->dateTimeThisYear(),
                 'validity_verbal' => $faker->boolean,
                 'contract_value' => $faker->numberBetween(1000,50000),
-                'updated_at' => Carbon::now(),
-                'created_at' => Carbon::now(),
-            ];
-        }
+            ]);
 
-        Contract::insert($contracts);
+            for($ii = 1; $ii < $faker->numberBetween(5,30); $ii++) {
+                $obj = Obj::create([
+                    'name' => 'Objektas ' . $ii,
+                    'details' => $faker->streetAddress,
+                    'notes_1' => $faker->sentence,
+                    'notes_2' => '',
+                ]);
+
+                $contract_objs_data[] =  [
+                    'contract_id' => $contract->id,
+                    'obj_id' => $obj->id,
+                ];
+            }
+
+            DB::table('contract_obj')->insert($contract_objs_data);
+        }
 
         $contract_invoices_data = [
             [

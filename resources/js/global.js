@@ -8,11 +8,11 @@
         // ---------------------------------
         const $visit_history_modal = $('#visit_history');
         const $visit_history_content = $('#visit_history_content');
-        let visits_html = '';
 
         $visit_history_modal.on('show.bs.modal', function(e){
             const contractid = $(e.relatedTarget).data('contractid');
             const objectid = $(e.relatedTarget).data('objectid');
+            let visits_html = '';
 
             axios.get(`visits/${contractid}/${objectid}`).then((response) => {
                 const visits = response.data;

@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
          $this->call(ResearchAreasTableSeeder::class);
          $this->call(DistrictsSeeder::class);
          $this->call(ContractsSeeder::class);
-         $this->call(ObjsSeeder::class);
          $this->call(TaskParamsSeeder::class);
     }
 }
