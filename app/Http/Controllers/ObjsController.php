@@ -129,6 +129,15 @@ class ObjsController extends Controller
         return Redirect::back();
     }
 
+    public function destroy( Contract $contract, Obj $object )
+    {
+
+        $object->delete();
+
+        Session::flash('message', 'Sutarties ' . $contract->contract_nr . ' objektas ' . $object->name . ' ištrintas!');
+        return Redirect::back();
+    }
+
     private function attachMedia($model, $request)
     {
         foreach ($request->input('documents', []) as $file) {
