@@ -154,7 +154,7 @@
                                         <i class="la la-trash"></i>
                                     </button>
                                     <div class="confirm-block">
-                                        <form action="contracts/${row.DT_RowData.contractid}" method="post">
+                                        <form action="/contracts/${row.DT_RowData.contractid}/objects/${row.DT_RowData.objectid}/tasks/${row.DT_RowData.taskid}" method="post">
                                             <input type="hidden" name="_token" value="${window.CSRF}">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <div>

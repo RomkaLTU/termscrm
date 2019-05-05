@@ -83,7 +83,10 @@ class TasksController extends Controller
 
         }
 
+        $tasks_list_url = route('contracts.objects.tasks.index', [$request->contract_id, $request->object_id]);
+
         Session::flash('message', 'Užduotis sukurta.');
+        Session::flash('message', "Užduotis {$task->name} sukurta. <a class='text-white' href='{$tasks_list_url}'><u>Grįžti į sąrašą</u></a>.");
 
         return Redirect::back();
     }
