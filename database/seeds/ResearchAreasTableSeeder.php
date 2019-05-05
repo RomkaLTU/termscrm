@@ -17,7 +17,7 @@ class ResearchAreasTableSeeder extends Seeder
             ['name' => 'Nuotekos'],
             ['name' => 'Geriamas vanduo'],
             ['name' => 'Geologija'],
-            ['name' => 'Rasto darbai'],
+            ['name' => 'Rašto darbai'],
             ['name' => 'Kita'],
         ];
 
