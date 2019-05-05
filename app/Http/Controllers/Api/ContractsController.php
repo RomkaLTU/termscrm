@@ -10,7 +10,10 @@ class ContractsController extends Controller
 {
     public function search( Request $request )
     {
-        $results = Contract::where('contract_nr', 'like', '%' . $request->search . '%')->take(10)->get();
+        $results = Contract::where('contract_nr', 'like', '%' . $request->search . '%')
+            ->take(10)
+            ->orderBy('updated_at','desc')
+            ->get();
 
         return $results;
     }

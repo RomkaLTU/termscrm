@@ -14,8 +14,8 @@ class ObjVisitsController extends Controller
     {
         foreach ( $request->checked as $checked ) {
             ObjVisit::create([
-                'contract_id' => $checked['contract_id'],
-                'object_id' => $checked['value'],
+                'contract_id' => $request->contractid,
+                'object_id' => $checked,
                 'user_id' => $request->user_id,
             ]);
         }
@@ -23,7 +23,10 @@ class ObjVisitsController extends Controller
 
     public function get_visits( $contract_id, $object_id )
     {
-        $obj_visits = ObjVisit::where('contract_id', $contract_id)->where('object_id', $object_id)->get();
+        $obj_visits = ObjVisit::where('contract_id', $contract_id)
+            ->where('object_id', $object_id)
+            ->orderBy('updated_at','desc')
+            ->get();
 
         return $obj_visits;
     }

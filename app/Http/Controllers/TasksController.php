@@ -22,6 +22,44 @@ class TasksController extends Controller
         ]);
     }
 
+    public function json( Request $request, Contract $contract, Obj $object )
+    {
+        $query = ObjTask::where('contract_id', $contract->id)->where('object_id', $object->id);
+
+        $recordsTotal = $query->count();
+        $recordsFiltered = $recordsTotal;
+        $start = $request->input( 'start' );
+        $length = $request->input( 'length' );
+
+        $data = $query->skip ( $start )->take ( $length )->orderBy('updated_at','desc')->get();
+        $col_data = [];
+
+        foreach ($data as $col) {
+            $col_data[] = [
+                'DT_RowData' => [
+                    'taskid' => $col->id,
+                    'objectid' => $object->id,
+                    'contractid' => $contract->id,
+                ],
+                $col->id,
+                $col->name,
+                '',
+                '',
+                $col->notes_1,
+                $col->notes_2,
+            ];
+        }
+
+        $response = [
+            'draw' => intval( $request->input( 'draw' ) ),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            "data" => $col_data,
+        ];
+
+        return $response;
+    }
+
     public function create( Contract $contract, Obj $object )
     {
         return view('tasks.create', [

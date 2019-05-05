@@ -6,6 +6,7 @@ use App\Contract;
 use App\Obj;
 use App\ResearchArea;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
@@ -15,8 +16,47 @@ class ObjsController extends Controller
     {
         return view('objects.index', [
             'contract' => $contract,
-            'objs' => $contract->objs,
         ]);
+    }
+
+    public function json( Request $request, Contract $contract )
+    {
+        $query = Obj::whereHas('contract', function($q) use ($contract){
+            $q->where('id', $contract->id);
+        });
+
+        $recordsTotal = $query->count();
+        $recordsFiltered = $recordsTotal;
+        $start = $request->input( 'start' );
+        $length = $request->input( 'length' );
+
+        $data = $query->skip ( $start )->take ( $length )->orderBy('updated_at','desc')->get();
+        $col_data = [];
+
+        foreach ($data as $col) {
+            $col_data[] = [
+                'DT_RowData' => [
+                    'objectid' => $col->id,
+                    'contractid' => $contract->id,
+                ],
+                $col->id,
+                $col->name,
+                $col->details,
+                '',
+                '',
+                $col->notes_1,
+                $col->notes_2,
+            ];
+        }
+
+        $response = [
+            'draw' => intval( $request->input( 'draw' ) ),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            "data" => $col_data,
+        ];
+
+        return $response;
     }
 
     public function create( Contract $contract )

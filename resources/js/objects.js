@@ -5,92 +5,40 @@
 
         const $table = $('#dtable');
         const model = $table.data('model');
-        const $save_completed = $('#save_completed');
-        const $completed_count = $('#completed_count');
-        let checkedCompleted = [];
+        const $save_visited = $('#save_visited');
+        const $visited_count = $('#visited_count');
+        let checkedVisits = [];
         let contractid = false;
 
-        const $params = $('.select2_task_params');
-        const $select2_task_params_groups = $('.select2_task_params_groups');
-        const $select2 = $('.select2');
-
-        // ----------------------------------
-        // Check tasks
-        // ----------------------------------
-        $(document).on('change','.completed',function(){
+        $(document).on('change','.visited',function(){
             if ( this.checked ) {
-                checkedCompleted.push(this.value);
+                checkedVisits.push(this.value);
             } else {
-                checkedCompleted = _.without(checkedCompleted, this.value);
+                checkedVisits = _.without(checkedVisits, this.value);
             }
 
-            $completed_count.html(checkedCompleted.length);
+            $visited_count.html(checkedVisits.length);
             contractid = $(this).data('contractid');
 
-            if ( checkedCompleted.length ) {
-                $save_completed.css('display','inline-block');
+            if ( checkedVisits.length ) {
+                $save_visited.css('display','inline-block');
             } else {
-                $save_completed.css('display','none');
+                $save_visited.css('display','none');
             }
         });
 
-        $save_completed.on('click',function(){
-            alert('In progress...');
-            // axios.post(`visits`, {
-            //     checked: checkedCompleted,
-            //     contractid: contractid,
-            //     user_id: window.USER_ID,
-            // }).then(() => {
-            //     window.toastr.success('Apsilankymai išsaugoti');
-            //     $('.visited').prop('checked', false);
-            //     checkedCompleted = [];
-            //     $save_completed.css('display','none');
-            // });
-            window.toastr.success('Atlikti darbai išsaugoti');
-            $('.completed').prop('checked', false);
-            checkedCompleted = [];
-            $save_completed.css('display','none');
+        $save_visited.on('click',function(){
+            axios.post(`visits`, {
+                checked: checkedVisits,
+                contractid: contractid,
+                user_id: window.USER_ID,
+            }).then(() => {
+                window.toastr.success('Apsilankymai išsaugoti');
+                $('.visited').prop('checked', false);
+                checkedVisits = [];
+                $save_visited.css('display','none');
+            });
         });
-        // end Check tasks
-
-        if ( $params.length ) {
-            $params.select2({
-                placeholder: 'Pridėti parametrą',
-                tags: true,
-                createTag: function (params) {
-                    const term = $.trim(params.term);
-                    if (term === '') {
-                        return null;
-                    }
-
-                    return {
-                        id: term,
-                        text: term + ' (naujas)'
-                    };
-                },
-            });
-
-            // insertinam nauja parametra i DB
-            $params.on('select2:select', function(e){
-                if ( typeof e.params.data.element === 'undefined' ) {
-                    $.post(window.API_DOMAIN + '/tasks/params', {
-                        name: e.params.data.id
-                    });
-                }
-            });
-        }
-
-        if ( $select2_task_params_groups.length ) {
-            $select2_task_params_groups.select2({
-                placeholder: 'Parametrų grupės',
-            });
-        }
-
-        if ( $select2.length ) {
-            $select2.select2({
-                placeholder: 'Pasirinkite',
-            });
-        }
 
         $table.DataTable({
             responsive: true,
@@ -106,14 +54,14 @@
             columnDefs: [
                 {
                     targets: -3,
-                    title: 'Pažymėti darbus',
+                    title: 'Pažymėti aplankytus',
                     orderable: false,
                     className: 'text-center',
                     'type':'html',
                     'render': function (data, type, row) {
                         return `
                             <label class="kt-checkbox">
-                                <input class="completed" type="checkbox" name="completed[]" value="${row.DT_RowData.taskid}"> &nbsp;
+                                <input class="visited" type="checkbox" name="visits[]" data-contractid="${row.DT_RowData.contractid}" value="${row.DT_RowData.objectid}"> &nbsp;
                                 <span></span>
                             </label>
                         `;
@@ -126,11 +74,7 @@
                     'type':'html',
                     'render': function (data, type, row) {
                         return `
-                            <button data-toggle="modal" 
-                                data-contractid="${row.DT_RowData.contractid}" 
-                                data-objectid="${row.DT_RowData.objectid}" 
-                                data-taskid="${row.DT_RowData.taskid}" 
-                                data-target="#tasks_history" class="btn btn-outline-brand btn-sm">
+                            <button data-toggle="modal" data-contractid="${row.DT_RowData.contractid}" data-objectid="${row.DT_RowData.objectid}" data-target="#visit_history" class="btn btn-outline-brand btn-sm">
                                 Peržiūreti
                             </button>
                         `;
@@ -145,6 +89,9 @@
                     'render': function (data, type, row) {
                         return `
                             <div class="d-flex">
+                                <a href="/contracts/${row.DT_RowData.contractid}/objects/${row.DT_RowData.objectid}/tasks" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Užduotys">
+                                    <i class="la la-list-alt"></i>
+                                </a>
                                 <a href="/contracts/${row.DT_RowData.contractid}/edit" data-toggle="confirmation" class="btn btn-sm btn-clean btn-icon btn-icon-md">
                                     <i class="la la-edit"></i>
                                 </a>
@@ -178,5 +125,6 @@
             'serverSide': true,
             'ajax': `${model}/json`,
         });
-    });
+
+    })
 }(window.jQuery));

@@ -106,15 +106,16 @@
     </script>
 
     <!--begin:: Global Mandatory Vendors -->
+    <script src="{{ asset('js/underscore.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/jquery/dist/jquery.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/general/popper.js/dist/umd/popper.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/general/bootstrap/dist/js/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/general/js-cookie/src/js.cookie.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/general/moment/min/moment.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/general/tooltip.js/dist/umd/tooltip.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/general/perfect-scrollbar/dist/perfect-scrollbar.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/general/sticky-js/dist/sticky.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/general/wnumb/wNumb.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/global.js') }}"></script>
     <!--end:: Global Mandatory Vendors -->
 
     <!--begin:: Global Optional Vendors -->
@@ -138,8 +139,6 @@
     <script src="{{ asset('assets/vendors/general/inputmask/dist/inputmask/inputmask.numeric.extensions.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/autosize/dist/autosize.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/clipboard/dist/clipboard.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/general/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/custom/components/vendors/bootstrap-notify/init.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/jquery-validation/dist/jquery.validate.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/jquery-validation/dist/additional-methods.js') }}"></script>
     <script src="{{ asset('assets/vendors/custom/components/vendors/jquery-validation/init.js') }}"></script>
@@ -150,7 +149,6 @@
     <script src="{{ asset('assets/vendors/general/es6-promise-polyfill/promise.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/jquery.repeater/src/lib.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/jquery.repeater/src/jquery.input.js') }}"></script>
-    <script src="{{ asset('assets/vendors/general/jquery.repeater/src/repeater.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/dompurify/dist/purify.js') }}"></script>
 
     <script src="{{ asset('assets/demo/default/base/scripts.bundle.js') }}"></script>

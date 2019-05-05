@@ -6,3 +6,31 @@
 .dz-default {
     width: 100%;
 }
+
+.action-confirmation {
+    position: relative;
+
+    .confirm-block {
+        position: absolute;
+        display: none;
+        background-color: #fff;
+        left: -117px;
+        top: 30px;
+        z-index: 50;
+        border: 1px solid #eeeeee;
+        width: 150px;
+        padding: 10px;
+        box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
+    }
+}
+.action-need-confirm {
+    .confirm-block {
+        display: flex;
+    }
+}
+
+.modal-body {
+    .kt-list-timeline__time {
+        width: 130px !important;
+    }
+}

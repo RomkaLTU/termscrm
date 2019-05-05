@@ -6,48 +6,7 @@
 
 @section('footer-js')
     <script src="{{ asset('assets/vendors/custom/datatables/datatables.min.js') }}"></script>
-    <script>
-        const table = $('#dtable');
-
-        table.DataTable({
-            responsive: true,
-            dom: `<'row'<'col-sm-12'tr>>
-			<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
-            lengthMenu: [5, 10, 25, 50],
-            pageLength: 10,
-            language: {
-                'lengthMenu': 'Rodyti _MENU_',
-            },
-            order: [],
-            columnDefs: [
-                {
-                    targets: -1,
-                    title: 'Veiksmai',
-                    orderable: false,
-                },
-            ],
-        });
-
-        table.on('change', '.m-group-checkable', function() {
-            const set = $(this).closest('table').find('td:first-child .m-checkable');
-            const checked = $(this).is(':checked');
-
-            $(set).each(function() {
-                if (checked) {
-                    $(this).prop('checked', true);
-                    $(this).closest('tr').addClass('active');
-                }
-                else {
-                    $(this).prop('checked', false);
-                    $(this).closest('tr').removeClass('active');
-                }
-            });
-        });
-
-        table.on('change', 'tbody tr .kt-checkbox', function() {
-            $(this).parents('tr').toggleClass('active');
-        });
-    </script>
+    <script src="{{ asset('js/tasks.js') }}"></script>
 @endsection
 
 @section('content')
@@ -67,13 +26,16 @@
                             <i class="la la-plus"></i>
                             {{ __('Pridėti užduotį') }}
                         </a>
-                        <save-done/>
+                        <button id="save_completed" class="btn btn-success btn-icon-sm" style="display:none;">
+                            <i class="la la-check"></i>
+                            Tvirtinti atliktus darbus (<span id="completed_count"></span>)
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="kt-portlet__body">
-            <table class="table table-md table-hover table-checkable" id="dtable">
+            <table data-model="tasks" class="table table-md table-hover table-checkable" id="dtable">
                 <thead>
                 <tr>
                     <th>{{ __('Nr.') }}</th>
@@ -87,37 +49,24 @@
                     <th></th>
                 </tr>
                 </thead>
-                <tbody>
-                @foreach($tasks as $task)
-                    <tr class="@if($task->special_task) table-warning @endif">
-                        <td>{{ $task->id }}</td>
-                        <td>{{ $task->name }}</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ $task->notes_1 }}</td>
-                        <td>{{ $task->notes_2 }}</td>
-                        <td class="text-center">
-                            <check-done task_id="{{ $task->id }}" />
-                        </td>
-                        <td></td>
-                        <td class="nowrap">
-                            <div class="d-flex">
-                                <a href="{{ route('contracts.objects.tasks.edit', [$contract->id, $obj->id, $task->id]) }}" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="{{ __('Redaguoti') }}">
-                                    <i class="la la-edit"></i>
-                                </a>
-                                <form action="{{ route('contracts.objects.tasks.destroy', [$contract->id, $obj->id, $task->id]) }}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" rel="tooltip" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                        <i class="la la-trash"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
             </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="tasks_history" tabindex="-1" role="dialog" aria-labelledby="tasksHistory" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="visitHistory">Atliktų darbų istorija</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="tasks_history_content" class="kt-scroll" data-scroll="true" data-height="200">
+                        {{-- AJAX response here --}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

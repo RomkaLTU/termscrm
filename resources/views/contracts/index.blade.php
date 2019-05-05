@@ -6,70 +6,7 @@
 
 @section('footer-js')
     <script src="{{ asset('assets/vendors/custom/datatables/datatables.min.js') }}"></script>
-    <script>
-        const table = $('#dtable');
-
-        table.DataTable({
-            responsive: true,
-            searching: true,
-            dom: `<'row'<'col-sm-12'tr>>
-			<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
-            lengthMenu: [5, 10, 25, 50],
-            pageLength: 10,
-            order: [],
-            language: {
-                'lengthMenu': 'Rodyti _MENU_',
-            },
-            columnDefs: [
-                {
-                    targets: -1,
-                    title: 'Veiksmai',
-                    orderable: false,
-                    className: 'nowrap',
-                    "type":"html",
-                    "render": function (data, type, row) {
-                        return `
-                            <div class="d-flex">
-                                <a href="contracts/${row.DT_RowData.contractid}/edit" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                    <i class="la la-edit"></i>
-                                </a>
-                                <form action="contracts/${row.DT_RowData.contractid}" method="post">
-                                    <input type="hidden" name="_token" value="${window.CSRF}">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" rel="tooltip" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                        <i class="la la-trash"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        `;
-                    }
-                },
-            ],
-            "processing": true,
-            "serverSide": true,
-            "ajax": "contracts/json",
-        });
-
-        table.on('change', '.m-group-checkable', function() {
-            const set = $(this).closest('table').find('td:first-child .m-checkable');
-            const checked = $(this).is(':checked');
-
-            $(set).each(function() {
-                if (checked) {
-                    $(this).prop('checked', true);
-                    $(this).closest('tr').addClass('active');
-                }
-                else {
-                    $(this).prop('checked', false);
-                    $(this).closest('tr').removeClass('active');
-                }
-            });
-        });
-
-        table.on('change', 'tbody tr .kt-checkbox', function() {
-            $(this).parents('tr').toggleClass('active');
-        });
-    </script>
+    <script src="{{ asset('js/dt-custom-init.js') }}"></script>
 @endsection
 
 @section('content')
@@ -94,7 +31,7 @@
             </div>
         </div>
         <div class="kt-portlet__body">
-            <table class="table table-md table-hover table-checkable" id="dtable">
+            <table data-model="contracts" class="table table-md table-hover table-checkable" id="dtable">
                 <thead>
                 <tr>
                     <th>{{ __('Numeris') }}</th>
