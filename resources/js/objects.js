@@ -93,7 +93,7 @@
                                 <a href="/contracts/${row.DT_RowData.contractid}/objects/${row.DT_RowData.objectid}/tasks" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Užduotys">
                                     <i class="la la-list-alt"></i>
                                 </a>
-                                <a href="/contracts/${row.DT_RowData.contractid}/edit" data-toggle="confirmation" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                <a href="/contracts/${row.DT_RowData.contractid}/objects/${row.DT_RowData.objectid}/edit" data-toggle="confirmation" class="btn btn-sm btn-clean btn-icon btn-icon-md">
                                     <i class="la la-edit"></i>
                                 </a>
                                 <div class="action-confirmation">
