@@ -16,7 +16,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth:web'] ], function() {
 
     Route::get('/', function(){
-        return redirect('users');
+        return redirect('contracts');
     })->name('dashboard');
 
     Route::get('contracts/json', 'ContractsController@json');
@@ -24,9 +24,9 @@ Route::group(['middleware' => ['auth:web'] ], function() {
     Route::get('contracts/{contract}/objects/{object}/tasks/json', 'TasksController@json');
 
     Route::resource('users', 'UsersController')->middleware(['role:Admin']);
-    Route::resource('contracts', 'ContractsController')->middleware(['role:Admin']);
-    Route::resource('contracts.objects', 'ObjsController')->middleware(['role:Admin']);
-    Route::resource('contracts.objects.tasks', 'TasksController')->middleware(['role:Admin']);
+    Route::resource('contracts', 'ContractsController');
+    Route::resource('contracts.objects', 'ObjsController');
+    Route::resource('contracts.objects.tasks', 'TasksController');
 
     Route::post('api/media', 'MediaController@upload')->name('upload');
     Route::delete('api/media/{media}', 'MediaController@remove')->name('remove');
