@@ -1,1 +1,141 @@
-!function(n){var t={};function e(o){if(t[o])return t[o].exports;var a=t[o]={i:o,l:!1,exports:{}};return n[o].call(a.exports,a,a.exports,e),a.l=!0,a.exports}e.m=n,e.c=t,e.d=function(n,t,o){e.o(n,t)||Object.defineProperty(n,t,{enumerable:!0,get:o})},e.r=function(n){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(n,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(n,"__esModule",{value:!0})},e.t=function(n,t){if(1&t&&(n=e(n)),8&t)return n;if(4&t&&"object"==typeof n&&n&&n.__esModule)return n;var o=Object.create(null);if(e.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:n}),2&t&&"string"!=typeof n)for(var a in n)e.d(o,a,function(t){return n[t]}.bind(null,a));return o},e.n=function(n){var t=n&&n.__esModule?function(){return n.default}:function(){return n};return e.d(t,"a",t),t},e.o=function(n,t){return Object.prototype.hasOwnProperty.call(n,t)},e.p="/",e(e.s=4)}({4:function(n,t,e){n.exports=e("Sw0l")},Sw0l:function(n,t){var e;(e=window.jQuery)(function(){var n=e("#dtable"),t=n.data("model");n.DataTable({responsive:!0,searching:!0,dom:"<'row'<'col-sm-12'tr>>\n\t\t\t<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>",lengthMenu:[5,10,25,50],pageLength:10,order:[],language:{lengthMenu:"Rodyti _MENU_"},columnDefs:[{targets:-1,title:"Veiksmai",orderable:!1,className:"nowrap",type:"html",render:function(n,t,e){return'\n                            <div class="d-flex">\n                                <a href="contracts/'.concat(e.DT_RowData.contractid,'/edit" data-toggle="confirmation" class="btn btn-sm btn-clean btn-icon btn-icon-md">\n                                    <i class="la la-edit"></i>\n                                </a>\n                                <div class="action-confirmation">\n                                    <button type="button" class="btn btn-sm btn-clean btn-icon btn-icon-md confirm_action">\n                                        <i class="la la-trash"></i>\n                                    </button>\n                                    <div class="confirm-block">\n                                        <form action="contracts/').concat(e.DT_RowData.contractid,'" method="post">\n                                            <input type="hidden" name="_token" value="').concat(window.CSRF,'">\n                                            <input type="hidden" name="_method" value="DELETE">\n                                            <div>\n                                                <div class="d-flex">\n                                                    <button type="submit" rel="tooltip" data-toggle="confirmation" class="btn btn-sm btn-danger mr-1">\n                                                        Trinti\n                                                    </button>\n                                                    <button type="button" rel="tooltip" data-toggle="confirmation" class="btn btn-sm btn-clean close_confirmation">\n                                                        Atšaukti\n                                                    </button>\n                                                </div>\n                                            </div>\n                                        </form>\n                                    </div>\n                                </div>\n                            </div>\n                        ')}}],processing:!0,serverSide:!0,ajax:"".concat(t,"/json")})})}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/js/dt-custom-init.js":
+/*!****************************************!*\
+  !*** ./resources/js/dt-custom-init.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function ($) {
+  $(function () {
+    var $table = $('#dtable');
+    var model = $table.data('model');
+    $table.DataTable({
+      responsive: true,
+      searching: true,
+      dom: "<'row'<'col-sm-12'tr>>\n\t\t\t<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>",
+      lengthMenu: [5, 10, 25, 50],
+      pageLength: 10,
+      order: [],
+      language: {
+        'lengthMenu': 'Rodyti _MENU_'
+      },
+      columnDefs: [{
+        targets: -1,
+        title: 'Veiksmai',
+        orderable: false,
+        className: 'nowrap',
+        'type': 'html',
+        'render': function render(data, type, row) {
+          return "\n                            <div class=\"d-flex\">\n                                <a href=\"contracts/".concat(row.DT_RowData.contractid, "/edit\" data-toggle=\"confirmation\" class=\"btn btn-sm btn-clean btn-icon btn-icon-md\">\n                                    <i class=\"la la-edit\"></i>\n                                </a>\n                                <div class=\"action-confirmation\">\n                                    <button type=\"button\" class=\"btn btn-sm btn-clean btn-icon btn-icon-md confirm_action\">\n                                        <i class=\"la la-trash\"></i>\n                                    </button>\n                                    <div class=\"confirm-block\">\n                                        <form action=\"contracts/").concat(row.DT_RowData.contractid, "\" method=\"post\">\n                                            <input type=\"hidden\" name=\"_token\" value=\"").concat(window.CSRF, "\">\n                                            <input type=\"hidden\" name=\"_method\" value=\"DELETE\">\n                                            <div>\n                                                <div class=\"d-flex\">\n                                                    <button type=\"submit\" rel=\"tooltip\" data-toggle=\"confirmation\" class=\"btn btn-sm btn-danger mr-1\">\n                                                        Trinti\n                                                    </button>\n                                                    <button type=\"button\" rel=\"tooltip\" data-toggle=\"confirmation\" class=\"btn btn-sm btn-clean close_confirmation\">\n                                                        At\u0161aukti\n                                                    </button>\n                                                </div>\n                                            </div>\n                                        </form>\n                                    </div>\n                                </div>\n                            </div>\n                        ");
+        }
+      }],
+      'processing': true,
+      'serverSide': true,
+      'ajax': "".concat(model, "/json")
+    });
+  });
+})(window.jQuery);
+
+/***/ }),
+
+/***/ 4:
+/*!**********************************************!*\
+  !*** multi ./resources/js/dt-custom-init.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /Users/romas/Projects/VALET/termscrm/resources/js/dt-custom-init.js */"./resources/js/dt-custom-init.js");
+
+
+/***/ })
+
+/******/ });
