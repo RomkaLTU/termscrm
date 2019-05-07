@@ -25,7 +25,7 @@
                     'render': function (data, type, row) {
                         return `
                             <div class="d-flex">
-                                <a href="contracts/${row.DT_RowData.rowid}/edit" data-toggle="confirmation" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                <a href="/${model}/${row.DT_RowData.rowid}/edit" data-toggle="confirmation" class="btn btn-sm btn-clean btn-icon btn-icon-md">
                                     <i class="la la-edit"></i>
                                 </a>
                                 <div class="action-confirmation">
