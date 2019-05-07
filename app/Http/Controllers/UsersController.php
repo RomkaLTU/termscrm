@@ -4,12 +4,22 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
+    private $columns = [
+        'id',
+        'name',
+        'email',
+        'duties',
+        'created_at',
+        'updated_at',
+    ];
+
     public function index()
     {
         $users = User::all();
@@ -17,6 +27,52 @@ class UsersController extends Controller
         return view('users.index', [
             'users' => $users
         ]);
+    }
+
+    public function json( Request $request )
+    {
+        $query = DB::table('users');
+        $recordsTotal = $query->count();
+        $recordsFiltered = $recordsTotal;
+        $start = $request->input( 'start' );
+        $length = $request->input( 'length' );
+
+        /*
+         * Order By
+         */
+        if ($request->has ( 'order' )) {
+            if ($request->input ( 'order.0.column' ) != '') {
+                $orderColumn = $request->input ( 'order.0.column' );
+                $orderDirection = $request->input ( 'order.0.dir' );
+                $query->orderBy ( $this->columns[intval($orderColumn)], $orderDirection );
+            }
+        }
+
+        $data = $query->skip ( $start )->take ( $length )->orderBy('updated_at','desc')->get();
+        $col_data = [];
+
+        foreach ($data as $col) {
+            $col_data[] = [
+                'DT_RowData' => [
+                    'rowid' => $col->id,
+                ],
+                $col->id,
+                $col->name,
+                $col->email,
+                $col->duties,
+                $col->created_at,
+                $col->updated_at,
+            ];
+        }
+
+        $response = [
+            'draw' => intval( $request->input( 'draw' ) ),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            "data" => $col_data,
+        ];
+
+        return $response;
     }
 
     public function create()

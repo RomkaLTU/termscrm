@@ -25,7 +25,7 @@
                     'render': function (data, type, row) {
                         return `
                             <div class="d-flex">
-                                <a href="contracts/${row.DT_RowData.contractid}/edit" data-toggle="confirmation" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                <a href="contracts/${row.DT_RowData.rowid}/edit" data-toggle="confirmation" class="btn btn-sm btn-clean btn-icon btn-icon-md">
                                     <i class="la la-edit"></i>
                                 </a>
                                 <div class="action-confirmation">
@@ -33,7 +33,7 @@
                                         <i class="la la-trash"></i>
                                     </button>
                                     <div class="confirm-block">
-                                        <form action="contracts/${row.DT_RowData.contractid}" method="post">
+                                        <form action="contracts/${row.DT_RowData.rowid}" method="post">
                                             <input type="hidden" name="_token" value="${window.CSRF}">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <div>

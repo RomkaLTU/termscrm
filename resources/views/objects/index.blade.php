@@ -41,10 +41,10 @@
                     <th>{{ __('Numeris') }}</th>
                     <th>{{ __('Objektas') }}</th>
                     <th>{{ __('Rekvizitai') }}</th>
-                    <th>{{ __('Regionas') }}</th>
-                    <th>{{ __('Tyrimo sritys') }}</th>
                     <th>{{ __('Pastabos 1') }}</th>
                     <th>{{ __('Pastabos 2') }}</th>
+                    <th>{{ __('Regionas') }}</th>
+                    <th>{{ __('Tyrimo sritys') }}</th>
                     <th>{{ __('Pažymėti aplankytus') }}</th>
                     <th>{{ __('Istorija') }}</th>
                     <th></th>

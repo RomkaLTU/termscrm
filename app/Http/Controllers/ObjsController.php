@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\Session;
 
 class ObjsController extends Controller
 {
+    private $columns = [
+        'id',
+        'name',
+        'details',
+        'notes_1',
+        'notes_2',
+        'created_at',
+        'updated_at',
+    ];
+
     public function index( Contract $contract )
     {
         return view('objects.index', [
@@ -30,6 +40,17 @@ class ObjsController extends Controller
         $start = $request->input( 'start' );
         $length = $request->input( 'length' );
 
+        /*
+         * Order By
+         */
+        if ($request->has ( 'order' )) {
+            if ($request->input ( 'order.0.column' ) != '') {
+                $orderColumn = $request->input ( 'order.0.column' );
+                $orderDirection = $request->input ( 'order.0.dir' );
+                $query->orderBy ( $this->columns[intval($orderColumn)], $orderDirection );
+            }
+        }
+
         $data = $query->skip ( $start )->take ( $length )->orderBy('updated_at','desc')->get();
         $col_data = [];
 
@@ -42,10 +63,10 @@ class ObjsController extends Controller
                 $col->id,
                 $col->name,
                 $col->details,
-                '',
-                '',
                 $col->notes_1,
                 $col->notes_2,
+                '',
+                '',
             ];
         }
 

@@ -13,6 +13,16 @@ use Spatie\Permission\Models\Role;
 
 class ContractsController extends Controller
 {
+    private $columns = [
+        'contract_nr',
+        'contract_status',
+        'validity_value',
+        'validity_extend_till_value',
+        'contract_value',
+        'created_at',
+        'updated_at',
+    ];
+
     public function index()
     {
         return view('contracts.index', [
@@ -28,13 +38,24 @@ class ContractsController extends Controller
         $start = $request->input( 'start' );
         $length = $request->input( 'length' );
 
+        /*
+         * Order By
+         */
+        if ($request->has ( 'order' )) {
+            if ($request->input ( 'order.0.column' ) != '') {
+                $orderColumn = $request->input ( 'order.0.column' );
+                $orderDirection = $request->input ( 'order.0.dir' );
+                $query->orderBy ( $this->columns[intval($orderColumn)], $orderDirection );
+            }
+        }
+
         $data = $query->skip ( $start )->take ( $length )->orderBy('updated_at','desc')->get();
         $col_data = [];
 
         foreach ($data as $col) {
             $col_data[] = [
                 'DT_RowData' => [
-                    'contractid' => $col->id,
+                    'rowid' => $col->id,
                 ],
                 $col->contract_nr,
                 $col->contract_status,
