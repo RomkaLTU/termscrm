@@ -6,6 +6,7 @@
 
 @section('footer-js')
     <script src="{{ asset('assets/vendors/custom/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/general/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/dt-custom-init.js') }}"></script>
 @endsection
 
@@ -31,6 +32,7 @@
             </div>
         </div>
         <div class="kt-portlet__body">
+            <contracts-filter></contracts-filter>
             <table data-model="contracts" class="table table-md table-hover table-checkable" id="dtable">
                 <thead>
                 <tr>

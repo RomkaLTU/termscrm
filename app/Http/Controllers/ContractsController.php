@@ -32,9 +32,7 @@ class ContractsController extends Controller
 
     public function json( Request $request )
     {
-        $query = DB::table('contracts');
-        $recordsTotal = $query->count();
-        $recordsFiltered = $recordsTotal;
+        $query = Contract::query();
         $start = $request->input( 'start' );
         $length = $request->input( 'length' );
 
@@ -48,6 +46,35 @@ class ContractsController extends Controller
                 $query->orderBy ( $this->columns[intval($orderColumn)], $orderDirection );
             }
         }
+
+        /*
+         * Contract created filter
+         */
+        if ( $request->contractsFrom ) {
+            $query->whereDate('created_at', '>=', $request->contractsFrom);
+        }
+
+        if ( $request->contractsTo ) {
+            $query->whereDate('created_at', '<=', $request->contractsTo);
+        }
+
+        /**
+         * Check if there is any unpaid invoices by given date range
+         */
+        if ( $request->contractsUnpaidFrom ) {
+            $query->whereHas('invoices', function($q) use ($request) {
+                $q->whereDate('due_date', '>=', $request->contractsUnpaidFrom);
+            });
+        }
+
+        if ( $request->contractsUnpaidTo ) {
+            $query->whereHas('invoices', function($q) use ($request) {
+                $q->whereDate('due_date', '<=', $request->contractsUnpaidTo);
+            });
+        }
+
+        $recordsTotal = $query->count();
+        $recordsFiltered = $recordsTotal;
 
         $data = $query->skip ( $start )->take ( $length )->orderBy('updated_at','desc')->get();
         $col_data = [];

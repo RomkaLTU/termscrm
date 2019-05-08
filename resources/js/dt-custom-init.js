@@ -56,6 +56,7 @@
             ],
             'processing': true,
             'serverSide': true,
+            deferRender: true,
             'ajax': `${model}/json`,
         });
 
