@@ -30,11 +30,6 @@ class Contract extends Model implements HasMedia
         return $this->belongsToMany( Obj::class );
     }
 
-    public function researchAreas()
-    {
-
-    }
-
     public function getCreatedAtAttribute($value)
     {
         return date('Y-m-d H:i:s', strtotime($value));

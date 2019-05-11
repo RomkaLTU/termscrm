@@ -155,6 +155,7 @@ class ContractsController extends Controller
         return view('contracts.edit', [
             'contract' => $contract,
             'documents' => $documents,
+            'research_areas' => $contract->objs->pluck('researchAreas')->flatten()->unique('id'),
         ]);
     }
 

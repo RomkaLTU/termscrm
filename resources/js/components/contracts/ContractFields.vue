@@ -68,6 +68,16 @@
                 </label>
             </div>
         </div>
+        <div class="form-group" v-if="research_areas.length">
+            <label>Tyrimų sritys</label>
+            <div>
+                <template v-for="(ra,index) in research_areas">
+                    <span class="kt-badge kt-badge--primary kt-badge--md kt-badge--inline kt-badge--pill mr-2" :key="`ra_${index}`">
+                        {{ ra.name }}
+                    </span>
+                </template>
+            </div>
+        </div>
         <div class="form-group">
             <vue-dropzone
                 ref="myVueDropzone"

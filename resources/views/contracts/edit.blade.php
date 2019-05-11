@@ -34,6 +34,7 @@
             </div>
             <div class="kt-portlet__body">
                 <contract-fields
+                    :research_areas="{{ json_encode($research_areas) }}"
                     :contract="{{ $contract }}"
                     :documents="{{ json_encode($documents) }}">
                 </contract-fields>

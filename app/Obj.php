@@ -12,6 +12,8 @@ class Obj extends Model implements HasMedia
 
     protected $guarded = ['id','media'];
 
+    protected $with = ['researchAreas'];
+
     public function researchAreas()
     {
         return $this->belongsToMany( ResearchArea::class );
