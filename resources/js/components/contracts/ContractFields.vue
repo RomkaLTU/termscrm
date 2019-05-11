@@ -68,7 +68,7 @@
                 </label>
             </div>
         </div>
-        <div class="form-group" v-if="research_areas.length">
+        <div class="form-group" v-if="research_areas && research_areas.length">
             <label>Tyrimų sritys</label>
             <div>
                 <template v-for="(ra,index) in research_areas">
