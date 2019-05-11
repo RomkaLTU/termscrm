@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Contract;
 use App\Invoice;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -88,13 +90,18 @@ class ContractsController extends Controller
         $recordsTotal = $query->count();
         $recordsFiltered = $recordsTotal;
 
-        $data = $query->skip ( $start )->take ( $length )->orderBy('updated_at','desc')->get();
+        $data = $query->skip ( $start )->take ( $length )
+            ->orderBy('late','desc')
+            ->orderBy('updated_at','desc')
+            ->get();
+
         $col_data = [];
 
         foreach ($data as $col) {
             $col_data[] = [
                 'DT_RowData' => [
                     'rowid' => $col->id,
+                    'late' => $col->late,
                 ],
                 $col->contract_nr,
                 $col->contract_status,

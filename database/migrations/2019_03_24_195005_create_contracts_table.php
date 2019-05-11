@@ -25,6 +25,7 @@ class CreateContractsTable extends Migration
             $table->date('validity_value')->nullable();
             $table->boolean('validity_verbal')->default(0);
             $table->double('contract_value',2)->nullable();
+            $table->boolean('late')->default(0);
             $table->timestamps();
         });
     }

@@ -4,12 +4,30 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Artisan;
 
 class Invoice extends Model
 {
     protected $guarded = ['id'];
 
     protected $table = 'contract_invoices';
+
+    public static function boot()
+    {
+        parent::boot();
+
+        self::created(function($model){
+            Artisan::call('check:contracts');
+        });
+
+        self::updated(function($model){
+            Artisan::call('check:contracts');
+        });
+
+        self::deleted(function($model){
+            Artisan::call('check:contracts');
+        });
+    }
 
     public function setDueDateAttribute($value)
     {
