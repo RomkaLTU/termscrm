@@ -51,12 +51,24 @@ class ContractsController extends Controller
          * Contract created filter
          */
         if ( $request->contractsFrom ) {
-            $query->whereDate('created_at', '>=', $request->contractsFrom);
+            $query->whereDate('validity_value', '>=', $request->contractsFrom);
         }
 
         if ( $request->contractsTo ) {
-            $query->whereDate('created_at', '<=', $request->contractsTo);
+            $query->whereDate('validity_value', '<=', $request->contractsTo);
         }
+
+        $query->orWhere(function($q) use ($request){
+            if ( $request->contractsFrom ) {
+                $q->where('validity_extended', 1)
+                    ->whereDate('validity_extend_till_value','>=', $request->contractsFrom);
+            }
+
+            if ( $request->contractsTo ) {
+                $q->where('validity_extended', 1)
+                    ->whereDate('validity_extend_till_value','<=', $request->contractsTo);
+            }
+        });
 
         /**
          * Check if there is any unpaid invoices by given date range
@@ -148,9 +160,8 @@ class ContractsController extends Controller
 
     public function update( Contract $contract, Request $request )
     {
-
         try {
-            $contract->update( $request->except('_token','validity_extend_till','documents') );
+            $contract->update( $request->except('_token','documents') );
         } catch (\Exception $e) {
             Session::flash('error', $e->getMessage());
             return Redirect::back();

@@ -33,7 +33,8 @@
                     </div>
                     <div class="d-flex align-items-center">
                         <label class="kt-checkbox mb-0 mr-3">
-                            <input type="checkbox" name="validity_extend_till" v-model="formData.validity_extend_till" value="extend_till"> Pratęsti iki:
+                            <input type="hidden" name="validity_extended" value="0">
+                            <input type="checkbox" name="validity_extended" v-model="formData.validity_extended" value="1"> Pratęsti iki:
                             <span></span>
                         </label>
                         <div>
@@ -221,7 +222,7 @@
                     contract_value: ( this.contract ? this.contract.contract_value : null ),
                     validity: ( this.contract ? this.contract.validity : null ),
                     validity_value: ( this.contract ? this.contract.validity_value : null ),
-                    validity_extend_till: ( this.contract ? this.contract.validity_extend_till : null ),
+                    validity_extended: ( this.contract ? this.contract.validity_extended : null ),
                     validity_extend_till_value: ( this.contract ? this.contract.validity_extend_till_value : null ),
                     validity_verbal: ( this.contract ? this.contract.validity_verbal : 0 ),
                     contract_status: ( this.contract ? this.contract.contract_status : [] ),

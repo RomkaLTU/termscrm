@@ -20,9 +20,10 @@ class CreateContractsTable extends Migration
             $table->string('customer_address')->nullable();
             $table->enum('contract_status', ['galiojanti','sustabdyta','ivykdyta'])->default('galiojanti');
             $table->string('validity')->nullable();
+            $table->boolean('validity_extended')->default(0);
             $table->date('validity_extend_till_value')->nullable();
             $table->date('validity_value')->nullable();
-            $table->boolean('validity_verbal')->nullable();
+            $table->boolean('validity_verbal')->default(0);
             $table->double('contract_value',2)->nullable();
             $table->timestamps();
         });
