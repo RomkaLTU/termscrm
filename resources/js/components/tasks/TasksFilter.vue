@@ -41,17 +41,25 @@
                 </button>
             </div>
         </div>
+        <div v-if="supervisor" class="mt-4">
+            <strong>Atsakingas asmuo:</strong> {{ supervisor.name }} ({{ supervisor.duties }}) <a :href="`mailto:${supervisor.email}`">{{ supervisor.email }}</a>
+        </div>
+        <div v-if="ra && !supervisor" class="mt-4">
+            <strong>Atsakingas asmuo nepriskirtas. <a :href="`/contracts/${contract.id}/objects/${object.id}/edit`">Priskirta čia</a>.</strong>
+        </div>
     </form>
 </template>
 
 <script>
     export default {
         name: 'tasks-filter',
-        props: ['research_areas'],
+        props: ['research_areas','supervisors','contract','object'],
         data(){
             return {
                 dateFrom: null,
                 dateTo: null,
+                ra: false,
+                supervisor: false,
             }
         },
         mounted(){
@@ -76,6 +84,15 @@
 
                 const $table = $('#dtable');
                 const model = $table.data('model');
+
+                // Gaunam atsakinga asmeni
+                if ( typeof this.supervisors[researchArea.value] !== "undefined" ) {
+                    this.supervisor = this.supervisors[researchArea.value];
+                } else {
+                    this.supervisor = false;
+                }
+
+                this.ra = ( researchArea.value === "" ? false : researchArea.value );
 
                 if ($.fn.DataTable.isDataTable('#dtable')) {
                     $table.DataTable().destroy();

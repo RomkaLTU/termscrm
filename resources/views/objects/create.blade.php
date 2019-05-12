@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('footer-js')
+    <script src="{{ asset('js/objects.js') }}"></script>
+@endsection
+
 @section('content')
     @include('partials.notifications')
     <div>
@@ -14,7 +18,10 @@
                     </div>
                 </div>
                 <div class="kt-portlet__body">
-                    <object-fields :research_areas="{{ json_encode($research_areas) }}"></object-fields>
+                    <object-fields
+                        :users="{{ $users }}"
+                        :research_areas="{{ $research_areas }}">
+                    </object-fields>
                 </div>
                 <div class="kt-portlet__foot">
                     <div class="row align-items-center">

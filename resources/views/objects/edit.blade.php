@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('footer-js')
+    <script src="{{ asset('js/objects.js') }}"></script>
+@endsection
+
 @section('content')
     <div>
         @include('partials.notifications')
@@ -32,16 +36,18 @@
                     <object-fields
                         :contract="{{ $contract }}"
                         :obj="{{ $obj }}"
+                        :users="{{ $users }}"
+                        :supervisors="{{ json_encode($supervisors) }}"
                         :documents="{{ json_encode($documents) }}"
-                        :research_area="{{ json_encode($research_area) }}"
-                        :research_areas="{{ json_encode($research_areas) }}">
+                        :research_area="{{ $research_area }}"
+                        :research_areas="{{ $research_areas }}">
                     </object-fields>
                 </div>
                 <div class="kt-portlet__foot">
                     <div class="row align-items-center">
                         <div class="col-lg-12">
                             <button type="submit" class="btn btn-success">{{ __('Atnaujinti') }}</button>
-                            <a href="{{ route('contracts.index') }}" class="btn btn-secondary">{{ __('Nutraukti') }}</a>
+                            <a href="{{ route('contracts.objects.index',[$contract->id,$obj->id]) }}" class="btn btn-secondary">{{ __('Nutraukti') }}</a>
                         </div>
                     </div>
                 </div>

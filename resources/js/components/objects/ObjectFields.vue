@@ -22,10 +22,20 @@
             <div class="form-group">
                 <label>Tyrimo sritys</label>
                 <div class="kt-checkbox-inline mt-2">
-                    <label class="kt-checkbox" v-for="ra in research_areas" :key="`ra_${ra.id}`">
-                        <input type="checkbox" name="research_area[]" v-model="formData.research_area" :value="ra.id"> {{ ra.name }}
-                        <span></span>
-                    </label>
+                    <div class="research-area-type" v-for="ra in research_areas" :key="`ra_${ra.id}`">
+                        <label class="kt-checkbox mb-0">
+                            <input type="checkbox" name="research_area[]" v-model="formData.research_area" :value="ra.id"> {{ ra.name }}
+                            <span></span>
+                        </label>
+                        <div class="user-select-wrap">
+                            <select class="form-control m-select2 research_areas_users" :name="`ra_supervisor[${ra.id}]`">
+                                <option value=""></option>
+                                <option :value="user.id" :selected="(supervisors && supervisors[ra.id] === user.id)"  v-for="user in users" :key="`user_${ra.id}_${user.id}`">
+                                    {{ user.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,8 +61,15 @@
 
     export default {
         name: 'obj-fields',
-        props: ['obj','research_areas','research_area','contract','documents'],
-
+        props: [
+            'obj',
+            'research_areas',
+            'research_area',
+            'contract',
+            'documents',
+            'users',
+            'supervisors'
+        ],
         data() {
             return {
                 en: en,
@@ -80,7 +97,6 @@
             'datepicker': Datepicker,
             'vueDropzone': vue2Dropzone,
         },
-
         mounted() {
             this.files = (typeof this.documents !== 'undefined' ? this.documents : []);
             if ( this.files ) {
@@ -89,7 +105,6 @@
                 } );
             }
         },
-
         methods: {
             fileUploaded(file, response) {
                 this.files.push(response);
@@ -107,3 +122,19 @@
         }
     }
 </script>
+
+<style lang="scss">
+    .user-select-wrap {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .research-area-type {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 470px;
+        margin-bottom: 1rem;
+    }
+</style>

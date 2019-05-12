@@ -16,7 +16,7 @@ class Obj extends Model implements HasMedia
 
     public function researchAreas()
     {
-        return $this->belongsToMany( ResearchArea::class );
+        return $this->belongsToMany( ResearchArea::class )->withPivot('user_id');
     }
 
     public function contract()

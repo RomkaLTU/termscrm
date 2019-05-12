@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contract;
 use App\Obj;
 use App\ResearchArea;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -84,23 +85,25 @@ class ObjsController extends Controller
     {
         return view('objects.create', [
             'contract' => $contract,
+            'users' => User::all(),
             'research_areas' => ResearchArea::all(),
         ]);
     }
 
     public function store( Request $request, Contract $contract )
     {
-        try {
+        $obj = Obj::create( $request->except('_token', 'research_area', 'ra_supervisor') );
 
-            $obj = Obj::create( $request->except('_token', 'research_area') );
+        $contract->objs()->attach( $obj->id );
 
-            $obj->researchAreas()->attach( $request->research_area );
-            $contract->objs()->attach( $obj->id );
-            $this->attachMedia($obj, $request);
-
-        } catch (\Exception $e) {
-            echo $e->getMessage();
+        $ra_users_arr = [];
+        foreach ($request->research_area as $ra) {
+            $ra_users_arr[$ra] = ['user_id' => $request->ra_supervisor[$ra]];
         }
+
+        $obj->researchAreas()->attach($ra_users_arr);
+
+        $this->attachMedia($obj, $request);
 
         $objects_list_url = route('contracts.objects.index', $contract->id);
 
@@ -124,11 +127,20 @@ class ObjsController extends Controller
             ];
         }
 
+        $ras = $object->researchAreas->pluck('pivot');
+
+        $supervisors = [];
+        foreach ($ras as $ra) {
+            $supervisors[$ra->research_area_id] = $ra->user_id;
+        }
+
         return view('objects.edit', [
             'contract' => $contract,
             'obj' => $object,
+            'users' => User::all(),
+            'supervisors' => $supervisors,
             'documents' => $documents,
-            'research_area' => $object->researchAreas->pluck('id'),
+            'research_area' => $ras->pluck('research_area_id'),
             'research_areas' => ResearchArea::all(),
         ]);
     }
@@ -141,7 +153,12 @@ class ObjsController extends Controller
             echo $e->getMessage();
         }
 
-        $object->researchAreas()->sync($request->research_area);
+        $ra_users_arr = [];
+        foreach ($request->research_area as $ra) {
+            $ra_users_arr[$ra] = ['user_id' => $request->ra_supervisor[$ra]];
+        }
+
+        $object->researchAreas()->sync($ra_users_arr);
 
         $this->attachMedia($object, $request);
 

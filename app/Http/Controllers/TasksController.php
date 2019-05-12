@@ -7,6 +7,7 @@ use App\Obj;
 use App\ObjTask;
 use App\ResearchArea;
 use App\TaskParam;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -25,11 +26,19 @@ class TasksController extends Controller
 
     public function index( Contract $contract, Obj $object )
     {
+        $supervisors = [];
+        foreach ( $object->researchAreas->pluck('pivot')->pluck('user_id','research_area_id') as $ra_id => $user_id ) {
+            if ( $user_id ) {
+                $supervisors[$ra_id] = User::find($user_id);
+            }
+        }
+
         return view('tasks.index', [
             'contract' => $contract,
             'obj' => $object,
             'tasks' => ObjTask::where('contract_id', $contract->id)->where('object_id', $object->id)->get(),
             'research_areas' => ResearchArea::all(),
+            'supervisors' => $supervisors,
         ]);
     }
 

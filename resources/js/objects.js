@@ -7,8 +7,15 @@
         const model = $table.data('model');
         const $save_visited = $('#save_visited');
         const $visited_count = $('#visited_count');
+        const $research_areas_users = $('.research_areas_users');
         let checkedVisits = [];
         let contractid = false;
+
+        if ( $research_areas_users.length ) {
+            $research_areas_users.select2({
+                placeholder: 'Pasirinkite vartotoją',
+            });
+        }
 
         $(document).on('change','.visited',function(){
             if ( this.checked ) {
