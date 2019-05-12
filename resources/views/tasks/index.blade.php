@@ -35,6 +35,7 @@
             </div>
         </div>
         <div class="kt-portlet__body">
+            <tasks-filter :research_areas="{{ $research_areas }}"></tasks-filter>
             <table data-model="tasks" class="table table-md table-hover table-checkable" id="dtable">
                 <thead>
                 <tr>

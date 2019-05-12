@@ -92,63 +92,48 @@
             });
         }
 
-        if ( $table.length ) {
-            $table.DataTable({
-                'ajax': `${model}/json`,
-                'processing': true,
-                'serverSide': true,
-                'responsive': true,
-                'searching': true,
-                'dom': `<'row'<'col-sm-12'tr>>
-			<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
-                'lengthMenu': [5, 10, 25, 50],
-                'pageLength': 10,
-                'order': [],
-                'language': {
-                    'lengthMenu': 'Rodyti _MENU_',
-                },
-                'columnDefs': [
-                    {
-                        'targets': -6,
-                        'orderable': false,
-                        'type':'html',
-                        'render': function (data, type, row) {
-                            if ( data ) {
-                                const params_arr = data.split(', ');
-                                let html = '';
+        let columnDefs = [
+            {
+                'targets': 3,
+                'orderable': false,
+                'type':'html',
+                'render': function (data) {
+                    if ( data ) {
+                        const params_arr = data.split(', ');
+                        let html = '';
 
-                                params_arr.forEach((param) => {
-                                    html += `<span class="kt-badge kt-badge--primary kt-badge--md kt-badge--inline kt-badge--pill mr-1">${param}</span>`;
-                                });
+                        params_arr.forEach((param) => {
+                            html += `<span class="kt-badge kt-badge--primary kt-badge--md kt-badge--inline kt-badge--pill mr-1">${param}</span>`;
+                        });
 
-                                return html;
-                            } else {
-                                return null;
-                            }
-                        }
-                    },
-                    {
-                        'targets': -3,
-                        'title': 'Pažymėti darbus',
-                        'orderable': false,
-                        'className': 'text-center',
-                        'type':'html',
-                        'render': function (data, type, row) {
-                            return `
+                        return html;
+                    } else {
+                        return null;
+                    }
+                }
+            },
+            {
+                'targets': -3,
+                'title': 'Pažymėti darbus',
+                'orderable': false,
+                'className': 'text-center',
+                'type':'html',
+                'render': function (data, type, row) {
+                    return `
                             <label class="kt-checkbox">
                                 <input class="completed" type="checkbox" name="completed[]" value="${row.DT_RowData.taskid}"> &nbsp;
                                 <span></span>
                             </label>
                         `;
-                        },
-                    },
-                    {
-                        'targets': -2,
-                        'title': 'Istorija',
-                        'orderable': false,
-                        'type':'html',
-                        'render': function (data, type, row) {
-                            return `
+                },
+            },
+            {
+                'targets': -2,
+                'title': 'Istorija',
+                'orderable': false,
+                'type':'html',
+                'render': function (data, type, row) {
+                    return `
                             <button data-toggle="modal" 
                                 data-contractid="${row.DT_RowData.contractid}" 
                                 data-objectid="${row.DT_RowData.objectid}" 
@@ -157,16 +142,16 @@
                                 Peržiūreti
                             </button>
                         `;
-                        },
-                    },
-                    {
-                        'targets': -1,
-                        'title': 'Veiksmai',
-                        'orderable': false,
-                        'className': 'nowrap',
-                        'type':'html',
-                        'render': function (data, type, row) {
-                            return `
+                },
+            },
+            {
+                'targets': -1,
+                'title': 'Veiksmai',
+                'orderable': false,
+                'className': 'nowrap',
+                'type':'html',
+                'render': function (data, type, row) {
+                    return `
                             <div class="d-flex">
                                 <a href="/contracts/${row.DT_RowData.contractid}/objects/${row.DT_RowData.objectid}/tasks/${row.DT_RowData.taskid}/edit" data-toggle="confirmation" class="btn btn-sm btn-clean btn-icon btn-icon-md">
                                     <i class="la la-edit"></i>
@@ -194,9 +179,26 @@
                                 </div>
                             </div>
                         `;
-                        }
-                    },
-                ],
+                }
+            },
+        ];
+
+        if ( $table.length ) {
+            $table.DataTable({
+                'ajax': `${model}/json`,
+                'processing': true,
+                'serverSide': true,
+                'responsive': true,
+                'searching': true,
+                'dom': `<'row'<'col-sm-12'tr>>
+			<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
+                'lengthMenu': [5, 10, 25, 50],
+                'pageLength': 10,
+                'order': [],
+                'language': {
+                    'lengthMenu': 'Rodyti _MENU_',
+                },
+                'columnDefs': columnDefs,
             });
         }
     });

@@ -29,6 +29,7 @@ class TasksController extends Controller
             'contract' => $contract,
             'obj' => $object,
             'tasks' => ObjTask::where('contract_id', $contract->id)->where('object_id', $object->id)->get(),
+            'research_areas' => ResearchArea::all(),
         ]);
     }
 
@@ -54,6 +55,21 @@ class TasksController extends Controller
                 $orderDirection = $request->input ( 'order.0.dir' );
                 $query->orderBy ( $this->columns[intval($orderColumn)], $orderDirection );
             }
+        }
+
+        if ( !empty($request->researchArea) ) {
+            $query->where('research_area_id',$request->researchArea);
+        }
+
+        /*
+         * Tasks by date filter
+         */
+        if ( $request->tasksFrom ) {
+            $query->whereDate('due_date', '>=', $request->tasksFrom);
+        }
+
+        if ( $request->tasksTo ) {
+            $query->whereDate('due_date', '<=', $request->tasksTo);
         }
 
         $data = $query->skip ( $start )->take ( $length )->orderBy('updated_at','desc')->get();

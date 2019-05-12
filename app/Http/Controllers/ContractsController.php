@@ -50,7 +50,7 @@ class ContractsController extends Controller
         }
 
         /*
-         * Contract created filter
+         * Contract by date filter
          */
         if ( $request->contractsFrom ) {
             $query->whereDate('validity_value', '>=', $request->contractsFrom);
