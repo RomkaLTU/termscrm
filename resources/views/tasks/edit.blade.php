@@ -24,6 +24,7 @@
                         :task="{{ $task }}"
                         :contract="{{ $contract }}"
                         :task_params="{{ $task_params }}"
+                        :task_params_selected="{{ $task_params_selected }}"
                         :research_area="{{ json_encode($research_area) }}"
                         :research_areas="{{ json_encode($research_areas) }}"
                     />

@@ -24,6 +24,7 @@
                         :obj="{{ $obj }}"
                         :research_areas="{{ $research_areas }}"
                         :task_params="{{ $task_params }}"
+                        :task_params_selected="[]"
                         :contract="{{ $contract }}"/>
                 </div>
                 <div class="kt-portlet__foot">

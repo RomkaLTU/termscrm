@@ -29,7 +29,12 @@
                     <label for="task_params">Parametrai</label>
                     <select id="task_params" class="form-control m-select2 select2_task_params" multiple name="task_params[]">
                         <option></option>
-                        <option v-for="param in task_params" :key="`param_${param.id}`" :value="param.id">{{ param.name }}</option>
+                        <option
+                            v-for="param in task_params"
+                            :selected="task_params_selected.some( (id) => id === param.id )"
+                            :key="`param_${param.id}`"
+                            :value="param.id">{{ param.name }}
+                        </option>
                     </select>
                 </div>
             </div>
@@ -139,7 +144,17 @@
 
     export default {
         name: 'task-fields',
-        props: ['obj','research_areas','research_area','contract','documents','task','task_params','task_params_groups'],
+        props: [
+            'obj',
+            'research_areas',
+            'research_area',
+            'contract',
+            'documents',
+            'task',
+            'task_params',
+            'task_params_groups',
+            'task_params_selected'
+        ],
         data() {
             return {
                 en: en,

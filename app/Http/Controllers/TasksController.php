@@ -36,6 +36,10 @@ class TasksController extends Controller
     {
         $query = ObjTask::where('contract_id', $contract->id)->where('object_id', $object->id);
 
+        if ( empty($request->all()) ) {
+            return $query->get();
+        }
+
         $recordsTotal = $query->count();
         $recordsFiltered = $recordsTotal;
         $start = $request->input( 'start' );
@@ -64,10 +68,10 @@ class TasksController extends Controller
                 ],
                 $col->id,
                 $col->name,
+                $col->due_date,
+                $col->taskParams->pluck('name')->implode(', '),
                 $col->notes_1,
                 $col->notes_2,
-                '',
-                '',
             ];
         }
 
@@ -91,6 +95,22 @@ class TasksController extends Controller
         ]);
     }
 
+    public function edit( Contract $contract, Obj $object, ObjTask $task )
+    {
+        $documents = [];
+
+        return view('tasks.edit', [
+            'contract' => $contract,
+            'obj' => $object,
+            'documents' => $documents,
+            'task' => $task,
+            'research_area' => $task->research_area_id,
+            'research_areas' => ResearchArea::all(),
+            'task_params_selected' => $task->taskParams->pluck('id'),
+            'task_params' => TaskParam::all(),
+        ]);
+    }
+
     public function store( Request $request )
     {
         try {
@@ -104,6 +124,8 @@ class TasksController extends Controller
 
         }
 
+        $task->taskParams()->sync( $this->task_params($request) );
+
         $tasks_list_url = route('contracts.objects.tasks.index', [$request->contract_id, $request->object_id]);
 
         Session::flash('message', 'Užduotis sukurta.');
@@ -112,26 +134,11 @@ class TasksController extends Controller
         return Redirect::back();
     }
 
-    public function edit( Contract $contract, Obj $object, ObjTask $task )
-    {
-        $documents = [];
-
-        return view('tasks.edit', [
-            'contract' => $contract,
-            'obj' => $object,
-            'documents' => $documents,
-            'task' => $task,
-            'research_area' => $task->research_area_id,
-            'research_areas' => ResearchArea::all(),
-            'task_params' => TaskParam::all(),
-        ]);
-    }
-
     public function update( Request $request, Contract $contract, Obj $object, ObjTask $task )
     {
         try {
 
-            $task->update($request->except('_method','_token'));
+            $task->update($request->except('_method','_token','task_params'));
 
         } catch (\Exception $e) {
 
@@ -139,6 +146,8 @@ class TasksController extends Controller
             return Redirect::back();
 
         }
+
+        $task->taskParams()->sync( $this->task_params($request) );
 
         Session::flash('message', 'Užduotis atnaujinta');
 
@@ -151,5 +160,28 @@ class TasksController extends Controller
 
         Session::flash('message', 'Užduotis ' . $task->name . ' ištrinta!');
         return Redirect::back();
+    }
+
+    /**
+     * Check if all values is integers
+     * If not, new tag was just created, get that tag ID
+     * @param $request
+     * @return array
+     */
+    private function task_params( $request )
+    {
+        $task_params = [];
+        foreach ($request->task_params as $task_param) {
+            if ( is_numeric($task_param) ) {
+                $task_params[] = $task_param;
+            } else {
+                $found_task_param = TaskParam::whereName($task_param)->first();
+                if ( $found_task_param ) {
+                    $task_params[] = $found_task_param->id;
+                }
+            }
+        }
+
+        return $task_params;
     }
 }
