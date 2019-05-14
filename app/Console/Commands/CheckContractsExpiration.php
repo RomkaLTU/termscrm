@@ -42,13 +42,15 @@ class CheckContractsExpiration extends Command
     {
         // Get contracts wich DDL is less then 2 months
         $all_contract_ids = Contract::all()->pluck('id')->toArray();
-        $query_valid_contracts = Contract::whereContractStatus('galiojanti');
 
-        $late_query = $query_valid_contracts->where(function($q){
+        $late_query = Contract::whereContractStatus('galiojanti')->where(function($q){
                 $q->orWhereBetween('validity_value', [ Carbon::now(), Carbon::now()->addMonth(2) ]);
                 $q->orWhere(function($qq){
                     $qq->whereValidityExtended(1)
                         ->whereBetween('validity_extend_till_value', [ Carbon::now(), Carbon::now()->addMonth(2) ]);
+                });
+                $q->orWhere(function($qq){
+                    $qq->whereDate('validity_value','<=', Carbon::now());
                 });
             })
             ->orWhereHas('invoices', function($q) {
