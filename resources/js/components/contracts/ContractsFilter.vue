@@ -103,6 +103,11 @@
                     language: {
                         'lengthMenu': 'Rodyti _MENU_',
                     },
+                    rowCallback: function(row, data) {
+                        if ( data.DT_RowData.late ) {
+                            $(row).addClass('table-warning');
+                        }
+                    },
                     columnDefs: [
                         {
                             targets: -1,

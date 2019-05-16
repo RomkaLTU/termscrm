@@ -108,8 +108,6 @@ class ContractsController extends Controller
                 $col->validity_value,
                 $col->validity_extend_till_value,
                 str_replace('.00','',money_format('%i', $col->contract_value)),
-                $col->created_at,
-                $col->updated_at,
             ];
         }
 

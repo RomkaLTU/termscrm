@@ -40,10 +40,8 @@
                     <th>{{ __('Statusas') }}</th>
                     <th>{{ __('Galioja iki') }}</th>
                     <th>{{ __('Pratęsimas iki') }}</th>
-                    <th>{{ __('Suma €') }}</th>
-                    <th>{{ __('Sukurta') }}</th>
-                    <th>{{ __('Atnaujinta') }}</th>
-                    <th></th>
+                    <th style="width:100px">{{ __('Suma €') }}</th>
+                    <th style="width:100px"></th>
                 </tr>
                 </thead>
             </table>

@@ -5,27 +5,35 @@
         const model = $table.data('model');
 
         $table.DataTable({
-            responsive: true,
-            searching: true,
-            dom: `<'row'<'col-sm-12'tr>>
+            'processing': true,
+            'serverSide': true,
+            'deferRender': true,
+            'ajax': `${model}/json`,
+            'responsive': true,
+            'searching': true,
+            'dom': `<'row'<'col-sm-12'tr>>
 			<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
-            lengthMenu: [5, 10, 25, 50],
-            pageLength: 10,
-            order: [],
-            language: {
+            'lengthMenu': [5, 10, 25, 50],
+            'pageLength': 10,
+            'order': [],
+            'language': {
                 'lengthMenu': 'Rodyti _MENU_',
             },
-            rowCallback: function(row, data) {
+            'rowCallback': function(row, data) {
                 if ( data.DT_RowData.late ) {
                     $(row).addClass('table-warning');
                 }
             },
-            columnDefs: [
+            'columnDefs': [
                 {
-                    targets: -1,
-                    title: 'Veiksmai',
-                    orderable: false,
-                    className: 'nowrap',
+                    'targets': -2,
+                    'className': 'w-100px',
+                },
+                {
+                    'targets': -1,
+                    'title': 'Veiksmai',
+                    'orderable': false,
+                    'className': 'nowrap w-100px',
                     'type':'html',
                     'render': function (data, type, row) {
                         return `
@@ -59,10 +67,6 @@
                     }
                 },
             ],
-            'processing': true,
-            'serverSide': true,
-            deferRender: true,
-            'ajax': `${model}/json`,
         });
 
     });

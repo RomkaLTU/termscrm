@@ -55,15 +55,15 @@
             <label>Sutarties statusas</label>
             <div class="kt-radio-inline mt-2">
                 <label class="kt-radio">
-                    <input type="radio" name="contract_status" v-model="formData.contract_status" value="galiojanti"> Galiojanti
+                    <input type="radio" name="contract_status" v-model="formData.contract_status" value="Galiojanti"> Galiojanti
                     <span></span>
                 </label>
                 <label class="kt-radio">
-                    <input type="radio" name="contract_status" v-model="formData.contract_status" value="sustabdyta"> Sustabdyta
+                    <input type="radio" name="contract_status" v-model="formData.contract_status" value="Sustabdyta"> Sustabdyta
                     <span></span>
                 </label>
                 <label class="kt-radio">
-                    <input type="radio" name="contract_status" v-model="formData.contract_status" value="ivykdyta"> Įvykdyta
+                    <input type="radio" name="contract_status" v-model="formData.contract_status" value="Įvykdyta"> Įvykdyta
                     <span></span>
                 </label>
             </div>

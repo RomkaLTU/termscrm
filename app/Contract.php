@@ -48,6 +48,37 @@ class Contract extends Model implements HasMedia
         return $this->belongsToMany( Obj::class );
     }
 
+    public function getValidityExtendTillValueAttribute($value)
+    {
+        if ( !empty($value) && empty($this->validity_extended) ) {
+            return $value . ' (neaktyvi)';
+        }
+
+        return $value;
+    }
+
+    public function getContractStatusAttribute($value)
+    {
+        $label = $value;
+
+        switch ($value)
+        {
+            case 'sustabdyta':
+                $label = 'Sustabdyta';
+                break;
+            case 'ivykdyta':
+                $label = 'Įvykdyta';
+                break;
+        }
+
+        return ( $this->validity == 'unlimited' ? 'Neterminuota' : ucfirst($label) );
+    }
+
+    public function getValidityValueAttribute($value)
+    {
+        return ( $this->validity == 'unlimited' ? '-' : $value );
+    }
+
     public function getCreatedAtAttribute($value)
     {
         return date('Y-m-d H:i:s', strtotime($value));

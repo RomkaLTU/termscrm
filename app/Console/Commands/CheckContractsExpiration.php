@@ -44,13 +44,17 @@ class CheckContractsExpiration extends Command
         $all_contract_ids = Contract::all()->pluck('id')->toArray();
 
         $late_query = Contract::whereContractStatus('galiojanti')->where(function($q){
-                $q->orWhereBetween('validity_value', [ Carbon::now(), Carbon::now()->addMonth(2) ]);
+                $q->orWhere(function($qq){
+                    $qq->whereValidityExtended(0)
+                        ->whereBetween('validity_value', [ Carbon::now(), Carbon::now()->addMonth(2) ]);
+                });
                 $q->orWhere(function($qq){
                     $qq->whereValidityExtended(1)
                         ->whereBetween('validity_extend_till_value', [ Carbon::now(), Carbon::now()->addMonth(2) ]);
                 });
                 $q->orWhere(function($qq){
-                    $qq->whereDate('validity_value','<=', Carbon::now());
+                    $qq->whereValidityExtended(0)
+                        ->whereDate('validity_value','<=', Carbon::now());
                 });
             })
             ->orWhereHas('invoices', function($q) {
