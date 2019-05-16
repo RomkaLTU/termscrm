@@ -31,7 +31,7 @@
                             <datepicker v-model="formData.validity_value" :monday-first="true" input-class="form-control" format="yyyy-MM-dd" :language="lt" placeholder="Galioja iki..." name="validity_value"></datepicker>
                         </div>
                     </div>
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center" v-if="formData.validity !== 'unlimited'">
                         <label class="kt-checkbox mb-0 mr-3">
                             <input type="hidden" name="validity_extended" value="0">
                             <input type="checkbox" name="validity_extended" v-model="formData.validity_extended" value="1"> Pratęsti iki:
@@ -55,15 +55,15 @@
             <label>Sutarties statusas</label>
             <div class="kt-radio-inline mt-2">
                 <label class="kt-radio">
-                    <input type="radio" name="contract_status" v-model="formData.contract_status" value="Galiojanti"> Galiojanti
+                    <input type="radio" name="contract_status" v-model="formData.contract_status" value="galiojanti"> Galiojanti
                     <span></span>
                 </label>
                 <label class="kt-radio">
-                    <input type="radio" name="contract_status" v-model="formData.contract_status" value="Sustabdyta"> Sustabdyta
+                    <input type="radio" name="contract_status" v-model="formData.contract_status" value="sustabdyta"> Sustabdyta
                     <span></span>
                 </label>
                 <label class="kt-radio">
-                    <input type="radio" name="contract_status" v-model="formData.contract_status" value="Įvykdyta"> Įvykdyta
+                    <input type="radio" name="contract_status" v-model="formData.contract_status" value="ivykdyta"> Įvykdyta
                     <span></span>
                 </label>
             </div>

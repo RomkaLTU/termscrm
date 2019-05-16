@@ -104,7 +104,7 @@ class ContractsController extends Controller
                     'late' => $col->late,
                 ],
                 $col->contract_nr,
-                $col->contract_status,
+                ucfirst($col->contract_status),
                 $col->validity_value,
                 $col->validity_extend_till_value,
                 str_replace('.00','',money_format('%i', $col->contract_value)),

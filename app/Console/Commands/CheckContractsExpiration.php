@@ -50,6 +50,7 @@ class CheckContractsExpiration extends Command
                 });
                 $q->orWhere(function($qq){
                     $qq->whereValidityExtended(1)
+                        ->whereNotNull('validity_extend_till_value')
                         ->whereBetween('validity_extend_till_value', [ Carbon::now(), Carbon::now()->addMonth(2) ]);
                 });
                 $q->orWhere(function($qq){

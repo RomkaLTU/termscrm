@@ -50,6 +50,10 @@ class Contract extends Model implements HasMedia
 
     public function getValidityExtendTillValueAttribute($value)
     {
+        if ( $this->validity == 'unlimited' ) {
+            return 'neterminuota';
+        }
+
         if ( !empty($value) && empty($this->validity_extended) ) {
             return $value . ' (neaktyvi)';
         }
@@ -57,26 +61,9 @@ class Contract extends Model implements HasMedia
         return $value;
     }
 
-    public function getContractStatusAttribute($value)
-    {
-        $label = $value;
-
-        switch ($value)
-        {
-            case 'sustabdyta':
-                $label = 'Sustabdyta';
-                break;
-            case 'ivykdyta':
-                $label = 'Įvykdyta';
-                break;
-        }
-
-        return ( $this->validity == 'unlimited' ? 'Neterminuota' : ucfirst($label) );
-    }
-
     public function getValidityValueAttribute($value)
     {
-        return ( $this->validity == 'unlimited' ? '-' : $value );
+        return ( $this->validity == 'unlimited' ? 'neterminuota' : $value );
     }
 
     public function getCreatedAtAttribute($value)
