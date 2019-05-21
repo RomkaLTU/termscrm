@@ -198,6 +198,11 @@
                 'language': {
                     'lengthMenu': 'Rodyti _MENU_',
                 },
+                'rowCallback': function(row, data) {
+                    if ( data.DT_RowData.special ) {
+                        $(row).addClass('table-success');
+                    }
+                },
                 'columnDefs': columnDefs,
             });
         }

@@ -90,6 +90,7 @@ class TasksController extends Controller
                     'taskid' => $col->id,
                     'objectid' => $object->id,
                     'contractid' => $contract->id,
+                    'special' => $col->special_task,
                 ],
                 $col->id,
                 $col->name,
@@ -196,13 +197,16 @@ class TasksController extends Controller
     private function task_params( $request )
     {
         $task_params = [];
-        foreach ($request->task_params as $task_param) {
-            if ( is_numeric($task_param) ) {
-                $task_params[] = $task_param;
-            } else {
-                $found_task_param = TaskParam::whereName($task_param)->first();
-                if ( $found_task_param ) {
-                    $task_params[] = $found_task_param->id;
+
+        if ( $request->task_params ) {
+            foreach ($request->task_params as $task_param) {
+                if ( is_numeric($task_param) ) {
+                    $task_params[] = $task_param;
+                } else {
+                    $found_task_param = TaskParam::whereName($task_param)->first();
+                    if ( $found_task_param ) {
+                        $task_params[] = $found_task_param->id;
+                    }
                 }
             }
         }
