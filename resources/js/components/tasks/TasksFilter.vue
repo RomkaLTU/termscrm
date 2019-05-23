@@ -83,6 +83,7 @@
                 const tasksTo = document.getElementById('tasksTo');
 
                 const $table = $('#dtable');
+                const $table2 = $('#dtable2');
                 const model = $table.data('model');
 
                 // Gaunam atsakinga asmeni
@@ -98,7 +99,12 @@
                     $table.DataTable().destroy();
                 }
 
+                if ($.fn.DataTable.isDataTable('#dtable2')) {
+                    $table2.DataTable().destroy();
+                }
+
                 $('#dtable tbody').empty();
+                $('#dtable2 tbody').empty();
 
                 let columnDefs = [
                     {
@@ -222,6 +228,37 @@
                     },
                     'columnDefs': columnDefs,
                 });
+
+                if ( researchArea.value === '4'  ) {
+                    $table2.show();
+                    $table2.DataTable({
+                        ajax: {
+                            url: `${model}/json`,
+                            data: {
+                                tasksFrom: tasksFrom.value,
+                                tasksTo: tasksTo.value,
+                                researchArea: researchArea.value,
+                                ecog: true,
+                            }
+                        },
+                        'processing': true,
+                        'serverSide': true,
+                        'responsive': true,
+                        'searching': true,
+                        'deferRender': true,
+                        'dom': `<'row'<'col-sm-12'tr>>
+			<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
+                        'lengthMenu': [5, 10, 25, 50],
+                        'pageLength': 10,
+                        'order': [],
+                        'language': {
+                            'lengthMenu': 'Rodyti _MENU_',
+                        },
+                        'columnDefs': columnDefs,
+                    });
+                } else {
+                    $table2.hide();
+                }
             },
         },
     }

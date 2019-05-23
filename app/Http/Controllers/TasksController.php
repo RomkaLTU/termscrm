@@ -45,13 +45,24 @@ class TasksController extends Controller
     public function json( Request $request, Contract $contract, Obj $object )
     {
         $query = ObjTask::where('contract_id', $contract->id)->where('object_id', $object->id);
+        $query_ecog = ObjTask::where('contract_id', $contract->id)->where('object_id', $object->id);
+
+        if ( $request->researchArea == 4 ) {
+            $query->where('ecog','0')->where('research_area_id', '4');
+        }
+
+        if ( $request->ecog ) {
+            $query_ecog = $query_ecog->where('ecog','1');
+        }
 
         if ( empty($request->all()) ) {
             return $query->get();
         }
 
         $recordsTotal = $query->count();
+        $recordsTotalEcog = $query_ecog->count();
         $recordsFiltered = $recordsTotal;
+        $recordsFilteredEcog = $recordsTotalEcog;
         $start = $request->input( 'start' );
         $length = $request->input( 'length' );
 
@@ -82,7 +93,9 @@ class TasksController extends Controller
         }
 
         $data = $query->skip ( $start )->take ( $length )->orderBy('updated_at','desc')->get();
+
         $col_data = [];
+        $col_data_ecog = [];
 
         foreach ($data as $col) {
             $col_data[] = [
@@ -101,14 +114,42 @@ class TasksController extends Controller
             ];
         }
 
-        $response = [
+        /**
+         * 2 lenteles tame paciame viewse
+         */
+        if ( $request->ecog ) {
+            $data_ecog = $query_ecog->skip ( $start )->take ( $length )->orderBy('updated_at','desc')->get();
+            foreach ($data_ecog as $col) {
+                $col_data_ecog[] = [
+                    'DT_RowData' => [
+                        'taskid' => $col->id,
+                        'objectid' => $object->id,
+                        'contractid' => $contract->id,
+                        'special' => $col->special_task,
+                    ],
+                    $col->id,
+                    $col->name,
+                    $col->due_date,
+                    $col->taskParams->pluck('name')->implode(', '),
+                    $col->notes_1,
+                    $col->notes_2,
+                ];
+            }
+
+            return [
+                'draw' => intval( $request->input( 'draw' ) ),
+                'recordsTotal' => $recordsTotalEcog,
+                'recordsFiltered' => $recordsFilteredEcog,
+                "data" => $col_data_ecog,
+            ];
+        }
+
+        return [
             'draw' => intval( $request->input( 'draw' ) ),
             'recordsTotal' => $recordsTotal,
             'recordsFiltered' => $recordsFiltered,
             "data" => $col_data,
         ];
-
-        return $response;
     }
 
     public function create( Contract $contract, Obj $object )

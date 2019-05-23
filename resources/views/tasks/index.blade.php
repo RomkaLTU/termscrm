@@ -56,6 +56,24 @@
                 </tr>
                 </thead>
             </table>
+
+            <div class="mb-5 mt-5"></div>
+
+            <table data-model="tasks" class="table table-md table-hover table-checkable" style="display: none" id="dtable2">
+                <thead>
+                <tr>
+                    <th>{{ __('Nr.') }}</th>
+                    <th>{{ __('Darbai/Monitoringas') }}</th>
+                    <th>{{ __('Atlikti iki') }}</th>
+                    <th>{{ __('Parametrai') }}</th>
+                    <th>{{ __('Pastabos 1') }}</th>
+                    <th>{{ __('Pastabos 2') }}</th>
+                    <th>{{ __('Pažymėti darbus') }}</th>
+                    <th>{{ __('Istorija') }}</th>
+                    <th></th>
+                </tr>
+                </thead>
+            </table>
         </div>
     </div>
 
