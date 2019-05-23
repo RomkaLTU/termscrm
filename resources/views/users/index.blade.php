@@ -6,7 +6,7 @@
 
 @section('footer-js')
     <script src="{{ asset('assets/vendors/custom/datatables/datatables.min.js') }}"></script>
-    <script src="{{ asset('js/dt-custom-init.js') }}"></script>
+    <script src="{{ asset('js/users.js') }}"></script>
 @endsection
 
 @section('content')
@@ -41,6 +41,7 @@
                     <th>{{ __('Rolės') }}</th>
                     <th>{{ __('Pareigos') }}</th>
                     <th>{{ __('El. paštas') }}</th>
+                    <th>{{ __('Tel. nr.') }}</th>
                     <th>{{ __('Sukurtas') }}</th>
                     <th>{{ __('Veiksmai') }}</th>
                 </tr>

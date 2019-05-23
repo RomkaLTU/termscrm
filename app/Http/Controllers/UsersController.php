@@ -31,7 +31,7 @@ class UsersController extends Controller
 
     public function json( Request $request )
     {
-        $query = DB::table('users');
+        $query = User::query();
         $recordsTotal = $query->count();
         $recordsFiltered = $recordsTotal;
         $start = $request->input( 'start' );
@@ -58,10 +58,12 @@ class UsersController extends Controller
                 ],
                 $col->id,
                 $col->name,
-                $col->email,
+                $col->getRoleNames(),
                 $col->duties,
-                $col->created_at,
-                $col->updated_at,
+                $col->email,
+                $col->phone,
+                date('Y-m-d', strtotime($col->created_at)),
+                '',
             ];
         }
 

@@ -5,6 +5,10 @@
             <input type="text" class="form-control" v-model="formData.name" name="name" placeholder="Vardas, Pavardė">
         </div>
         <div class="form-group">
+            <label>Tel. nr.</label>
+            <input type="text" class="form-control" v-model="formData.phone" name="phone" placeholder="Tel. nr.">
+        </div>
+        <div class="form-group">
             <label>El. pašto adresas</label>
             <input type="email" class="form-control" v-model="formData.email" name="email" placeholder="El. pašto adresas">
         </div>
