@@ -150,7 +150,7 @@
                             <div class="col">
                                 <div v-for="(params,group) in param_groups" :key="`group_${group}`" class="mb-2">
                                     <i class="far fa-trash-alt" @click="deleteGroup(group)"></i> &nbsp;
-                                    {{ group }} -
+                                    <strong>{{ group }}</strong> -
                                     <span
                                         v-for="param in params"
                                         :key="param.id"

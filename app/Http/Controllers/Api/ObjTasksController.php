@@ -25,7 +25,17 @@ class ObjTasksController extends Controller
     public function createGroup( Request $request )
     {
         $group = ParamGroup::create();
-        $group->taskparams()->attach( $request->task_params );
+        $param_ids = [];
+
+        foreach ( $request->task_params as $param ) {
+            if ( is_numeric($param) ) {
+                $param_ids[] = $param;
+            } else {
+                $param_ids[] = TaskParam::where('name', $param)->first()->id;
+            }
+        }
+
+        $group->taskparams()->attach( $param_ids );
     }
 
     public function getGroup()

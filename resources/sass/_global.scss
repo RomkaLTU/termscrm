@@ -40,3 +40,9 @@
         width: 100px;
     }
 }
+
+.fa-trash-alt {
+    &:hover {
+        cursor: pointer;
+    }
+}
