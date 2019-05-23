@@ -196,6 +196,7 @@ class TasksController extends Controller
         }
 
         $task->taskParams()->sync( $this->task_params($request) );
+        $task->paramGroups()->sync( $request->task_params_groups );
 
         $tasks_list_url = route('contracts.objects.tasks.index', [$request->contract_id, $request->object_id]);
 
