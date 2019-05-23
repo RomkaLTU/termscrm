@@ -63,7 +63,7 @@
                 <thead>
                 <tr>
                     <th>{{ __('Nr.') }}</th>
-                    <th>{{ __('Darbai/Monitoringas') }}</th>
+                    <th>{{ __('Ekogeologiniai') }}</th>
                     <th>{{ __('Atlikti iki') }}</th>
                     <th>{{ __('Parametrai') }}</th>
                     <th>{{ __('Pastabos 1') }}</th>
