@@ -186,7 +186,7 @@ class TasksController extends Controller
     {
         try {
 
-            $task = ObjTask::create( $request->except('_token', 'research_area','task_params') );
+            $task = ObjTask::create( $request->except('_token', 'research_area','task_params','task_params_groups') );
 
         } catch (\Exception $e) {
 
