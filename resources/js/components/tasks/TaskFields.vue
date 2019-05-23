@@ -44,7 +44,13 @@
                     <div class="d-flex">
                         <select id="task_params_groups" class="form-control m-select2 select2_task_params_groups" multiple name="task_params_groups[]">
                             <option></option>
-                            <option v-for="params_group in task_params_groups" :key="`param_${params_group.id}`" :value="params_group.id">{{ params_group.id }}</option>
+                            <option
+                                v-for="params_group in task_params_groups_values"
+                                :key="`param_${params_group.id}`"
+                                :selected="task_params_groups_selected.some( (id) => id === params_group.id )"
+                                :value="params_group.id">
+                                {{ params_group.id }} - {{ params_group.taskparams.map(function(o) { return o["name"]; }).join(', ') }}
+                            </option>
                         </select>
                         <button type="button" class="btn btn-outline-hover-success btn-elevate btn-pill d-flex ml-2" data-toggle="modal" data-target="#task_params_groups_modal">
                             <i class="flaticon-plus"></i>
@@ -120,14 +126,34 @@
                         <div class="form-group row">
                             <div class="col-lg-12">
                                 <div class="d-flex flex-column">
-                                    <label for="recipient-name" class="form-control-label">Parametrai:</label>
+                                    <label for="task_params_group_items" class="form-control-label">Parametrai:</label>
                                     <div class="d-flex">
-                                        <input type="text" class="form-control" id="recipient-name">
-                                        <button type="button" class="btn btn-outline-hover-success btn-elevate btn-pill d-flex ml-2">
+                                        <div class="w-100">
+                                            <select id="task_params_group_items" class="form-control m-select2 select2_task_params" multiple style="width:100%">
+                                                <option></option>
+                                                <option
+                                                    v-for="param in task_params"
+                                                    :key="`param_${param.id}`"
+                                                    :value="param.id">{{ param.name }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <button type="button" class="btn btn-outline-hover-success btn-elevate btn-pill d-flex ml-2" @click.prevent="createGroup" style="min-width: 138px;">
                                             <i class="flaticon-plus"></i>
-                                            Sukurti
+                                            Sukurti grupę
                                         </button>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" v-if="param_groups">
+                            <div class="col">
+                                <div v-for="(params,group) in param_groups" :key="`group_${group}`" class="mb-2">
+                                    {{ group }} -
+                                    <span
+                                        v-for="param in params"
+                                        :key="param.id"
+                                        class="kt-badge kt-badge--primary kt-badge--md kt-badge--inline kt-badge--pill mr-1">{{ param.name }}</span>
                                 </div>
                             </div>
                         </div>
@@ -152,8 +178,9 @@
             'documents',
             'task',
             'task_params',
+            'task_params_selected',
             'task_params_groups',
-            'task_params_selected'
+            'task_params_groups_selected',
         ],
         data() {
             return {
@@ -163,6 +190,8 @@
                     special_task: ['1','4'],
                     ecog: ['4'],
                 },
+                param_groups: false,
+                task_params_groups_values: [],
                 formData: {
                     research_area: ( this.research_area ? this.research_area : '1' ),
                     name: ( this.task ? this.task.name : null ),
@@ -179,9 +208,13 @@
             'datepicker': Datepicker,
         },
         mounted() {
+            this.getParamGroups();
+
             $('#requiring_int').on('select2:select', () => {
                 this.formData.due_date = null;
             });
+
+            this.task_params_groups_values = this.task_params_groups;
         },
         methods: {
             requiringIntChange(){
@@ -190,6 +223,32 @@
             dueDateChange(){
                 this.formData.requiring_int = '';
                 $('#requiring_int').val('').change();
+            },
+            getParamGroups() {
+                this.$http.get('tasks/paramgroups').then((response) => {
+                    this.param_groups = response.data;
+                });
+            },
+            createGroup() {
+                const $task_params_group_items = $(task_params_group_items);
+
+                if ( $.trim($task_params_group_items.val()).length === 0 ) {
+                    toastr.error("Pasirinkite bent 1 parametrą");
+                    return;
+                }
+
+                this.$http.post(`tasks/paramgroups`, {
+                    task_params: $task_params_group_items.val(),
+                    // user_id: window.USER_ID,
+                }).then( () => {
+                    toastr.success("Grupė sukurta");
+                    this.getParamGroups();
+
+                    this.$http.get('tasks/paramgroupsall').then((response) => {
+                        this.task_params_groups_values = response.data;
+                    });
+
+                } );
             },
         },
     }

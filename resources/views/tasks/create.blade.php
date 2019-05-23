@@ -25,6 +25,8 @@
                         :research_areas="{{ $research_areas }}"
                         :task_params="{{ $task_params }}"
                         :task_params_selected="[]"
+                        :task_params_groups="{{ $task_params_groups }}"
+                        :task_params_groups_selected="[]"
                         :contract="{{ $contract }}"/>
                 </div>
                 <div class="kt-portlet__foot">

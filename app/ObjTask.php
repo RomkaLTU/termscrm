@@ -12,4 +12,9 @@ class ObjTask extends Model
     {
         return $this->belongsToMany( TaskParam::class );
     }
+
+    public function paramGroups()
+    {
+        return $this->belongsToMany( ParamGroup::class );
+    }
 }

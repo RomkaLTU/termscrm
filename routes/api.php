@@ -26,6 +26,9 @@ $api->version('v1', [ 'prefix' => 'api' ], function ($api) {
     $api->get('visits/{contract_id}/{object_id}', 'App\Http\Controllers\Api\ObjVisitsController@get_visits');
 
     $api->post('tasks/params', 'App\Http\Controllers\Api\ObjTasksController@createParam');
+    $api->post('tasks/paramgroups', 'App\Http\Controllers\Api\ObjTasksController@createGroup');
+    $api->get('tasks/paramgroups', 'App\Http\Controllers\Api\ObjTasksController@getGroup');
+    $api->get('tasks/paramgroupsall', 'App\Http\Controllers\Api\ObjTasksController@getGroupAll');
 
     $api->get('contracts', 'App\Http\Controllers\Api\ContractsController@search');
 

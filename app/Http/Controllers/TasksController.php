@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contract;
 use App\Obj;
 use App\ObjTask;
+use App\ParamGroup;
 use App\ResearchArea;
 use App\TaskParam;
 use App\User;
@@ -159,6 +160,7 @@ class TasksController extends Controller
             'obj' => $object,
             'research_areas' => ResearchArea::all(),
             'task_params' => TaskParam::all(),
+            'task_params_groups' => ParamGroup::all(),
         ]);
     }
 
@@ -171,9 +173,11 @@ class TasksController extends Controller
             'obj' => $object,
             'documents' => $documents,
             'task' => $task,
+            'task_params_groups' => ParamGroup::all(),
             'research_area' => $task->research_area_id,
             'research_areas' => ResearchArea::all(),
             'task_params_selected' => $task->taskParams->pluck('id'),
+            'task_params_groups_selected' => $task->paramGroups->pluck('id'),
             'task_params' => TaskParam::all(),
         ]);
     }
@@ -205,7 +209,7 @@ class TasksController extends Controller
     {
         try {
 
-            $task->update($request->except('_method','_token','task_params'));
+            $task->update($request->except('_method','_token','task_params','task_params_groups'));
 
         } catch (\Exception $e) {
 
@@ -215,6 +219,7 @@ class TasksController extends Controller
         }
 
         $task->taskParams()->sync( $this->task_params($request) );
+        $task->paramGroups()->sync( $request->task_params_groups );
 
         Session::flash('message', 'Užduotis atnaujinta');
 
