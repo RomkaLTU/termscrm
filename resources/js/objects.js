@@ -71,6 +71,23 @@
                 },
                 columnDefs: [
                     {
+                        targets: -6,
+                        title: 'Tyrimo sritys',
+                        orderable: false,
+                        'type':'html',
+                        'render': function (data, type, row) {
+                            if ( data ) {
+                                let html = '';
+                                data.forEach((param) => {
+                                    html += `<span class="kt-badge kt-badge--primary kt-badge--md kt-badge--inline kt-badge--pill mb-1 mr-1">${param}</span>`;
+                                });
+                                return html;
+                            } else {
+                                return null;
+                            }
+                        },
+                    },
+                    {
                         targets: -3,
                         title: 'Aplankyti',
                         orderable: false,

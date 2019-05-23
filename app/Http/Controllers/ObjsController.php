@@ -68,7 +68,7 @@ class ObjsController extends Controller
                 $col->name,
                 $col->details,
                 $region,
-                '',
+                $col->researchAreas->pluck('name'),
                 $col->notes_1,
                 $col->notes_2,
                 '',
