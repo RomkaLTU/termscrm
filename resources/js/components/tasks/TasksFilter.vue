@@ -45,7 +45,7 @@
             <strong>Atsakingas asmuo:</strong> {{ supervisor.name }} ({{ supervisor.duties }}) <a :href="`mailto:${supervisor.email}`">{{ supervisor.email }}</a>
         </div>
         <div v-if="ra && !supervisor" class="mt-4">
-            <strong>Atsakingas asmuo nepriskirtas. <a :href="`/contracts/${contract.id}/objects/${object.id}/edit`">Priskirta čia</a>.</strong>
+            <strong>Atsakingas asmuo nepriskirtas. &nbsp; <a :href="`/contracts/${contract.id}/objects/${object.id}/edit`">Priskirti čia</a>.</strong>
         </div>
     </form>
 </template>
