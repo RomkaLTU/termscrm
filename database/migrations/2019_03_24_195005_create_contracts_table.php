@@ -18,7 +18,7 @@ class CreateContractsTable extends Migration
             $table->string('contract_nr')->unique()->nullable();
             $table->string('customer')->nullable();
             $table->string('customer_address')->nullable();
-            $table->enum('contract_status', ['galiojanti','sustabdyta','ivykdyta'])->default('galiojanti');
+            $table->enum('contract_status', ['galiojanti','sustabdyta','įvykdyta'])->default('galiojanti');
             $table->string('validity')->nullable();
             $table->boolean('validity_extended')->default(0);
             $table->date('validity_extend_till_value')->nullable();
