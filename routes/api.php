@@ -28,6 +28,7 @@ $api->version('v1', [ 'prefix' => 'api' ], function ($api) {
     $api->post('tasks/params', 'App\Http\Controllers\Api\ObjTasksController@createParam');
     $api->post('tasks/paramgroups', 'App\Http\Controllers\Api\ObjTasksController@createGroup');
     $api->get('tasks/paramgroups', 'App\Http\Controllers\Api\ObjTasksController@getGroup');
+    $api->delete('tasks/paramgroups/{group}', 'App\Http\Controllers\Api\ObjTasksController@deleteGroup');
     $api->get('tasks/paramgroupsall', 'App\Http\Controllers\Api\ObjTasksController@getGroupAll');
 
     $api->get('contracts', 'App\Http\Controllers\Api\ContractsController@search');

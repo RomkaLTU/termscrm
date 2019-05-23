@@ -37,4 +37,13 @@ class ObjTasksController extends Controller
     {
         return ParamGroup::all();
     }
+
+    public function deleteGroup( $group_id )
+    {
+        $group = ParamGroup::find($group_id);
+
+        if ( $group ) {
+            $group->delete();
+        }
+    }
 }

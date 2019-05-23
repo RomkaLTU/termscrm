@@ -149,6 +149,7 @@
                         <div class="row" v-if="param_groups">
                             <div class="col">
                                 <div v-for="(params,group) in param_groups" :key="`group_${group}`" class="mb-2">
+                                    <i class="far fa-trash-alt" @click="deleteGroup(group)"></i> &nbsp;
                                     {{ group }} -
                                     <span
                                         v-for="param in params"
@@ -249,6 +250,12 @@
                     });
 
                 } );
+            },
+            deleteGroup(group_id) {
+                this.$http.delete(`tasks/paramgroups/${group_id}`).then(() => {
+                    toastr.success("Grupė ištrinta");
+                    this.getParamGroups();
+                });
             },
         },
     }
