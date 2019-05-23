@@ -16,6 +16,8 @@ class CreateObjectsTable extends Migration
         Schema::create('objs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->nullable();
+            $table->foreign('region_id')->references('id')->on('regions');
+            $table->unsignedBigInteger('region_id')->nullable();
             $table->text('details')->nullable();
             $table->text('notes_1')->nullable();
             $table->text('notes_2')->nullable();

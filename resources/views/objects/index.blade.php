@@ -38,14 +38,14 @@
             <table data-model="objects" class="table table-md table-hover table-checkable" id="dtable">
                 <thead>
                 <tr>
-                    <th>{{ __('Numeris') }}</th>
+                    <th>{{ __('#') }}</th>
                     <th>{{ __('Objektas') }}</th>
                     <th>{{ __('Rekvizitai') }}</th>
-                    <th>{{ __('Pastabos 1') }}</th>
-                    <th>{{ __('Pastabos 2') }}</th>
                     <th>{{ __('Regionas') }}</th>
                     <th>{{ __('Tyrimo sritys') }}</th>
-                    <th>{{ __('Pažymėti aplankytus') }}</th>
+                    <th>{{ __('Pastabos 1') }}</th>
+                    <th>{{ __('Pastabos 2') }}</th>
+                    <th>{{ __('Aplankyti') }}</th>
                     <th>{{ __('Istorija') }}</th>
                     <th></th>
                 </tr>

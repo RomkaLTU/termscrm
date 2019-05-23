@@ -28,7 +28,7 @@ class ContractsSeeder extends Seeder
                 'contract_status' => 1,
                 'validity' => 'todate',
                 'validity_extend_till_value' => null,
-                'validity_value' => $faker->dateTimeThisYear(),
+                'validity_value' => $faker->dateTimeBetween('+1 months', '+6 months'),
                 'validity_verbal' => $faker->boolean,
                 'contract_value' => $faker->numberBetween(1000,50000),
             ]);

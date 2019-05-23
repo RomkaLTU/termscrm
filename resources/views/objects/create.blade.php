@@ -20,6 +20,7 @@
                 <div class="kt-portlet__body">
                     <object-fields
                         :users="{{ $users }}"
+                        :regions="{{ $regions }}"
                         :research_areas="{{ $research_areas }}">
                     </object-fields>
                 </div>

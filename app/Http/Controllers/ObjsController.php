@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contract;
 use App\Obj;
+use App\Region;
 use App\ResearchArea;
 use App\User;
 use Illuminate\Http\Request;
@@ -56,6 +57,8 @@ class ObjsController extends Controller
         $col_data = [];
 
         foreach ($data as $col) {
+            $region = ( $col->region ? $col->region->name : '' );
+
             $col_data[] = [
                 'DT_RowData' => [
                     'objectid' => $col->id,
@@ -64,6 +67,8 @@ class ObjsController extends Controller
                 $col->id,
                 $col->name,
                 $col->details,
+                $region,
+                '',
                 $col->notes_1,
                 $col->notes_2,
                 '',
@@ -87,6 +92,7 @@ class ObjsController extends Controller
             'contract' => $contract,
             'users' => User::all(),
             'research_areas' => ResearchArea::all(),
+            'regions' => Region::all(),
         ]);
     }
 
@@ -142,20 +148,21 @@ class ObjsController extends Controller
             'documents' => $documents,
             'research_area' => $ras->pluck('research_area_id'),
             'research_areas' => ResearchArea::all(),
+            'regions' => Region::all(),
+            'region_selected' => ( $object->region_id ?? [] ),
         ]);
     }
 
     public function update( Request $request, Contract $contract, Obj $object )
     {
-        try {
-            $object->update($request->except('_method','_token','research_area'));
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-        }
+        $object->update( $request->except('_method','_token','research_area','ra_supervisor') );
 
         $ra_users_arr = [];
-        foreach ($request->research_area as $ra) {
-            $ra_users_arr[$ra] = ['user_id' => $request->ra_supervisor[$ra]];
+
+        if ( $request->research_area ) {
+            foreach ($request->research_area as $ra) {
+                $ra_users_arr[$ra] = ['user_id' => $request->ra_supervisor[$ra]];
+            }
         }
 
         $object->researchAreas()->sync($ra_users_arr);

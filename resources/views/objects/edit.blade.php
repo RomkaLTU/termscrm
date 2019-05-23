@@ -40,6 +40,8 @@
                         :supervisors="{{ json_encode($supervisors) }}"
                         :documents="{{ json_encode($documents) }}"
                         :research_area="{{ $research_area }}"
+                        :regions="{{ $regions }}"
+                        :region_selected="{{ json_encode($region_selected) }}"
                         :research_areas="{{ $research_areas }}">
                     </object-fields>
                 </div>

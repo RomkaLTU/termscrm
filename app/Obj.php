@@ -12,7 +12,7 @@ class Obj extends Model implements HasMedia
 
     protected $guarded = ['id','media'];
 
-    protected $with = ['researchAreas'];
+    protected $with = ['researchAreas','region'];
 
     public function researchAreas()
     {
@@ -22,5 +22,10 @@ class Obj extends Model implements HasMedia
     public function contract()
     {
         return $this->belongsToMany( Contract::class );
+    }
+
+    public function region()
+    {
+        return $this->belongsTo( Region::class );
     }
 }

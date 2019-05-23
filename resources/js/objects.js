@@ -8,12 +8,19 @@
         const $save_visited = $('#save_visited');
         const $visited_count = $('#visited_count');
         const $research_areas_users = $('.research_areas_users');
+        const $regions = $('#regions');
         let checkedVisits = [];
         let contractid = false;
 
         if ( $research_areas_users.length ) {
             $research_areas_users.select2({
                 placeholder: 'Pasirinkite vartotoją',
+            });
+        }
+
+        if ( $regions.length ) {
+            $regions.select2({
+                placeholder: 'Pasirinkite regioną',
             });
         }
 
@@ -49,6 +56,9 @@
 
         if ( $table.length ) {
             $table.DataTable({
+                'ajax': `${model}/json`,
+                'processing': true,
+                'serverSide': true,
                 responsive: true,
                 searching: true,
                 dom: `<'row'<'col-sm-12'tr>>
@@ -62,7 +72,7 @@
                 columnDefs: [
                     {
                         targets: -3,
-                        title: 'Pažymėti aplankytus',
+                        title: 'Aplankyti',
                         orderable: false,
                         className: 'text-center',
                         'type':'html',
@@ -129,9 +139,6 @@
                         }
                     },
                 ],
-                'processing': true,
-                'serverSide': true,
-                'ajax': `${model}/json`,
             });
         }
 

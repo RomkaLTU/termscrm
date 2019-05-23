@@ -4,6 +4,21 @@
             <label for="pavadinimas">Pavadinimas</label>
             <input type="text" class="form-control" id="pavadinimas" v-model="formData.name" name="name" placeholder="Pavadinimas">
         </div>
+        <div class="form-group row">
+            <div class="col-lg-3">
+                <label for="regions">Regionas</label>
+                <select id="regions" class="form-control m-select2" name="region_id">
+                    <option value=""></option>
+                    <option
+                        v-for="region in regions"
+                        :key="`region_${region.id}`"
+                        :selected="region_selected===region.id"
+                        :value="region.id">
+                        {{ region.name }}
+                    </option>
+                </select>
+            </div>
+        </div>
         <div class="form-group">
             <label for="rekvizitai">Rekvizitai</label>
             <textarea class="form-control" id="rekvizitai" rows="3" v-model="formData.details" name="details" placeholder="Rekvizitai"></textarea>
@@ -68,7 +83,9 @@
             'contract',
             'documents',
             'users',
-            'supervisors'
+            'supervisors',
+            'regions',
+            'region_selected'
         ],
         data() {
             return {
