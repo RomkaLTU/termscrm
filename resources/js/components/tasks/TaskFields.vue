@@ -72,6 +72,7 @@
                                         input-class="form-control w-100"
                                         format="yyyy-MM-dd"
                                         :language="lt"
+                                        :clear-button="true"
                                         v-on:selected="dueDateChange"
                                         placeholder="Atlikti iki..."
                                         name="due_date"></datepicker>
@@ -79,8 +80,8 @@
                             </div>
                             <div class="d-flex align-items-center" style="flex:1">
                                 <div class="w-100">
-                                    <select id="requiring_int" class="select2 w-100" v-model="formData.requiring_int" @change="requiringIntChange" name="requiring_int">
-                                        <option value="0">Reguliariai</option>
+                                    <select id="requiring_int" class="select2 w-100" v-model="formData.requiring_int" name="requiring_int">
+                                        <option value="0">Pasirinkite</option>
                                         <option value="2_m">2k. / mėn.</option>
                                         <option value="1_m">1k. / mėn.</option>
                                         <option value="1_q">1k. / ketv.</option>
@@ -213,18 +214,14 @@
             this.getParamGroups();
 
             $('#requiring_int').on('select2:select', () => {
-                this.formData.due_date = null;
+                // this.formData.due_date = null;
             });
 
             this.task_params_groups_values = this.task_params_groups;
         },
         methods: {
-            requiringIntChange(){
-                this.formData.due_date = null;
-            },
             dueDateChange(){
-                this.formData.requiring_int = '';
-                $('#requiring_int').val('').change();
+                //$('#requiring_int').val('').change();
             },
             getParamGroups() {
                 this.$http.get('tasks/paramgroups').then((response) => {
