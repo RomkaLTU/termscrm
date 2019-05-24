@@ -19,6 +19,41 @@
                 </select>
             </div>
         </div>
+        <div class="form-group row">
+            <div class="col-lg-6">
+                <label>Lankymo laikas</label>
+                <div class="d-flex align-items-center mt-1">
+                    <div class="d-flex w-100">
+                        <div class="d-flex align-items-center mr-2" style="flex:1">
+                            <div class="w-100">
+                                <datepicker
+                                    v-model="formData.visit_time"
+                                    :monday-first="true"
+                                    input-class="form-control w-100"
+                                    format="yyyy-MM-dd"
+                                    :language="lt"
+                                    v-on:selected="visitTimeChange"
+                                    placeholder="Pasirinkite datą"
+                                    name="due_date"></datepicker>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center" style="flex:1">
+                            <div class="w-100">
+                                <select id="visit_time_req" class="w-100" @change="requiringIntChange" name="visit_time_req">
+                                    <option value="">Reguliariai</option>
+                                    <option :selected="obj.visit_time_req==='2k. / mėn.'">2k. / mėn.</option>
+                                    <option :selected="obj.visit_time_req==='1k. / mėn.'">1k. / mėn.</option>
+                                    <option :selected="obj.visit_time_req==='1k. / ketv.'">1k. / ketv.</option>
+                                    <option :selected="obj.visit_time_req==='2k. / met.'">2k. / met.</option>
+                                    <option :selected="obj.visit_time_req==='1k. / met.'">1k. / met.</option>
+                                    <option :selected="obj.visit_time_req==='Kita'">Kita</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="form-group">
             <label for="rekvizitai">Rekvizitai</label>
             <textarea class="form-control" id="rekvizitai" rows="3" v-model="formData.details" name="details" placeholder="Rekvizitai"></textarea>
@@ -94,6 +129,7 @@
                 formData: {
                     name: ( this.obj ? this.obj.name : null ),
                     details: ( this.obj ? this.obj.details : null ),
+                    visit_time: ( this.obj ? this.obj.due_date : null ),
                     notes_1: ( this.obj ? this.obj.notes_1 : null ),
                     notes_2: ( this.obj ? this.obj.notes_2 : null ),
                     research_area: ( this.research_area ? this.research_area : [] ),
@@ -121,6 +157,10 @@
                     this.$refs.myVueDropzone.manuallyAddFile(file, file.url);
                 } );
             }
+
+            $('#visit_time_req').on('select2:select', () => {
+                this.formData.visit_time = null;
+            });
         },
         methods: {
             fileUploaded(file, response) {
@@ -135,6 +175,13 @@
                 if ( typeof file.id !== 'undefined' ) {
                     this.$http.delete(`media/${file.id}`);
                 }
+            },
+            visitTimeChange() {
+                this.formData.visit_time_req = null;
+                $('#visit_time_req').val('').change();
+            },
+            requiringIntChange() {
+                this.formData.visit_time = null;
             },
         }
     }

@@ -9,12 +9,19 @@
         const $visited_count = $('#visited_count');
         const $research_areas_users = $('.research_areas_users');
         const $regions = $('#regions');
+        const $visit_time_req = $('#visit_time_req');
         let checkedVisits = [];
         let contractid = false;
 
         if ( $research_areas_users.length ) {
             $research_areas_users.select2({
                 placeholder: 'Pasirinkite vartotoją',
+            });
+        }
+
+        if ( $visit_time_req.length ) {
+            $visit_time_req.select2({
+                placeholder: 'Reguliarus',
             });
         }
 
