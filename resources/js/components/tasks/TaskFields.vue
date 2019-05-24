@@ -107,6 +107,7 @@
             <div class="form-group row">
                 <div class="col-lg-12">
                     <label class="kt-checkbox mb-0 mr-3" v-show="fields.ecog.some((item) => Number(item) === formData.research_area)">
+                        <input type="hidden" name="ecog" value="0" checked>
                         <input type="checkbox" name="ecog" v-model="formData.ecog" value="1"> Ekogeologinis
                         <span></span>
                     </label>
