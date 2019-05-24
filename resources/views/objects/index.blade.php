@@ -16,7 +16,7 @@
         <div class="kt-portlet__head kt-portlet__head--lg">
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title">
-                    {{ __('Sutarties') }} {{ $contract->contract_nr }} {{ __('objektai') }}
+                    {{ __('Sutarties') }} <a href="{{ route('contracts.edit', $contract->id) }}">{{ $contract->contract_nr }}</a> {{ __('objektai') }}
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">

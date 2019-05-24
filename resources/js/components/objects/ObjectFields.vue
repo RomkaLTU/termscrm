@@ -41,12 +41,12 @@
                             <div class="w-100">
                                 <select id="visit_time_req" class="w-100" @change="requiringIntChange" name="visit_time_req">
                                     <option value="">Reguliariai</option>
-                                    <option :selected="obj.visit_time_req==='2k. / mėn.'">2k. / mėn.</option>
-                                    <option :selected="obj.visit_time_req==='1k. / mėn.'">1k. / mėn.</option>
-                                    <option :selected="obj.visit_time_req==='1k. / ketv.'">1k. / ketv.</option>
-                                    <option :selected="obj.visit_time_req==='2k. / met.'">2k. / met.</option>
-                                    <option :selected="obj.visit_time_req==='1k. / met.'">1k. / met.</option>
-                                    <option :selected="obj.visit_time_req==='Kita'">Kita</option>
+                                    <option :selected="typeof obj !== 'undefined' && obj.visit_time_req==='2k. / mėn.'">2k. / mėn.</option>
+                                    <option :selected="typeof obj !== 'undefined' && obj.visit_time_req==='1k. / mėn.'">1k. / mėn.</option>
+                                    <option :selected="typeof obj !== 'undefined' && obj.visit_time_req==='1k. / ketv.'">1k. / ketv.</option>
+                                    <option :selected="typeof obj !== 'undefined' && obj.visit_time_req==='2k. / met.'">2k. / met.</option>
+                                    <option :selected="typeof obj !== 'undefined' && obj.visit_time_req==='1k. / met.'">1k. / met.</option>
+                                    <option :selected="typeof obj !== 'undefined' && obj.visit_time_req==='Kita'">Kita</option>
                                 </select>
                             </div>
                         </div>
