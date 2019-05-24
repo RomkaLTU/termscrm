@@ -86,9 +86,9 @@
                             if ( data ) {
                                 let html = '';
                                 data.forEach((param) => {
-                                    html += `<span class="kt-badge kt-badge--primary kt-badge--md kt-badge--inline kt-badge--pill mb-1 mr-1">${param}</span>`;
+                                    html += `${param}, `;
                                 });
-                                return html;
+                                return html.slice(0, -2);
                             } else {
                                 return null;
                             }
