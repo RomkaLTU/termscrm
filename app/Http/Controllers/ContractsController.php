@@ -104,7 +104,7 @@ class ContractsController extends Controller
                     'late' => $col->late,
                 ],
                 $col->contract_nr,
-                ucfirst($col->contract_status),
+                $this->mb_ucfirst($col->contract_status),
                 $col->validity_value,
                 $col->validity_extend_till_value,
                 str_replace('.00','',money_format('%i', $col->contract_value)),
@@ -197,5 +197,13 @@ class ContractsController extends Controller
                 $model->addMedia($tmp_file)->toMediaCollection('document');
             }
         }
+    }
+
+    private function mb_ucfirst($string, $encoding = 'utf8')
+    {
+        $strlen = mb_strlen($string, $encoding);
+        $firstChar = mb_substr($string, 0, 1, $encoding);
+        $then = mb_substr($string, 1, $strlen - 1, $encoding);
+        return mb_strtoupper($firstChar, $encoding) . $then;
     }
 }

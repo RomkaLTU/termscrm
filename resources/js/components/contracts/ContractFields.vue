@@ -63,7 +63,7 @@
                     <span></span>
                 </label>
                 <label class="kt-radio">
-                    <input type="radio" name="contract_status" v-model="formData.contract_status" value="ivykdyta"> Įvykdyta
+                    <input type="radio" name="contract_status" v-model="formData.contract_status" value="įvykdyta"> Įvykdyta
                     <span></span>
                 </label>
             </div>
