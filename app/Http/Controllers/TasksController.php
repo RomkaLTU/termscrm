@@ -99,6 +99,13 @@ class TasksController extends Controller
         $col_data_ecog = [];
 
         foreach ($data as $col) {
+
+            $due_date = $col->due_date;
+
+            if ( !empty($col->requiring_int) ) {
+                $due_date = $col->requiring_int;
+            }
+
             $col_data[] = [
                 'DT_RowData' => [
                     'taskid' => $col->id,
@@ -108,7 +115,7 @@ class TasksController extends Controller
                 ],
                 $col->id,
                 $col->name,
-                $col->due_date,
+                $due_date,
                 $col->taskParams->pluck('name')->implode(', '),
                 $col->notes_1,
                 $col->notes_2,

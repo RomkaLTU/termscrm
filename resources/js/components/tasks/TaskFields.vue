@@ -80,14 +80,14 @@
                             </div>
                             <div class="d-flex align-items-center" style="flex:1">
                                 <div class="w-100">
+                                    <input type="hidden" name="requiring_int" value="">
                                     <select id="requiring_int" class="select2 w-100" v-model="formData.requiring_int" name="requiring_int">
-                                        <option value="0">Pasirinkite</option>
-                                        <option value="2_m">2k. / mėn.</option>
-                                        <option value="1_m">1k. / mėn.</option>
-                                        <option value="1_q">1k. / ketv.</option>
-                                        <option value="2_y">2k. / met.</option>
-                                        <option value="1_y">1k. / met.</option>
-                                        <option value="other">Kita</option>
+                                        <option>2k. / mėn.</option>
+                                        <option>1k. / mėn.</option>
+                                        <option>1k. / ketv.</option>
+                                        <option>2k. / met.</option>
+                                        <option>1k. / met.</option>
+                                        <option>Kita</option>
                                     </select>
                                 </div>
                             </div>
