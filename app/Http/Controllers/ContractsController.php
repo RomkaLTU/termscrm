@@ -32,6 +32,29 @@ class ContractsController extends Controller
         ]);
     }
 
+    public function show( Contract $contract )
+    {
+        $files = $contract->media;
+
+        $documents = [];
+
+        foreach($files as $file) {
+            $documents[] = [
+                'id' => $file->id,
+                'name' => $file->file_name,
+                'url' => $file->getFullUrl(),
+                'size' => $file->size,
+                'type' => $file->mime_type,
+            ];
+        }
+
+        return view('contracts.show', [
+            'contract' => $contract,
+            'documents' => $documents,
+            'research_areas' => $contract->objs->pluck('researchAreas')->flatten()->unique('id'),
+        ]);
+    }
+
     public function json( Request $request )
     {
         $query = Contract::query();

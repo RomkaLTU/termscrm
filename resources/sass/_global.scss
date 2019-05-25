@@ -29,10 +29,8 @@
     }
 }
 
-.modal-body {
-    .kt-list-timeline__time {
-        width: 130px !important;
-    }
+.kt-list-timeline__time {
+    width: 130px !important;
 }
 
 .w {
@@ -51,4 +49,11 @@
     position: absolute;
     right: 11px;
     top: 11px;
+}
+
+
+.inner-table {
+    .bg-light {
+        width: 180px;
+    }
 }

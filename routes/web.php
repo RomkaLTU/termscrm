@@ -19,14 +19,25 @@ Route::group(['middleware' => ['auth:web'] ], function() {
         return redirect('contracts');
     })->name('dashboard');
 
-    Route::get('contracts/json', 'ContractsController@json');
     Route::get('contracts/{contract}/objects/json', 'ObjsController@json');
     Route::get('contracts/{contract}/objects/{object}/tasks/json', 'TasksController@json');
 
     Route::get('users/json', 'UsersController@json');
     Route::resource('users', 'UsersController')->middleware(['role:Admin']);
 
-    Route::resource('contracts', 'ContractsController');
+    // Route::resource('contracts', 'ContractsController');
+    Route::get('contracts','ContractsController@index')->name('contracts.index');
+    Route::get('contracts/json', 'ContractsController@json');
+    Route::get('contracts/{contract}', 'ContractsController@show')->name('contracts.show');
+
+    Route::group(['middleware' => ['permission:edit_users']], function () {
+        Route::post('contracts','ContractsController@store')->name('contracts.store');
+        Route::get('contracts/create', 'ContractsController@create')->name('contracts.create');
+        Route::delete('contracts/{contract}', 'ContractsController@destroy')->name('contracts.destroy');
+        Route::put('contracts/{contract}', 'ContractsController@update')->name('contracts.update');
+        Route::get('contracts/{contract}/edit', 'ContractsController@edit')->name('contracts.edit');
+    });
+
     Route::resource('contracts.objects', 'ObjsController');
     Route::resource('contracts.objects.tasks', 'TasksController');
 

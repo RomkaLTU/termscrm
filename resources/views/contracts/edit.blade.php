@@ -15,7 +15,7 @@
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-label">
                     <h3 class="kt-portlet__head-title">
-                        {{ __('Redaguoti sutartį') }}: <strong>{{ $contract->name }}</strong>
+                        {{ __('Redaguoti sutartį') }}: <strong>{{ $contract->contract_nr }}</strong>
                     </h3>
                 </div>
                 <div class="kt-portlet__head-toolbar">

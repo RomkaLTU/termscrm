@@ -42,19 +42,21 @@
                     </div>
                 </div>
                 <div class="kt-notification">
-                    <a href="{{ route('users.edit', auth()->user()->id) }}" class="kt-notification__item">
-                        <div class="kt-notification__item-icon">
-                            <i class="flaticon2-calendar-3 kt-font-success"></i>
-                        </div>
-                        <div class="kt-notification__item-details">
-                            <div class="kt-notification__item-title kt-font-bold">
-                                {{ __('Profilis') }}
+                    @hasrole('Admin')
+                        <a href="{{ route('users.edit', auth()->user()->id) }}" class="kt-notification__item">
+                            <div class="kt-notification__item-icon">
+                                <i class="flaticon2-calendar-3 kt-font-success"></i>
                             </div>
-                            <div class="kt-notification__item-time">
-                                {{ __('Asmeniniiai paskyros nustatymai') }}
+                            <div class="kt-notification__item-details">
+                                <div class="kt-notification__item-title kt-font-bold">
+                                    {{ __('Profilis') }}
+                                </div>
+                                <div class="kt-notification__item-time">
+                                    {{ __('Asmeniniiai paskyros nustatymai') }}
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    @endhasrole
                     <div class="kt-notification__custom">
                         <form action="{{ route('logout') }}" method="post">
                             @csrf
