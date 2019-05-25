@@ -33,8 +33,8 @@
     <div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
         <div id="kt_aside_menu" class="kt-aside-menu " data-ktmenu-vertical="1" data-ktmenu-scroll="1" data-ktmenu-dropdown-timeout="500">
             <ul class="kt-menu__nav ">
-                <li class="kt-menu__item">
-                    <a href="{{ route('contracts.index') }}" class="kt-menu__link ">
+                <li class="kt-menu__item @if( in_array(Route::currentRouteName(),['dashboard.index','dashboard.edit']) ) kt-menu__item--here  @endif">
+                    <a href="{{ route('dashboard.index') }}" class="kt-menu__link ">
                         <span class="kt-menu__link-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -44,7 +44,7 @@
                                 </g>
                             </svg>
                         </span>
-                        <span class="kt-menu__link-text">{{ __('Pagrindinis') }}</span>
+                        <span class="kt-menu__link-text">{{ __('Darbai') }}</span>
                     </a>
                 </li>
                 @hasrole('Admin')
@@ -85,7 +85,7 @@
                     <h4 class="kt-menu__section-text">{{ __('Sutartys') }}</h4>
                     <i class="kt-menu__section-icon flaticon-more-v2"></i>
                 </li>
-                <li class="kt-menu__item @if( in_array(Route::currentRouteName(),['contracts.index','contracts.edit']) ) kt-menu__item--here  @endif">
+                <li class="kt-menu__item @if( in_array(Route::currentRouteName(),['contracts.index','contracts.edit','contracts.show']) ) kt-menu__item--here  @endif">
                     <a href="{{ route('contracts.index')}}" class="kt-menu__link">
                         <span class="kt-menu__link-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">

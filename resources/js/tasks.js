@@ -35,6 +35,7 @@
         });
 
         $save_completed.on('click',function(){
+            // TODO
             alert('In progress...');
             // axios.post(`visits`, {
             //     checked: checkedCompleted,
