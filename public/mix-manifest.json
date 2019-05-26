@@ -1,9 +1,10 @@
 {
-    "/js/app.js": "/js/app.js?id=b43f6df4dd800f8afc1f",
-    "/css/app.css": "/css/app.css?id=699def4e34b75cdad079",
-    "/js/dt-custom-init.js": "/js/dt-custom-init.js?id=abe908e87a846f53477a",
+    "/js/app.js": "/js/app.js?id=e7d2d8bdb8f4b7f901ca",
+    "/css/app.css": "/css/app.css?id=31fb057ea92886cb2e0e",
+    "/js/dashboard.js": "/js/dashboard.js?id=5aa7d621b4c0ae135900",
+    "/js/dt-custom-init.js": "/js/dt-custom-init.js?id=634f33cfa6c277909dd3",
     "/js/global.js": "/js/global.js?id=fefa43df43243b3cf3b4",
     "/js/objects.js": "/js/objects.js?id=7bec14afd9378c5e738d",
-    "/js/tasks.js": "/js/tasks.js?id=a9e138391ebe6b94923f",
+    "/js/tasks.js": "/js/tasks.js?id=f16619b7366b4f5b3e33",
     "/js/users.js": "/js/users.js?id=0a332d9341b7e2975241"
 }
