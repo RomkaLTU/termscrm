@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\ObjTask;
+use App\Region;
+use App\ResearchArea;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -10,7 +12,8 @@ class DashboardController extends Controller
     public function index()
     {
         return view('dashboard.index', [
-
+            'research_areas' => ResearchArea::all(),
+            'regions' => Region::all(),
         ]);
     }
 
@@ -40,6 +43,12 @@ class DashboardController extends Controller
             $query->where('research_area_id',$request->researchArea);
         }
 
+        if ( !empty($request->region) ) {
+            $query->whereHas('obj', function($q) use ($request){
+                $q->where('region_id', $request->region);
+            });
+        }
+
         /*
          * Tasks by date filter
          */
@@ -51,7 +60,11 @@ class DashboardController extends Controller
             $query->whereDate('due_date', '<=', $request->tasksTo);
         }
 
-        $data = $query->skip ( $start )->take ( $length )->orderBy('updated_at','desc')->get();
+        $data = $query->skip ( $start )
+            ->take ( $length )
+            ->orderBy('late','desc')
+            ->orderBy('updated_at','desc')
+            ->get();
 
         $col_data = [];
 
@@ -69,6 +82,7 @@ class DashboardController extends Controller
                     'objectid' => $col->obj->id,
                     'contractid' => $col->contract->id,
                     'special' => $col->special_task,
+                    'late' => $col->late,
                 ],
                 $col->obj->name,
                 $col->obj->region['name'],

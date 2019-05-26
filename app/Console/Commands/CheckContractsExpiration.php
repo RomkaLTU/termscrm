@@ -21,7 +21,7 @@ class CheckContractsExpiration extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Check contracts expiration';
 
     /**
      * Create a new command instance.

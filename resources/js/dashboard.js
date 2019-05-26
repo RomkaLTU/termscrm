@@ -3,6 +3,47 @@
 
         const $table = $('#dtable');
         const model = $table.data('model');
+        const $save_completed = $('#save_completed');
+        const $completed_count = $('#completed_count');
+        let checkedCompleted = [];
+
+        // ----------------------------------
+        // Check tasks
+        // ----------------------------------
+        $(document).on('change','.completed',function(){
+            if ( this.checked ) {
+                checkedCompleted.push(this.value);
+            } else {
+                checkedCompleted = _.without(checkedCompleted, this.value);
+            }
+
+            $completed_count.html(checkedCompleted.length);
+
+            if ( checkedCompleted.length ) {
+                $save_completed.css('display','inline-block');
+            } else {
+                $save_completed.css('display','none');
+            }
+        });
+
+        $save_completed.on('click',function(){
+            // TODO
+            alert('In progress...');
+            // axios.post(`visits`, {
+            //     checked: checkedCompleted,
+            //     contractid: contractid,
+            //     user_id: window.USER_ID,
+            // }).then(() => {
+            //     window.toastr.success('Apsilankymai išsaugoti');
+            //     $('.visited').prop('checked', false);
+            //     checkedCompleted = [];
+            //     $save_completed.css('display','none');
+            // });
+            window.toastr.success('Atlikti darbai išsaugoti');
+            $('.completed').prop('checked', false);
+            checkedCompleted = [];
+            $save_completed.css('display','none');
+        });
 
         if ( $table.length ) {
             $table.DataTable({
@@ -18,6 +59,15 @@
                 'order': [],
                 'language': {
                     'lengthMenu': 'Rodyti _MENU_',
+                },
+                'rowCallback': function(row, data) {
+                    if ( data.DT_RowData.special ) {
+                        $(row).addClass('table-success');
+                    }
+
+                    if ( data.DT_RowData.late ) {
+                        $(row).addClass('table-warning');
+                    }
                 },
                 'columnDefs': [
                     {

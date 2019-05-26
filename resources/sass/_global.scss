@@ -57,3 +57,12 @@
         width: 180px;
     }
 }
+
+.kt-aside--minimize {
+    .kt-aside__brand-logo {
+        overflow: hidden;
+        > a {
+            white-space: nowrap;
+        }
+    }
+}

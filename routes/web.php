@@ -16,7 +16,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth:web'] ], function() {
 
     Route::get('/', function(){
-        return redirect('contracts');
+        return redirect('dashboard');
     })->name('dashboard');
 
     Route::get('contracts/{contract}/objects/json', 'ObjsController@json');

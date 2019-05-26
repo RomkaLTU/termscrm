@@ -204,6 +204,10 @@
                     if ( data.DT_RowData.special ) {
                         $(row).addClass('table-success');
                     }
+
+                    if ( data.DT_RowData.late ) {
+                        $(row).addClass('table-warning');
+                    }
                 },
                 'columnDefs': columnDefs,
             });

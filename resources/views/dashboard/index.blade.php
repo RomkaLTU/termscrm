@@ -23,13 +23,19 @@
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <div class="kt-portlet__head-actions">
-                        {{-- spausdinimas, tvirtinti atliktus--}}
+                        <button id="save_completed" class="btn btn-success btn-icon-sm" style="display:none;">
+                            <i class="la la-check"></i>
+                            Tvirtinti atliktus darbus (<span id="completed_count"></span>)
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="kt-portlet__body">
-            {{-- Filtrai --}}
+            <dashboard-tasks-filter
+                :regions="{{ $regions }}"
+                :research_areas="{{ $research_areas }}">
+            </dashboard-tasks-filter>
             <table data-model="dashboard" class="table table-md table-hover" id="dtable">
                 <thead>
                 <tr>
