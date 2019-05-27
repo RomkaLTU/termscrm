@@ -23,7 +23,7 @@ class DashboardController extends Controller
             $q->where('contract_status','galiojanti');
         });
 
-        $query->doesntHave('visits');
+        $query->doesntHave('visits')->orWhereNotNull('requiring_int');
 
         $recordsTotal = $query->count();
         $recordsFiltered = $recordsTotal;
@@ -75,7 +75,7 @@ class DashboardController extends Controller
             $due_date = $col->due_date;
 
             if ( !empty($col->requiring_int) ) {
-                $due_date = $col->requiring_int;
+                $due_date = $col->requiring_int . ' (' . $col->due_date . ')';
             }
 
             $col_data[] = [

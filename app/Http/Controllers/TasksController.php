@@ -9,6 +9,7 @@ use App\ParamGroup;
 use App\ResearchArea;
 use App\TaskParam;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -191,16 +192,8 @@ class TasksController extends Controller
 
     public function store( Request $request )
     {
-        try {
-
-            $task = ObjTask::create( $request->except('_token', 'research_area','task_params','task_params_groups') );
-
-        } catch (\Exception $e) {
-
-            Session::flash('error', $e->getMessage());
-            return Redirect::back();
-
-        }
+        $task = ObjTask::create( $request->except('_token', 'research_area','task_params','task_params_groups') );
+        $this->setRequiringDate($request, $task);
 
         $task->taskParams()->sync( $this->task_params($request) );
         $task->paramGroups()->sync( $request->task_params_groups );
@@ -215,16 +208,10 @@ class TasksController extends Controller
 
     public function update( Request $request, Contract $contract, Obj $object, ObjTask $task )
     {
-        try {
 
-            $task->update($request->except('_method','_token','task_params','task_params_groups'));
+        $task->update($request->except('_method','_token','task_params','task_params_groups','requiring_int'));
 
-        } catch (\Exception $e) {
-
-            Session::flash('error', $e->getMessage());
-            return Redirect::back();
-
-        }
+        $this->setRequiringDate($request, $task);
 
         $task->taskParams()->sync( $this->task_params($request) );
         $task->paramGroups()->sync( $request->task_params_groups );
@@ -266,5 +253,70 @@ class TasksController extends Controller
         }
 
         return $task_params;
+    }
+
+    /**
+     * @param $request
+     * @param $task
+     */
+    private function setRequiringDate($request,$task)
+    {
+        $current_day_of_month = Carbon::now()->format('d');
+        $current_month_middle = Carbon::now()->startOfMonth()->addDay(intval(Carbon::now()->daysInMonth / 2))->format('Y-m-d');
+        $current_month_last_day = Carbon::now()->endOfMonth()->format('Y-m-d');
+        $current_last_of_quarter = Carbon::now()->lastOfQuarter()->format('Y-m-d');
+        $middle_of_current_year = Carbon::now()->year . '-06-15';
+
+        if ( $request->requiring_int ) {
+            switch ($request->requiring_int)
+            {
+                case '2k. / mėn.':
+                    if ( $current_day_of_month <= $current_month_middle ) {
+                        $due_date = $current_month_middle;
+                    } else {
+                        $due_date = $current_month_last_day;
+                    }
+
+                    $task->update([
+                        'due_date' => $due_date,
+                    ]);
+
+                    break;
+
+                case '1k. / mėn.':
+                    $task->update([
+                        'due_date' => $current_month_last_day,
+                    ]);
+                    break;
+
+                case '1k. / ketv.':
+                    $task->update([
+                        'due_date' => $current_last_of_quarter,
+                    ]);
+                    break;
+
+                case '2k. / met.':
+                    if ( Carbon::now()->format('Y-m-d') < $middle_of_current_year ) {
+                        $due_date = $middle_of_current_year;
+                    } else {
+                        $due_date = Carbon::now()->endOfYear()->format('Y-m-d');
+                    }
+
+                    $task->update([
+                        'due_date' => $due_date,
+                    ]);
+                    break;
+
+                case '1k. / met.':
+                    $task->update([
+                        'due_date' => Carbon::now()->endOfYear()->format('Y-m-d'),
+                    ]);
+                    break;
+            }
+
+            $task->update([
+                'requiring_int' => $request->requiring_int,
+            ]);
+        }
     }
 }
