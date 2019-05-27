@@ -39,6 +39,40 @@
         // end Object visit history
 
         // ---------------------------------
+        // Tasks history
+        // ---------------------------------
+        const $tasks_history_modal = $('#tasks_history');
+        const $tasks_history_content = $('#tasks_history_content');
+
+        $tasks_history_modal.on('show.bs.modal', function(e){
+            const taskid = $(e.relatedTarget).data('taskid');
+            let visits_html = '';
+
+            axios.get(`tasks/${taskid}`).then((response) => {
+                const task_visit = response.data;
+
+                if ( task_visit.length ) {
+                    visits_html += `<div class="kt-list-timeline" v-if="visits.length"><div class="kt-list-timeline__items">`;
+                    task_visit.forEach(function(visit){
+                        visits_html += `
+                            <div class="kt-list-timeline__item">
+                                <span class="kt-list-timeline__badge"></span>
+                                <span class="kt-list-timeline__text">${visit.user.name}</span>
+                                <span class="kt-list-timeline__time">${visit.date}</span>
+                            </div>
+                        `;
+                    });
+                    visits_html += `</div></div>`;
+                } else {
+                    visits_html += 'Nieko nerasta...';
+                }
+
+                $tasks_history_content.html(visits_html);
+            });
+        });
+        // end Tasks history
+
+        // ---------------------------------
         // Confirmations popovers
         // ---------------------------------
         $(document).on('click', '.confirm_action', function(){

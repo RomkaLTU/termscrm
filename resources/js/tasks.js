@@ -7,7 +7,7 @@
         const model = $table.data('model');
         const $save_completed = $('#save_completed');
         const $completed_count = $('#completed_count');
-        let checkedCompleted = [];
+        let checkedVisited = [];
         let contractid = false;
 
         const $params = $('.select2_task_params');
@@ -19,15 +19,15 @@
         // ----------------------------------
         $(document).on('change','.completed',function(){
             if ( this.checked ) {
-                checkedCompleted.push(this.value);
+                checkedVisited.push(this.value);
             } else {
-                checkedCompleted = _.without(checkedCompleted, this.value);
+                checkedVisited = _.without(checkedVisited, this.value);
             }
 
-            $completed_count.html(checkedCompleted.length);
+            $completed_count.html(checkedVisited.length);
             contractid = $(this).data('contractid');
 
-            if ( checkedCompleted.length ) {
+            if ( checkedVisited.length ) {
                 $save_completed.css('display','inline-block');
             } else {
                 $save_completed.css('display','none');
@@ -35,22 +35,17 @@
         });
 
         $save_completed.on('click',function(){
-            // TODO
-            alert('In progress...');
-            // axios.post(`visits`, {
-            //     checked: checkedCompleted,
-            //     contractid: contractid,
-            //     user_id: window.USER_ID,
-            // }).then(() => {
-            //     window.toastr.success('Apsilankymai išsaugoti');
-            //     $('.visited').prop('checked', false);
-            //     checkedCompleted = [];
-            //     $save_completed.css('display','none');
-            // });
-            window.toastr.success('Atlikti darbai išsaugoti');
-            $('.completed').prop('checked', false);
-            checkedCompleted = [];
-            $save_completed.css('display','none');
+            axios.post(`tasks`, {
+                checked: checkedVisited,
+                user_id: window.USER_ID,
+            }).then(() => {
+                window.toastr.success('Apsilankymai išsaugoti');
+                $('.visited').prop('checked', false);
+                checkedVisited = [];
+                $save_completed.css('display','none');
+
+                $table.DataTable().ajax.reload(null, false);
+            });
         });
         // end Check tasks
 

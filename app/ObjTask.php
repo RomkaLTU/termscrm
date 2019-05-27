@@ -8,7 +8,7 @@ class ObjTask extends Model
 {
     protected $guarded = ['id'];
 
-    protected $with = ['contract','obj','researchArea'];
+    protected $with = ['contract','obj','researchArea','visits'];
 
     public function contract()
     {
@@ -33,5 +33,10 @@ class ObjTask extends Model
     public function paramGroups()
     {
         return $this->belongsToMany( ParamGroup::class );
+    }
+
+    public function visits()
+    {
+        return $this->hasMany( TaskVisit::class, 'task_id' );
     }
 }

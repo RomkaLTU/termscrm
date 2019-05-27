@@ -23,6 +23,8 @@ class DashboardController extends Controller
             $q->where('contract_status','galiojanti');
         });
 
+        $query->doesntHave('visits');
+
         $recordsTotal = $query->count();
         $recordsFiltered = $recordsTotal;
         $start = $request->input( 'start' );
