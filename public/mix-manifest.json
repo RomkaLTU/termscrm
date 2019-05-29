@@ -1,10 +1,11 @@
 {
-    "/js/app.js": "/js/app.js?id=e7d2d8bdb8f4b7f901ca",
+    "/js/app.js": "/js/app.js?id=6a2cc77c029fa79d6292",
     "/css/app.css": "/css/app.css?id=31fb057ea92886cb2e0e",
+    "/css/tailwind.css": "/css/tailwind.css?id=eeb25f558850a4817006",
     "/js/dashboard.js": "/js/dashboard.js?id=e3bc9e09ac4b891c35f9",
     "/js/dt-custom-init.js": "/js/dt-custom-init.js?id=634f33cfa6c277909dd3",
     "/js/global.js": "/js/global.js?id=f78d9146afcae825e9f1",
     "/js/objects.js": "/js/objects.js?id=7bec14afd9378c5e738d",
-    "/js/tasks.js": "/js/tasks.js?id=79ed42ca9d47b68af0be",
+    "/js/tasks.js": "/js/tasks.js?id=cfcf50a0164abbc3ea1f",
     "/js/users.js": "/js/users.js?id=0a332d9341b7e2975241"
 }
