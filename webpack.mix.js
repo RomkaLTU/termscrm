@@ -20,6 +20,10 @@ mix.js('resources/js/dashboard.js', 'public/js');
 mix.js('resources/js/dt-custom-init.js', 'public/js');
 mix.sass('resources/sass/app.scss', 'public/css');
 
+mix.postCss('resources/css/tailwind.css', 'public/css', [
+    require('tailwindcss'),
+]);
+
 if (mix.inProduction()) {
     mix.version();
 }

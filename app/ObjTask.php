@@ -8,7 +8,7 @@ class ObjTask extends Model
 {
     protected $guarded = ['id'];
 
-    protected $with = ['contract','obj','researchArea','visits'];
+    protected $with = ['contract','obj','researchArea','visits','taskParams','paramGroups'];
 
     public function contract()
     {

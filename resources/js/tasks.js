@@ -6,7 +6,8 @@
         const $table = $('#dtable');
         const model = $table.data('model');
         const $save_completed = $('#save_completed');
-        const $completed_count = $('#completed_count');
+        const $completed_count = $('.completed_count');
+        const $print_selected = $('#print_selected');
         let checkedVisited = [];
         let contractid = false;
 
@@ -25,12 +26,16 @@
             }
 
             $completed_count.html(checkedVisited.length);
+            $print_selected.attr( 'data-taskids', checkedVisited.join(',') );
+
             contractid = $(this).data('contractid');
 
             if ( checkedVisited.length ) {
                 $save_completed.css('display','inline-block');
+                $print_selected.css('display','inline-block');
             } else {
                 $save_completed.css('display','none');
+                $print_selected.css('display','none');
             }
         });
 
@@ -48,6 +53,16 @@
             });
         });
         // end Check tasks
+
+        $print_selected.on('click', function(e){
+            e.preventDefault();
+            const $this = $(this);
+
+            const pdfGenerateUrl = $this.attr('href');
+            const taskids = $this.data('taskids');
+
+            window.location.href = `${pdfGenerateUrl}/?tasks=${taskids}`;
+        });
 
         if ( $params.length ) {
             $params.select2({

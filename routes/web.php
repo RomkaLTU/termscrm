@@ -40,6 +40,8 @@ Route::group(['middleware' => ['auth:web'] ], function() {
         Route::get('contracts/{contract}/edit', 'ContractsController@edit')->name('contracts.edit');
     });
 
+    Route::get('tasks/pdf', 'TasksController@generatePdf')->name('generate-pdf');
+
     Route::resource('contracts.objects', 'ObjsController');
     Route::resource('contracts.objects.tasks', 'TasksController');
 

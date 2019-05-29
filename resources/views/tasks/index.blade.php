@@ -27,10 +27,8 @@
                             <i class="la la-plus"></i>
                             {{ __('Pridėti užduotį') }}
                         </a>
-                        <button id="save_completed" class="btn btn-success btn-icon-sm" style="display:none;">
-                            <i class="la la-check"></i>
-                            Tvirtinti atliktus darbus (<span id="completed_count"></span>)
-                        </button>
+                        @include('partials.save-completed')
+                        @include('partials.print-selected')
                     </div>
                 </div>
             </div>

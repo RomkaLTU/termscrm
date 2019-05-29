@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
 class TasksController extends Controller
 {
@@ -253,6 +254,18 @@ class TasksController extends Controller
         }
 
         return $task_params;
+    }
+
+    public function generatePdf( Request $request )
+    {
+        $taskids = explode(',', $request->tasks);
+        $tasks = ObjTask::whereIn('id', $taskids)->get();
+
+        $pdf = PDF::loadView('pdf.tasks', compact('tasks'));
+
+        return $pdf->download('protokolas.pdf');
+
+        return view('pdf.tasks', $tasks);
     }
 
     /**
