@@ -78,14 +78,16 @@
         </thead>
         <tbody>
         @foreach($tasks as $task)
-            <tr>
-                <td class="border align-top p-2"></td>
-                <td class="border align-top p-2"></td>
-                <td class="border align-top p-2">{{ $task->name }} {{ implode(', ', $task->taskParams->pluck('name')->toArray()) }}</td>
-                <td class="border align-top p-2"></td>
-                <td class="border align-top p-2"></td>
-                <td class="border align-top p-2 w-40">{{ implode(', ', $task->paramGroups->pluck('id')->toArray()) }}</td>
-            </tr>
+            @if( $task->ecog == 0 )
+                <tr>
+                    <td class="border align-top p-2"></td>
+                    <td class="border align-top p-2"></td>
+                    <td class="border align-top p-2">{{ $task->name }} {{ implode(', ', $task->taskParams->pluck('name')->toArray()) }}</td>
+                    <td class="border align-top p-2"></td>
+                    <td class="border align-top p-2"></td>
+                    <td class="border align-top p-2 w-40">{{ implode(', ', $task->paramGroups->pluck('id')->toArray()) }}</td>
+                </tr>
+            @endif
         @endforeach
         </tbody>
     </table>
