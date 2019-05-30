@@ -267,8 +267,8 @@ class TasksController extends Controller
         $pdf->setPaper('a4');
         $pdf->setOption('header-html', $header);
 
-        return $pdf->inline(Carbon::now()->format('Y-m-d__') . 'protokolas.pdf');
-        return $pdf->download('protokolas.pdf');
+        // return $pdf->inline(Carbon::now()->format('Y-m-d__') . 'protokolas.pdf');
+        return $pdf->download(Carbon::now()->format('Y-m-d__') . 'protokolas.pdf');
 
         return view('pdf.tasks', $tasks);
     }
