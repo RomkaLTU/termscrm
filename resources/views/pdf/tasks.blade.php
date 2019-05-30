@@ -8,11 +8,11 @@
     <div class="mt-4">
         <div class="mb-2">
             <div class="inline-block w-64">Mėginių paėmimo data:</div>
-            <div class="inline-block">20______m &nbsp;&nbsp;&nbsp; mėn. ______d.</div>
+            <div class="inline-block w-64">20______m &nbsp;&nbsp;&nbsp; mėn. ______d.</div>
         </div>
         <div>
             <div class="inline-block w-64">Pristatymo data:</div>
-            <div class="inline-block">20______m &nbsp;&nbsp;&nbsp; mėn. ______d.</div>
+            <div class="inline-block w-64">20______m &nbsp;&nbsp;&nbsp; mėn. ______d.</div>
         </div>
     </div>
 
@@ -33,22 +33,22 @@
 
     <div class="mt-6">
         <div class="inline-block">Užsakovas, adresas:</div>
-        <div class="inline-block relative w-2/3 h-6 ml-2 user-input" style="width: 648px;">
+        <div class="inline-block relative w-2/3 h-6 ml-2 user-input" style="width: 640px;">
             {{ $tasks[0]->contract->customer }}, {{ $tasks[0]->contract->customer_address }}
         </div>
     </div>
 
     <div class="mt-4">
-        <div class="inline-block">Objektas, adresas, atsakingas asmuo, vardas, pavardė, tel.:</div>
-        <div class="inline-block user-input h-6" style="width: 422px;">
+        <div class="inline-block" style="width:430px">Objektas, adresas, atsakingas asmuo, vardas, pavardė, tel.:</div>
+        <div class="inline-block user-input ml-2 h-6" style="width:357px">
             {{ $tasks[0]->obj->details }}
         </div>
         <div class="user-input h-8" style="width: 100%;"></div>
     </div>
 
     <div class="mt-6">
-        <div class="inline-block">Transportavimo sąlygos:</div>
-        <div class="inline-block user-input ml-2 h-6" style="width: 634px;"></div>
+        <div class="inline-block" style="width:200px;">Transportavimo sąlygos:</div>
+        <div class="inline-block user-input ml-2 h-6" style="width:587px;"></div>
     </div>
 
     <div class="mt-6">
@@ -77,7 +77,7 @@
         </tr>
         </thead>
         <tbody>
-            @foreach($tasks as $task)
+        @foreach($tasks as $task)
             <tr>
                 <td class="border align-top p-2"></td>
                 <td class="border align-top p-2"></td>
@@ -106,7 +106,7 @@
     </div>
 
     <div class="mt-6">
-        <div class="inline-block">Užsakovo atstovas:</div>
+        <div class="inline-block" style="width:150px">Užsakovo atstovas:</div>
         <div class="inline-block ml-2">
             <div class="inline-block relative h-6 ml-2 user-input" style="width: 422px;">
                 <div class="text-xs absolute bottom-0 left-0 ml-40 -mb-5 text-center">(v.,pavardė,parašas)</div>
@@ -115,9 +115,9 @@
     </div>
 
     <div class="mt-6">
-        <div class="inline-block">Pastabos:</div>
+        <div class="inline-block" style="width:150px">Pastabos:</div>
         <div class="inline-block ml-2">
-            <div class="inline-block relative h-6 ml-2 user-input" style="width: 715px;"></div>
+            <div class="inline-block relative h-6 ml-2 user-input" style="width:422px;"></div>
         </div>
     </div>
 @stop
