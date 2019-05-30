@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
+use Illuminate\Support\Facades\View;
 
 class TasksController extends Controller
 {
@@ -260,9 +261,13 @@ class TasksController extends Controller
     {
         $taskids = explode(',', $request->tasks);
         $tasks = ObjTask::whereIn('id', $taskids)->get();
+        $header = View::make('pdf.header')->render();
 
         $pdf = PDF::loadView('pdf.tasks', compact('tasks'));
+        $pdf->setPaper('a4');
+        $pdf->setOption('header-html', $header);
 
+        return $pdf->inline(Carbon::now()->format('Y-m-d__') . 'protokolas.pdf');
         return $pdf->download('protokolas.pdf');
 
         return view('pdf.tasks', $tasks);
