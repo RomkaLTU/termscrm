@@ -117,6 +117,10 @@
                 placeholder: 'Pasirinkite',
                 allowClear: true,
             });
+            $select2.on('change', function() {
+                console.log('changed');
+                $(this).trigger('blur');
+            });
         }
 
         let columnDefs = [

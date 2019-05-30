@@ -69,19 +69,21 @@
                                     <datepicker
                                         v-model="formData.due_date"
                                         :monday-first="true"
-                                        input-class="form-control w-100"
+                                        input-class="form-control due w-100"
                                         format="yyyy-MM-dd"
                                         :language="lt"
                                         :clear-button="true"
+                                        :typeable="true"
+                                        :bootstrap-styling="true"
                                         v-on:selected="dueDateChange"
                                         placeholder="Atlikti iki..."
                                         name="due_date"></datepicker>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center" style="flex:1">
-                                <div class="w-100">
+                                <div class="w-100 d-flex flex-column-reverse">
                                     <input type="hidden" name="requiring_int" value="">
-                                    <select id="requiring_int" class="select2 w-100" v-model="formData.requiring_int" name="requiring_int">
+                                    <select id="requiring_int" class="select2 due w-100" v-model="formData.requiring_int" name="requiring_int">
                                         <option>2k. / mėn.</option>
                                         <option>1k. / mėn.</option>
                                         <option>1k. / ketv.</option>
@@ -221,7 +223,7 @@
         },
         methods: {
             dueDateChange(){
-                //$('#requiring_int').val('').change();
+
             },
             getParamGroups() {
                 this.$http.get('tasks/paramgroup').then((response) => {

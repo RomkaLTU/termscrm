@@ -132,17 +132,12 @@
     <script src="{{ asset('assets/vendors/general/bootstrap-maxlength/src/bootstrap-maxlength.js') }}"></script>
     <script src="{{ asset('assets/vendors/custom/vendors/bootstrap-multiselectsplitter/bootstrap-multiselectsplitter.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/bootstrap-select/dist/js/bootstrap-select.js') }}"></script>
-    <script src="{{ asset('assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js') }}"></script>
-    <script src="{{ asset('assets/vendors/custom/components/vendors/bootstrap-switch/init.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/select2/dist/js/select2.full.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/inputmask/dist/jquery.inputmask.bundle.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/inputmask/dist/inputmask/inputmask.date.extensions.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/inputmask/dist/inputmask/inputmask.numeric.extensions.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/autosize/dist/autosize.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/clipboard/dist/clipboard.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/general/jquery-validation/dist/jquery.validate.js') }}"></script>
-    <script src="{{ asset('assets/vendors/general/jquery-validation/dist/additional-methods.js') }}"></script>
-    <script src="{{ asset('assets/vendors/custom/components/vendors/jquery-validation/init.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/toastr/build/toastr.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/morris.js/morris.js') }}"></script>
     <script src="{{ asset('assets/vendors/custom/vendors/bootstrap-session-timeout/dist/bootstrap-session-timeout.min.js') }}"></script>
@@ -151,6 +146,8 @@
     <script src="{{ asset('assets/vendors/general/jquery.repeater/src/lib.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/jquery.repeater/src/jquery.input.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/dompurify/dist/purify.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/additional-methods.min.js"></script>
 
     <script src="{{ asset('assets/demo/default/base/scripts.bundle.js') }}"></script>
     <script src="{{ asset('assets/app/bundle/app.bundle.js') }}"></script>

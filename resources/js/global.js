@@ -4,6 +4,34 @@
     $(function(){
 
         // ---------------------------------
+        // Form validation
+        // ---------------------------------
+
+        $('#form').validate({
+            ignore: [],
+            rules: {
+                due_date: {
+                    require_from_group: [1, '.due']
+                },
+                requiring_int: {
+                    require_from_group: [1, '.due']
+                }
+            },
+            messages: {
+                due_date: {
+                    require_from_group: 'Pasirinkite bent 1'
+                },
+                requiring_int: {
+                    require_from_group: 'Pasirinkite bent 1'
+                },
+            }
+        });
+
+        $.extend($.validator.messages, {
+            required: 'Privalomas laukas',
+        });
+
+        // ---------------------------------
         // Object visit history
         // ---------------------------------
         const $visit_history_modal = $('#visit_history');
