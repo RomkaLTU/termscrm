@@ -224,7 +224,7 @@
                 //$('#requiring_int').val('').change();
             },
             getParamGroups() {
-                this.$http.get('tasks/paramgroups').then((response) => {
+                this.$http.get('tasks/paramgroup').then((response) => {
                     this.param_groups = response.data;
                 });
             },

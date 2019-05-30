@@ -25,14 +25,13 @@ $api->version('v1', [ 'prefix' => 'api' ], function ($api) {
     $api->post('visits', 'App\Http\Controllers\Api\ObjVisitsController@visits');
     $api->get('visits/{contract_id}/{object_id}', 'App\Http\Controllers\Api\ObjVisitsController@get_visits');
 
-    $api->get('tasks/{task}', 'App\Http\Controllers\Api\TaskVisitsController@get_visits');
     $api->post('tasks', 'App\Http\Controllers\Api\TaskVisitsController@visits');
-
     $api->post('tasks/params', 'App\Http\Controllers\Api\ObjTasksController@createParam');
     $api->post('tasks/paramgroups', 'App\Http\Controllers\Api\ObjTasksController@createGroup');
-    $api->get('tasks/paramgroups', 'App\Http\Controllers\Api\ObjTasksController@getGroup');
+    $api->get('tasks/paramgroup', 'App\Http\Controllers\Api\ObjTasksController@getGroup');
     $api->delete('tasks/paramgroups/{group}', 'App\Http\Controllers\Api\ObjTasksController@deleteGroup');
     $api->get('tasks/paramgroupsall', 'App\Http\Controllers\Api\ObjTasksController@getGroupAll');
+    $api->get('tasks/{task}', 'App\Http\Controllers\Api\TaskVisitsController@get_visits');
 
     $api->get('contracts', 'App\Http\Controllers\Api\ContractsController@search');
 
