@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 
 class TasksController extends Controller
 {
@@ -115,6 +116,7 @@ class TasksController extends Controller
                     'objectid' => $object->id,
                     'contractid' => $contract->id,
                     'special' => $col->special_task,
+                    'researcharea' => Str::slug($col->researchArea->name),
                 ],
                 $col->id,
                 $col->name,

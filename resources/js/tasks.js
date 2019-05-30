@@ -9,6 +9,7 @@
         const $completed_count = $('.completed_count');
         const $print_selected = $('#print_selected');
         let checkedVisited = [];
+        let selectedGroups = [];
         let contractid = false;
 
         const $params = $('.select2_task_params');
@@ -19,8 +20,22 @@
         // Check tasks
         // ----------------------------------
         $(document).on('change','.completed',function(){
+
+            const $checkboxes = $('.completed');
+            let current_selected_group = $(this).data('ra');
+
             if ( this.checked ) {
+                if ( selectedGroups.length && !selectedGroups.includes(current_selected_group) ) {
+                    selectedGroups = [];
+                    checkedVisited = [];
+
+                    $checkboxes.prop('checked', false);
+                    $(this).prop('checked', true);
+                }
+
                 checkedVisited.push(this.value);
+                selectedGroups.push(current_selected_group);
+
             } else {
                 checkedVisited = _.without(checkedVisited, this.value);
             }
@@ -131,9 +146,31 @@
                 'className': 'text-center',
                 'type':'html',
                 'render': function (data, type, row) {
+                    let color = '';
+                    switch (row.DT_RowData.researcharea) {
+                        case 'orai':
+                            color = 'kt-checkbox--success';
+                            break;
+                        case 'nuotekos':
+                            color = 'kt-checkbox--brand';
+                            break;
+                        case 'geologija':
+                            color = 'kt-checkbox--warning';
+                            break;
+                        case 'rasto-darbai':
+                            color = 'kt-checkbox--dark';
+                            break;
+                        case 'kita':
+                            color = 'kt-checkbox--danger';
+                            break;
+                    }
                     return `
-                            <label class="kt-checkbox">
-                                <input class="completed" type="checkbox" name="completed[]" value="${row.DT_RowData.taskid}"> &nbsp;
+                            <label class="kt-checkbox ${color}">
+                                <input class="completed" 
+                                    type="checkbox" 
+                                    data-ra="${row.DT_RowData.researcharea}" 
+                                    name="completed[${row.DT_RowData.researcharea}][]" 
+                                    value="${row.DT_RowData.taskid}"> &nbsp;
                                 <span></span>
                             </label>
                         `;

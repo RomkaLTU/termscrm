@@ -74,6 +74,8 @@
         },
         methods: {
             clear(){
+                document.getElementById("save_completed").style.display = 'none';
+                document.getElementById("print_selected").style.display = 'none';
                 document.getElementById("tasksFilterForm").reset();
                 this.filter();
             },
@@ -133,9 +135,31 @@
                         'className': 'text-center',
                         'type':'html',
                         'render': function (data, type, row) {
+                            let color = '';
+                            switch (row.DT_RowData.researcharea) {
+                                case 'orai':
+                                    color = 'kt-checkbox--success';
+                                    break;
+                                case 'nuotekos':
+                                    color = 'kt-checkbox--brand';
+                                    break;
+                                case 'geologija':
+                                    color = 'kt-checkbox--warning';
+                                    break;
+                                case 'rasto-darbai':
+                                    color = 'kt-checkbox--dark';
+                                    break;
+                                case 'kita':
+                                    color = 'kt-checkbox--danger';
+                                    break;
+                            }
                             return `
-                            <label class="kt-checkbox">
-                                <input class="completed" type="checkbox" name="completed[]" value="${row.DT_RowData.taskid}"> &nbsp;
+                            <label class="kt-checkbox ${color}">
+                                <input class="completed"
+                                    type="checkbox"
+                                    data-ra="${row.DT_RowData.researcharea}"
+                                    name="completed[${row.DT_RowData.researcharea}][]"
+                                    value="${row.DT_RowData.taskid}"> &nbsp;
                                 <span></span>
                             </label>
                         `;
