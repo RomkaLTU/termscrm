@@ -2,21 +2,23 @@
     <div>
         <div class="form-group">
             <label for="pavadinimas">Pavadinimas</label>
-            <input type="text" class="form-control" id="pavadinimas" v-model="formData.name" name="name" placeholder="Pavadinimas">
+            <input type="text" class="form-control" id="pavadinimas" v-model="formData.name" name="name" placeholder="Pavadinimas" required>
         </div>
         <div class="form-group row">
             <div class="col-lg-3">
                 <label for="regions">Regionas</label>
-                <select id="regions" class="form-control m-select2" name="region_id">
-                    <option value=""></option>
-                    <option
-                        v-for="region in regions"
-                        :key="`region_${region.id}`"
-                        :selected="region_selected===region.id"
-                        :value="region.id">
-                        {{ region.name }}
-                    </option>
-                </select>
+                <div class="d-flex flex-column-reverse">
+                    <select id="regions" class="form-control m-select2 due" name="region_id" required>
+                        <option value=""></option>
+                        <option
+                            v-for="region in regions"
+                            :key="`region_${region.id}`"
+                            :selected="region_selected===region.id"
+                            :value="region.id">
+                            {{ region.name }}
+                        </option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="form-group row">
@@ -29,17 +31,19 @@
                                 <datepicker
                                     v-model="formData.visit_time"
                                     :monday-first="true"
-                                    input-class="form-control w-100"
+                                    input-class="form-control due w-100"
                                     format="yyyy-MM-dd"
                                     :language="lt"
+                                    :clear-button="true"
+                                    :typeable="true"
                                     v-on:selected="visitTimeChange"
                                     placeholder="Pasirinkite datą"
                                     name="due_date"></datepicker>
                             </div>
                         </div>
                         <div class="d-flex align-items-center" style="flex:1">
-                            <div class="w-100">
-                                <select id="visit_time_req" class="w-100" @change="requiringIntChange" name="visit_time_req">
+                            <div class="w-100 d-flex flex-column-reverse">
+                                <select id="visit_time_req" class="w-100 due" @change="requiringIntChange" name="visit_time_req">
                                     <option value="">Reguliariai</option>
                                     <option :selected="typeof obj !== 'undefined' && obj.visit_time_req==='2k. / mėn.'">2k. / mėn.</option>
                                     <option :selected="typeof obj !== 'undefined' && obj.visit_time_req==='1k. / mėn.'">1k. / mėn.</option>

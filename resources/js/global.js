@@ -15,13 +15,19 @@
                 },
                 requiring_int: {
                     require_from_group: [1, '.due']
-                }
+                },
+                visit_time_req: {
+                    require_from_group: [1, '.due']
+                },
             },
             messages: {
                 due_date: {
                     require_from_group: 'Pasirinkite bent 1'
                 },
                 requiring_int: {
+                    require_from_group: 'Pasirinkite bent 1'
+                },
+                visit_time_req: {
                     require_from_group: 'Pasirinkite bent 1'
                 },
             }
