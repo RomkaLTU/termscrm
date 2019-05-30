@@ -265,11 +265,25 @@ class TasksController extends Controller
         $tasks = ObjTask::whereIn('id', $taskids)->get();
         $header = View::make('pdf.header')->render();
 
+        if ( in_array( Str::camel( $tasks->first()->researchArea->name ), ['orai'] ) ) {
+            $pdf = PDF::loadView('pdf.tasks-simple', compact('tasks'));
+            $pdf->setPaper('a4');
+            $pdf->setOption('header-html', $header);
+            return $pdf->inline(Carbon::now()->format('Y-m-d__') . $tasks->first()->researchArea->name . '.pdf');
+        }
+
+        if ( in_array( Str::camel( $tasks->first()->researchArea->name ), ['rasto_darbai'] ) ) {
+            $pdf = PDF::loadView('pdf.tasks-parameterless', compact('tasks'));
+            $pdf->setPaper('a4');
+            $pdf->setOption('header-html', $header);
+            return $pdf->inline(Carbon::now()->format('Y-m-d__') . $tasks->first()->researchArea->name . '.pdf');
+        }
+
         $pdf = PDF::loadView('pdf.tasks', compact('tasks'));
         $pdf->setPaper('a4');
         $pdf->setOption('header-html', $header);
 
-        // return $pdf->inline(Carbon::now()->format('Y-m-d__') . 'protokolas.pdf');
+        return $pdf->inline(Carbon::now()->format('Y-m-d__') . 'protokolas.pdf');
         return $pdf->download(Carbon::now()->format('Y-m-d__') . 'protokolas.pdf');
 
         return view('pdf.tasks', $tasks);
