@@ -29,6 +29,7 @@ class CreateObjTasksTable extends Migration
             $table->smallInteger('special_task')->default(0);
             $table->smallInteger('ecog')->default(0);
             $table->boolean('late')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

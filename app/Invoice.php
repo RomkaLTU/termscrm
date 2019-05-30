@@ -4,10 +4,13 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Artisan;
 
 class Invoice extends Model
 {
+    use SoftDeletes;
+
     protected $guarded = ['id'];
 
     protected $table = 'contract_invoices';

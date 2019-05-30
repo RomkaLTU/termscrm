@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ObjTask extends Model
 {
+    use SoftDeletes;
+
     protected $guarded = ['id'];
 
     protected $with = ['contract','obj','researchArea','visits','taskParams','paramGroups'];

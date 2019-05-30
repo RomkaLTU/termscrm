@@ -23,6 +23,7 @@ class CreateObjectsTable extends Migration
             $table->text('details')->nullable();
             $table->text('notes_1')->nullable();
             $table->text('notes_2')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -20,6 +20,7 @@ class CreateContractInvoicesTable extends Migration
             $table->double('total',2);
             $table->boolean('status')->default(0);
             $table->date('due_date');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
