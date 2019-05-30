@@ -8,11 +8,11 @@
     <div class="mt-4">
         <div class="mb-2">
             <div class="inline-block w-64">Mėginių paėmimo data:</div>
-            <div class="inline-block w-64">20______m &nbsp;&nbsp;&nbsp; mėn. ______d.</div>
+            <div class="inline-block" style="width:500px">20___m ________________ mėn. ______d.</div>
         </div>
         <div>
             <div class="inline-block w-64">Pristatymo data:</div>
-            <div class="inline-block w-64">20______m &nbsp;&nbsp;&nbsp; mėn. ______d.</div>
+            <div class="inline-block" style="width:500px">20___m ________________ mėn. ______d.</div>
         </div>
     </div>
 
