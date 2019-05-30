@@ -2,7 +2,7 @@
     <div>
         <div class="form-group">
             <label>Sutarties nr.</label>
-            <input type="text" class="form-control" v-model="formData.contract_nr" name="contract_nr" placeholder="Sutarties nr.">
+            <input type="text" class="form-control" v-model="formData.contract_nr" name="contract_nr" placeholder="Sutarties nr." required>
         </div>
         <div class="form-group">
             <label>Adresas</label>
@@ -15,8 +15,8 @@
         <div class="form-group">
             <label>Galiojimas</label>
             <div class="kt-radio-inline mt-2">
-                <label class="kt-radio">
-                    <input type="radio" name="validity" v-model="formData.validity" value="unlimited"> Neterminuota
+                <label class="kt-radio d-flex flex-column-reverse">
+                    <input type="radio" name="validity" class="due" v-model="formData.validity" value="unlimited"> Neterminuota
                     <span></span>
                 </label>
             </div>
@@ -28,7 +28,16 @@
                             <span></span>
                         </label>
                         <div>
-                            <datepicker v-model="formData.validity_value" :monday-first="true" input-class="form-control" format="yyyy-MM-dd" :language="lt" placeholder="Galioja iki..." name="validity_value"></datepicker>
+                            <datepicker
+                                v-model="formData.validity_value"
+                                :monday-first="true"
+                                input-class="form-control due"
+                                format="yyyy-MM-dd"
+                                :language="lt"
+                                :clear-button="true"
+                                :typeable="true"
+                                placeholder="Galioja iki..."
+                                name="validity_value"></datepicker>
                         </div>
                     </div>
                     <div class="d-flex align-items-center" v-if="formData.validity !== 'unlimited'">

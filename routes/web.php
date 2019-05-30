@@ -30,8 +30,6 @@ Route::group(['middleware' => ['auth:web'] ], function() {
 
     Route::get('contracts','ContractsController@index')->name('contracts.index');
     Route::get('contracts/json', 'ContractsController@json');
-    Route::get('contracts/{contract}', 'ContractsController@show')->name('contracts.show');
-
     Route::group(['middleware' => ['permission:edit_users']], function () {
         Route::post('contracts','ContractsController@store')->name('contracts.store');
         Route::get('contracts/create', 'ContractsController@create')->name('contracts.create');
@@ -39,6 +37,7 @@ Route::group(['middleware' => ['auth:web'] ], function() {
         Route::put('contracts/{contract}', 'ContractsController@update')->name('contracts.update');
         Route::get('contracts/{contract}/edit', 'ContractsController@edit')->name('contracts.edit');
     });
+    Route::get('contracts/{contract}', 'ContractsController@show')->name('contracts.show');
 
     Route::get('tasks/pdf', 'TasksController@generatePdf')->name('generate-pdf');
 

@@ -71,3 +71,9 @@ label.error {
     color: red;
     margin-top: 4px;
 }
+
+.kt-radio {
+    .error {
+        display: none;
+    }
+}

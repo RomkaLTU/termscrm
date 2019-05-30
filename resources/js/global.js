@@ -19,6 +19,12 @@
                 visit_time_req: {
                     require_from_group: [1, '.due']
                 },
+                validity_value: {
+                    require_from_group: [1, '.due']
+                },
+                validity: {
+                    require_from_group: [1, '.due']
+                },
             },
             messages: {
                 due_date: {
@@ -28,6 +34,12 @@
                     require_from_group: 'Pasirinkite bent 1'
                 },
                 visit_time_req: {
+                    require_from_group: 'Pasirinkite bent 1'
+                },
+                validity_value: {
+                    require_from_group: 'Pasirinkite bent 1'
+                },
+                validity: {
                     require_from_group: 'Pasirinkite bent 1'
                 },
             }
