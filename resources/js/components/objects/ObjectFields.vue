@@ -124,18 +124,19 @@
             'users',
             'supervisors',
             'regions',
-            'region_selected'
+            'region_selected',
+            'old'
         ],
         data() {
             return {
                 en: en,
                 lt: lt,
                 formData: {
-                    name: ( this.obj ? this.obj.name : null ),
-                    details: ( this.obj ? this.obj.details : null ),
-                    visit_time: ( this.obj ? this.obj.due_date : null ),
-                    notes_1: ( this.obj ? this.obj.notes_1 : null ),
-                    notes_2: ( this.obj ? this.obj.notes_2 : null ),
+                    name: ( this.obj ? this.obj.name : this.old.name ),
+                    details: ( this.obj ? this.obj.details : this.old.details ),
+                    visit_time: ( this.obj ? this.obj.due_date : this.old.due_date ),
+                    notes_1: ( this.obj ? this.obj.notes_1 : this.old.notes_1 ),
+                    notes_2: ( this.obj ? this.obj.notes_2 : this.old.notes_2  ),
                     research_area: ( this.research_area ? this.research_area : [] ),
                 },
                 dropzoneOptions: {

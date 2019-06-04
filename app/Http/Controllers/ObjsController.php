@@ -98,13 +98,21 @@ class ObjsController extends Controller
 
     public function store( Request $request, Contract $contract )
     {
+        $validatedData = $request->validate([
+            'research_area' => 'required|array|min:1',
+            'name' => 'required',
+        ]);
+
         $obj = Obj::create( $request->except('_token', 'research_area', 'ra_supervisor') );
 
         $contract->objs()->attach( $obj->id );
 
         $ra_users_arr = [];
-        foreach ($request->research_area as $ra) {
-            $ra_users_arr[$ra] = ['user_id' => $request->ra_supervisor[$ra]];
+
+        if ( !empty($request->research_area) ) {
+            foreach ($request->research_area as $ra) {
+                $ra_users_arr[$ra] = ['user_id' => $request->ra_supervisor[$ra]];
+            }
         }
 
         $obj->researchAreas()->attach($ra_users_arr);
@@ -155,6 +163,10 @@ class ObjsController extends Controller
 
     public function update( Request $request, Contract $contract, Obj $object )
     {
+        $validatedData = $request->validate([
+            'research_area' => 'required|array|min:1',
+        ]);
+
         $object->update( $request->except('_method','_token','research_area','ra_supervisor') );
 
         $ra_users_arr = [];

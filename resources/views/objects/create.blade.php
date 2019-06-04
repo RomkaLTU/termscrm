@@ -22,6 +22,7 @@
                     <object-fields
                         :users="{{ $users }}"
                         :regions="{{ $regions }}"
+                        :old="{{ json_encode(session()->getOldInput()) }}"
                         :research_areas="{{ $research_areas }}">
                     </object-fields>
                 </div>
