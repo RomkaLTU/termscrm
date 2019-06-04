@@ -262,7 +262,7 @@ class TasksController extends Controller
     public function generatePdf( Request $request )
     {
         $taskids = explode(',', $request->tasks);
-        $tasks = ObjTask::whereIn('id', $taskids)->get();
+        $tasks = ObjTask::whereIn('id', $taskids)->where('special_task', 0)->get();
         $header = View::make('pdf.header')->render();
 
         if ( in_array( Str::camel( $tasks->first()->researchArea->name ), ['orai'] ) ) {
