@@ -144,6 +144,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'research_area' => 'Tyrimo sritys',
+        'name' => 'Pavadinimas',
+    ],
 
 ];
