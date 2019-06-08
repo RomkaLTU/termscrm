@@ -24,7 +24,15 @@ class ObjTasksController extends Controller
 
     public function createGroup( Request $request )
     {
-        $group = ParamGroup::create();
+        $request->validate([
+            'task_params_group_name' => 'required',
+            'task_params' => 'required|array|min:1',
+        ]);
+
+        $group = ParamGroup::create([
+            'name' => $request->task_params_group_name,
+        ]);
+
         $param_ids = [];
 
         foreach ( $request->task_params as $param ) {
@@ -40,7 +48,7 @@ class ObjTasksController extends Controller
 
     public function getGroup()
     {
-        return ParamGroup::all()->pluck('taskparams', 'id');
+        return ParamGroup::all()->pluck('taskparams', 'name');
     }
 
     public function getGroupAll()

@@ -105,6 +105,8 @@ class TasksController extends Controller
         foreach ($data as $col) {
 
             $due_date = $col->due_date;
+            $params = $col->taskParams->pluck('name')->implode(', ');
+            $param_groups = $col->paramGroups->pluck('name')->implode(', ');
 
             if ( !empty($col->requiring_int) ) {
                 $due_date = $col->requiring_int;
@@ -121,7 +123,7 @@ class TasksController extends Controller
                 $col->id,
                 $col->name,
                 $due_date,
-                $col->taskParams->pluck('name')->implode(', '),
+                $params . $param_groups,
                 $col->notes_1,
                 $col->notes_2,
             ];

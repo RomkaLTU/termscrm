@@ -49,7 +49,7 @@
                                 :key="`param_${params_group.id}`"
                                 :selected="task_params_groups_selected.some( (id) => id === params_group.id )"
                                 :value="params_group.id">
-                                {{ params_group.id }} - {{ params_group.taskparams.map(function(o) { return o["name"]; }).join(', ') }}
+                                {{ params_group.name }} - {{ params_group.taskparams.map(function(o) { return o["name"]; }).join(', ') }}
                             </option>
                         </select>
                         <button type="button" class="btn btn-outline-hover-success btn-elevate btn-pill d-flex ml-2" data-toggle="modal" data-target="#task_params_groups_modal">
@@ -132,7 +132,10 @@
                                 <div class="d-flex flex-column">
                                     <label for="task_params_group_items" class="form-control-label">Parametrai:</label>
                                     <div class="d-flex">
-                                        <div class="w-100">
+                                        <div class="w-25 mr-2">
+                                            <input type="text" class="form-control kt-input mr-2" v-model="task_params_group_name" placeholder="Pavadinimas">
+                                        </div>
+                                        <div class="w-75">
                                             <select id="task_params_group_items" class="form-control m-select2 select2_task_params" multiple style="width:100%">
                                                 <option></option>
                                                 <option
@@ -197,6 +200,7 @@
                 },
                 param_groups: false,
                 task_params_groups_values: [],
+                task_params_group_name: '',
                 formData: {
                     research_area: ( this.research_area ? this.research_area : '1' ),
                     name: ( this.task ? this.task.name : null ),
@@ -233,14 +237,9 @@
             createGroup() {
                 const $task_params_group_items = $(task_params_group_items);
 
-                if ( $.trim($task_params_group_items.val()).length === 0 ) {
-                    toastr.error("Pasirinkite bent 1 parametrą");
-                    return;
-                }
-
                 this.$http.post(`tasks/paramgroups`, {
                     task_params: $task_params_group_items.val(),
-                    // user_id: window.USER_ID,
+                    task_params_group_name: this.task_params_group_name,
                 }).then( () => {
                     toastr.success("Grupė sukurta");
                     this.getParamGroups();
@@ -249,6 +248,8 @@
                         this.task_params_groups_values = response.data;
                     });
 
+                } ).catch( () => {
+                    toastr.error("Visi laukai yra privalomi!");
                 } );
             },
             deleteGroup(group_id) {
