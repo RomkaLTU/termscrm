@@ -21,9 +21,10 @@ class DashboardController extends Controller
     {
         $query = ObjTask::whereHas('contract', function($q){
             $q->where('contract_status','galiojanti');
+            $q->orWhereNotNull('requiring_int');
         });
 
-        $query->doesntHave('visits')->orWhereNotNull('requiring_int');
+        $query->doesntHave('visits');
 
         $recordsTotal = $query->count();
         $recordsFiltered = $recordsTotal;
@@ -41,14 +42,14 @@ class DashboardController extends Controller
             }
         }
 
-        if ( !empty($request->researchArea) ) {
-            $query->where('research_area_id',$request->researchArea);
-        }
-
         if ( !empty($request->region) ) {
             $query->whereHas('obj', function($q) use ($request){
                 $q->where('region_id', $request->region);
             });
+        }
+
+        if ( !empty($request->researchArea) ) {
+            $query->where('research_area_id',$request->researchArea);
         }
 
         /*

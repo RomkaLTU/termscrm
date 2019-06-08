@@ -6,7 +6,7 @@
         const $table = $('#dtable');
         const model = $table.data('model');
         const $save_completed = $('#save_completed');
-        const $completed_count = $('#completed_count');
+        const $completed_count = $('.completed_count');
         let checkedVisited = [];
 
         // ----------------------------------
@@ -19,13 +19,15 @@
                 checkedVisited = _.without(checkedVisited, this.value);
             }
 
-            $completed_count.html(checkedVisited.length);
+            const checkedCount = checkedVisited.length;
 
-            if ( checkedVisited.length ) {
+            if ( checkedCount ) {
                 $save_completed.css('display','inline-block');
             } else {
                 $save_completed.css('display','none');
             }
+
+            $completed_count.text(checkedCount);
         });
 
         $save_completed.on('click',function(){

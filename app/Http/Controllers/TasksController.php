@@ -214,8 +214,7 @@ class TasksController extends Controller
 
     public function update( Request $request, Contract $contract, Obj $object, ObjTask $task )
     {
-
-        $task->update($request->except('_method','_token','task_params','task_params_groups','requiring_int'));
+        $task->update( $request->except('_method','_token','task_params','task_params_groups','requiring_int') );
 
         $this->setRequiringDate($request, $task);
 
@@ -352,6 +351,10 @@ class TasksController extends Controller
 
             $task->update([
                 'requiring_int' => $request->requiring_int,
+            ]);
+        } else {
+            $task->update([
+                'requiring_int' => null,
             ]);
         }
     }
