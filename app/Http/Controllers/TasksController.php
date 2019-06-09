@@ -11,6 +11,7 @@ use App\TaskParam;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
@@ -280,14 +281,37 @@ class TasksController extends Controller
             return $pdf->download(Carbon::now()->format('Y-m-d__') . $tasks->first()->researchArea->name . '.pdf');
         }
 
-        $pdf = PDF::loadView('pdf.tasks', compact('tasks'));
+        $task = $tasks->first();
+        $obj = $task->obj;
+
+        $supervisor = DB::table('obj_research_area')
+            ->leftJoin('users', 'users.id', '=', 'obj_research_area.user_id')
+            ->select('users.*')
+            ->where('obj_id', $task->object_id)
+            ->where('research_area_id', $task->research_area_id)->first();
+
+        $details_arr = [
+            $obj->name,
+            $obj->details,
+            $supervisor->name,
+            $supervisor->phone,
+        ];
+        $details = implode(', ', array_filter($details_arr));
+
+        $pdf = PDF::loadView('pdf.tasks', [
+            'tasks' => $tasks,
+            'details' => $details,
+        ]);
+
         $pdf->setPaper('a4');
         $pdf->setOption('header-html', $header);
 
-        // return $pdf->inline(Carbon::now()->format('Y-m-d__') . 'protokolas.pdf');
+//        return view('pdf.tasks', [
+//            'tasks' => $tasks,
+//            'details' => $details,
+//        ]);
+        
         return $pdf->download(Carbon::now()->format('Y-m-d__') . 'protokolas.pdf');
-
-        return view('pdf.tasks', $tasks);
     }
 
     /**

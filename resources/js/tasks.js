@@ -69,12 +69,12 @@
         });
         // end Check tasks
 
-        $print_selected.on('click', function(e){
+        $(document).on('click', '#print_selected', function(e){
             e.preventDefault();
             const $this = $(this);
 
             const pdfGenerateUrl = $this.attr('href');
-            const taskids = $this.data('taskids');
+            const taskids = $this.attr('data-taskids');
 
             window.location.href = `${pdfGenerateUrl}/?tasks=${taskids}`;
         });

@@ -33,17 +33,14 @@
 
     <div class="mt-6">
         <div class="inline-block">Užsakovas, adresas:</div>
-        <div class="inline-block relative w-2/3 h-6 ml-2 user-input" style="width: 640px;">
+        <div class="block relative w-full h-6 mt-1 user-input">
             {{ $tasks[0]->contract->customer }}, {{ $tasks[0]->contract->customer_address }}
         </div>
     </div>
 
     <div class="mt-4">
         <div class="inline-block" style="width:430px">Objektas, adresas, atsakingas asmuo, vardas, pavardė, tel.:</div>
-        <div class="inline-block user-input ml-2 h-6" style="width:357px">
-            {{ $tasks[0]->obj->details }}
-        </div>
-        <div class="user-input h-8" style="width: 100%;"></div>
+        <div class="user-input h-6 mt-1" style="width: 100%;">{{ $details }}</div>
     </div>
 
     <div class="mt-6">
