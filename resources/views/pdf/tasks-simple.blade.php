@@ -18,6 +18,8 @@
         @foreach($tasks as $task)
             <?php
             $due_date = $task->due_date;
+            $params = $task->taskParams->pluck('name')->toArray();
+            $param_groups = $task->paramGroups->pluck('name')->toArray();
 
             if ( !empty($task->requiring_int) ) {
                 $due_date = $task->requiring_int;
@@ -27,7 +29,7 @@
                 <td class="border align-top p-2">{{ $task->id }}</td>
                 <td class="border align-top p-2">{{ $task->name }}</td>
                 <td class="border align-top p-2">{{ $due_date }}</td>
-                <td class="border align-top p-2">{{ implode(', ', $task->taskParams->pluck('name')->toArray()) }}</td>
+                <td class="border align-top p-2">{{ implode(', ', array_merge($params, $param_groups)) }}</td>
                 <td class="border align-top p-2">{{ $task->notes_1 }}</td>
             </tr>
         @endforeach

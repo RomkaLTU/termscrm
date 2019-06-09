@@ -106,8 +106,9 @@ class TasksController extends Controller
         foreach ($data as $col) {
 
             $due_date = $col->due_date;
-            $params = $col->taskParams->pluck('name')->implode(', ');
-            $param_groups = $col->paramGroups->pluck('name')->implode(', ');
+            $params = $col->taskParams->pluck('name')->toArray();
+            $param_groups = $col->paramGroups->pluck('name')->toArray();
+
 
             if ( !empty($col->requiring_int) ) {
                 $due_date = $col->requiring_int;
@@ -124,7 +125,7 @@ class TasksController extends Controller
                 $col->id,
                 $col->name,
                 $due_date,
-                $params . $param_groups,
+                implode(', ', array_merge($params, $param_groups)),
                 $col->notes_1,
                 $col->notes_2,
             ];
@@ -267,7 +268,7 @@ class TasksController extends Controller
         $tasks = ObjTask::whereIn('id', $taskids)->where('special_task', 0)->get();
         $header = View::make('pdf.header')->render();
 
-        if ( in_array( Str::camel( $tasks->first()->researchArea->name ), ['orai'] ) ) {
+        if ( in_array( Str::camel( $tasks->first()->researchArea->name ), ['orai','kita'] ) ) {
             $pdf = PDF::loadView('pdf.tasks-simple', compact('tasks'));
             $pdf->setPaper('a4');
             $pdf->setOption('header-html', $header);

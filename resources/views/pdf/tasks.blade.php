@@ -76,10 +76,14 @@
         <tbody>
         @foreach($tasks as $task)
             @if( $task->special_task == 0 )
+                @php
+                    $params = $task->taskParams->pluck('name')->toArray();
+                    $param_groups = $task->paramGroups->pluck('name')->toArray();
+                @endphp
                 <tr>
                     <td class="border align-top p-2"></td>
                     <td class="border align-top p-2"></td>
-                    <td class="border align-top p-2">{{ $task->name }} {{ implode(', ', $task->taskParams->pluck('name')->toArray()) }}</td>
+                    <td class="border align-top p-2">{{ $task->name }} {{ implode(', ', array_merge($params, $param_groups)) }}</td>
                     <td class="border align-top p-2"></td>
                     <td class="border align-top p-2"></td>
                     <td class="border align-top p-2 w-40">{{ implode(', ', $task->paramGroups->pluck('id')->toArray()) }}</td>
