@@ -83,10 +83,10 @@
                 <tr>
                     <td class="border align-top p-2"></td>
                     <td class="border align-top p-2"></td>
-                    <td class="border align-top p-2">{{ $task->name }} {{ implode(', ', array_merge($params, $param_groups)) }}</td>
+                    <td class="border align-top p-2">{{ $task->name }} {{ implode(', ', $params) }}</td>
                     <td class="border align-top p-2"></td>
                     <td class="border align-top p-2"></td>
-                    <td class="border align-top p-2 w-40">{{ implode(', ', $task->paramGroups->pluck('id')->toArray()) }}</td>
+                    <td class="border align-top p-2 w-40">{{ implode(', ', $param_groups) }}</td>
                 </tr>
             @endif
         @endforeach

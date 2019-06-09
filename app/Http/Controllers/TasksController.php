@@ -285,18 +285,22 @@ class TasksController extends Controller
         $task = $tasks->first();
         $obj = $task->obj;
 
+        $details_arr = [
+            $obj->name,
+            $obj->details,
+        ];
+
         $supervisor = DB::table('obj_research_area')
             ->leftJoin('users', 'users.id', '=', 'obj_research_area.user_id')
             ->select('users.*')
             ->where('obj_id', $task->object_id)
             ->where('research_area_id', $task->research_area_id)->first();
 
-        $details_arr = [
-            $obj->name,
-            $obj->details,
-            $supervisor->name,
-            $supervisor->phone,
-        ];
+        if ( $supervisor ) {
+            array_push($details_arr, $supervisor->name);
+            array_push($details_arr, $supervisor->phone);
+        }
+
         $details = implode(', ', array_filter($details_arr));
 
         $pdf = PDF::loadView('pdf.tasks', [
