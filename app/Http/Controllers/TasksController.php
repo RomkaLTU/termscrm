@@ -310,7 +310,7 @@ class TasksController extends Controller
 //            'tasks' => $tasks,
 //            'details' => $details,
 //        ]);
-        
+
         return $pdf->download(Carbon::now()->format('Y-m-d__') . 'protokolas.pdf');
     }
 

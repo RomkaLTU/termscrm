@@ -75,7 +75,7 @@
         </thead>
         <tbody>
         @foreach($tasks as $task)
-            @if( $task->ecog == 0 )
+            @if( $task->special_task == 0 )
                 <tr>
                     <td class="border align-top p-2"></td>
                     <td class="border align-top p-2"></td>
