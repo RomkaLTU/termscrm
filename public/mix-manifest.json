@@ -1,11 +1,11 @@
 {
-    "/js/app.js": "/js/app.js?id=ea18dde78bdcf5be7225",
+    "/js/app.js": "/js/app.js?id=c7b4dfc97933ee88e86e",
     "/css/app.css": "/css/app.css?id=5756ba98b66065b5ef1b",
     "/css/tailwind.css": "/css/tailwind.css?id=eeb25f558850a4817006",
-    "/js/dashboard.js": "/js/dashboard.js?id=5103d875f87718c8e760",
-    "/js/dt-custom-init.js": "/js/dt-custom-init.js?id=634f33cfa6c277909dd3",
+    "/js/dashboard.js": "/js/dashboard.js?id=5d2e8ed2938f92a1e5a9",
+    "/js/dt-custom-init.js": "/js/dt-custom-init.js?id=a4cc4c465c76ddc63441",
     "/js/global.js": "/js/global.js?id=18852a9f00ea50f06f38",
-    "/js/objects.js": "/js/objects.js?id=7bec14afd9378c5e738d",
-    "/js/tasks.js": "/js/tasks.js?id=f774cb94a5de25177641",
-    "/js/users.js": "/js/users.js?id=0a332d9341b7e2975241"
+    "/js/objects.js": "/js/objects.js?id=786415488b3f082dc161",
+    "/js/tasks.js": "/js/tasks.js?id=ca4c675b636600fd260d",
+    "/js/users.js": "/js/users.js?id=774272d5a8ec801054f8"
 }
