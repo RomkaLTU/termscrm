@@ -40,7 +40,7 @@
                 :object="{{ $obj }}"
                 :supervisors="{{ json_encode($supervisors) }}">
             </tasks-filter>
-            <table data-model="tasks" class="table table-md table-hover table-checkable" id="dtable">
+            <table data-model="tasks" class="table table-md table-hover table-checkable" style="min-width:1000px;" id="dtable">
                 <thead>
                 <tr>
                     <th>{{ __('Nr.') }}</th>
@@ -58,7 +58,7 @@
 
             <div class="mb-5 mt-5"></div>
 
-            <table data-model="tasks" class="table table-md table-hover table-checkable" style="display: none" id="dtable2">
+            <table data-model="tasks" class="table table-md table-hover table-checkable" style="min-width:1000px;display:none" id="dtable2">
                 <thead>
                 <tr>
                     <th>{{ __('Nr.') }}</th>

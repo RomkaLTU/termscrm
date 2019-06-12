@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="kt-portlet__body">
-            <table data-model="objects" class="table table-md table-hover table-checkable" id="dtable">
+            <table data-model="objects" class="table table-md table-hover table-checkable" style="min-width:1000px;" id="dtable">
                 <thead>
                 <tr>
                     <th>{{ __('#') }}</th>

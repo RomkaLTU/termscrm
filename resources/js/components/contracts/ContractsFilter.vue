@@ -92,7 +92,7 @@
                             contractsUnpaidTo: contractsUnpaidTo.value,
                         }
                     },
-                    responsive: true,
+                    'scrollX': true,
                     searching: true,
                     deferRender: true,
                     dom: `<'row'<'col-sm-12'tr>>

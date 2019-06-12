@@ -35,7 +35,7 @@
         </div>
         <div class="kt-portlet__body">
             <contracts-filter></contracts-filter>
-            <table data-model="contracts" class="table table-md table-hover" id="dtable">
+            <table data-model="contracts" class="table table-md table-hover" style="min-width:680px;" id="dtable">
                 <thead>
                 <tr>
                     <th>{{ __('Numeris') }}</th>

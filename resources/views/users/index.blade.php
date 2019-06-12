@@ -33,7 +33,7 @@
         <div class="kt-portlet__body">
 
             <!--begin: Datatable -->
-            <table data-model="users" class="table table-md table-hover table-checkable" id="dtable">
+            <table data-model="users" class="table table-md table-hover table-checkable" style="min-width:700px;" id="dtable">
                 <thead>
                 <tr>
                     <th>{{ __('ID') }}</th>

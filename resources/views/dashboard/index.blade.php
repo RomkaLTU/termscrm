@@ -34,7 +34,7 @@
                 :regions="{{ $regions }}"
                 :research_areas="{{ $research_areas }}">
             </dashboard-tasks-filter>
-            <table data-model="dashboard" class="table table-md table-hover" id="dtable">
+            <table data-model="dashboard" class="table table-md table-hover" style="min-width:700px;" id="dtable">
                 <thead>
                 <tr>
                     <th>{{ __('Objektas') }}</th>
