@@ -12,7 +12,7 @@
                 <div class="kt-quick-search__category kt-quick-search__category--first">
                     Rastos sutartys
                 </div>
-                <a :href="`/contracts/${contract.id}/edit`" class="kt-quick-search__item" v-for="contract in results" :key="`contract_${contract.id}`">
+                <a :href="`/contracts/${contract.id}`" class="kt-quick-search__item" v-for="contract in results" :key="`contract_${contract.id}`">
                     <span class="kt-quick-search__item-text">{{ contract.contract_nr }} ({{ contract.customer }})</span>
                 </a>
             </div>

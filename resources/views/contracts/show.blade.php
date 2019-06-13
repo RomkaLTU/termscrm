@@ -64,7 +64,7 @@
                                     <th scope="row" class="bg-light">Tyrimų sritys:</th>
                                     <td>
                                         @foreach($research_areas as $ra)
-                                            <span class="kt-badge kt-badge--primary kt-badge--md kt-badge--inline kt-badge--pill mr-2">
+                                            <span class="kt-badge kt-badge--primary kt-badge--md kt-badge--inline kt-badge--pill mr-2 mb-1">
                                                 {{ $ra->name }}
                                             </span>
                                         @endforeach
