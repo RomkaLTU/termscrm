@@ -48,7 +48,7 @@ class ObjTasksController extends Controller
 
     public function getGroup()
     {
-        return ParamGroup::all()->pluck('taskparams', 'name');
+        return ParamGroup::all();
     }
 
     public function getGroupAll()

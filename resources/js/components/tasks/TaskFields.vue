@@ -155,11 +155,11 @@
                         </div>
                         <div class="row" v-if="param_groups">
                             <div class="col">
-                                <div v-for="(params,group) in param_groups" :key="`group_${group}`" class="mb-2">
-                                    <i class="far fa-trash-alt" @click="deleteGroup(group)"></i> &nbsp;
-                                    <strong>{{ group }}</strong> -
+                                <div v-for="(group,index) in param_groups" :key="`group_${index}`" class="mb-2">
+                                    <i class="far fa-trash-alt" @click="deleteGroup(group.id)"></i> &nbsp;
+                                    <strong>{{ group.name }}</strong> -
                                     <span
-                                        v-for="param in params"
+                                        v-for="param in group.taskparams"
                                         :key="param.id"
                                         class="kt-badge kt-badge--primary kt-badge--md kt-badge--inline kt-badge--pill mr-1">{{ param.name }}</span>
                                 </div>
