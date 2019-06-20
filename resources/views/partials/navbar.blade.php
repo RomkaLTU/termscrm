@@ -52,7 +52,7 @@
                                     {{ __('Profilis') }}
                                 </div>
                                 <div class="kt-notification__item-time">
-                                    {{ __('Asmeniniiai paskyros nustatymai') }}
+                                    {{ __('Asmeniniai paskyros nustatymai') }}
                                 </div>
                             </div>
                         </a>

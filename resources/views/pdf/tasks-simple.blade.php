@@ -29,7 +29,7 @@
                 <td class="border align-top p-2">{{ $task->id }}</td>
                 <td class="border align-top p-2">{{ $task->name }}</td>
                 <td class="border align-top p-2">{{ $due_date }}</td>
-                <td class="border align-top p-2">{{ implode(', ', array_merge($params, $param_groups)) }}</td>
+                <td class="border align-top p-2">{{ implode(', ', array_merge($params)) }}</td>
                 <td class="border align-top p-2">{{ $task->notes_1 }}</td>
             </tr>
         @endforeach

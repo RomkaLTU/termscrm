@@ -125,7 +125,7 @@ class TasksController extends Controller
                 $col->id,
                 $col->name,
                 $due_date,
-                implode(', ', array_merge($params, $param_groups)),
+                implode(', ', array_merge($params)),
                 $col->notes_1,
                 $col->notes_2,
             ];
@@ -299,6 +299,10 @@ class TasksController extends Controller
         if ( $supervisor ) {
             array_push($details_arr, $supervisor->name);
             array_push($details_arr, $supervisor->phone);
+        }
+
+        if ( !empty($obj->notes_1) ) {
+            array_push( $details_arr, $obj->notes_1 );
         }
 
         $details = implode(', ', array_filter($details_arr));

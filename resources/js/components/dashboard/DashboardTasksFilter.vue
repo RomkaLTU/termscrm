@@ -140,12 +140,12 @@
                     },
                 ];
 
-                if ( researchArea.value === '5' || researchArea.value === '6' ) {
-                    columnDefs.push({
-                        'targets': 2,
-                        'visible': false,
-                    });
-                }
+                // if ( researchArea.value === '5' || researchArea.value === '6' ) {
+                //     columnDefs.push({
+                //         'targets': 2,
+                //         'visible': false,
+                //     });
+                // }
 
                 $table.DataTable({
                     ajax: {
