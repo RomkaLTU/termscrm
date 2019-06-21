@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('footer-js')
-    <script src="{{ asset('js/tasks.js') }}"></script>
+    <script src="{{ mix('js/tasks.js') }}"></script>
 @stop
 
 @section('content')

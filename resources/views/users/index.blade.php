@@ -6,7 +6,7 @@
 
 @section('footer-js')
     <script src="{{ asset('assets/vendors/custom/datatables/datatables.min.js') }}"></script>
-    <script src="{{ asset('js/users.js') }}"></script>
+    <script src="{{ mix('js/users.js') }}"></script>
 @endsection
 
 @section('content')

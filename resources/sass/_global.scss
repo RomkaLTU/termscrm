@@ -59,11 +59,11 @@
 }
 
 .kt-aside--fixed:not(.kt-aside--minimize) {
-    span {
+    .logo-text {
         display: none;
     }
 
-    img {
+    .logo-image {
         width: 150px;
         margin-left: -14px;
     }
@@ -77,11 +77,11 @@
             white-space: nowrap;
         }
 
-        span {
+        .logo-text {
             display: block;
         }
 
-        img {
+        .logo-image {
             display: none;
         }
     }

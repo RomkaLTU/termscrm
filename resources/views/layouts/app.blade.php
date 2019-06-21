@@ -43,9 +43,9 @@
     <link href="{{ asset('assets/vendors/custom/vendors/fontawesome5/css/all.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ asset('assets/demo/default/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/demo/default/skins/header/base/light.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/demo/default/skins/header/menu/light.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/demo/default/base/style.bundle.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/demo/default/skins/header/base/light.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/demo/default/skins/header/menu/light.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/demo/default/skins/brand/light.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/demo/default/skins/aside/light.min.css') }}" rel="stylesheet" type="text/css" />
 
@@ -115,7 +115,7 @@
     <script src="{{ asset('assets/vendors/general/perfect-scrollbar/dist/perfect-scrollbar.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/general/sticky-js/dist/sticky.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/general/wnumb/wNumb.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/global.js') }}"></script>
+    <script src="{{ mix('js/global.js') }}"></script>
     <!--end:: Global Mandatory Vendors -->
 
     <!--begin:: Global Optional Vendors -->
@@ -148,8 +148,8 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/additional-methods.min.js"></script>
 
-    <script src="{{ asset('assets/demo/default/base/scripts.bundle.js') }}"></script>
-    <script src="{{ asset('assets/app/bundle/app.bundle.js') }}"></script>
+    <script src="{{ asset('assets/demo/default/base/scripts.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/app/bundle/app.bundle.min.js') }}"></script>
 
     <script src="{{ mix('/js/app.js') }}"></script>
 

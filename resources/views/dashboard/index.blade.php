@@ -7,7 +7,7 @@
 @section('footer-js')
     <script src="{{ asset('assets/vendors/custom/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/general/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/dashboard.js') }}"></script>
+    <script src="{{ mix('js/dashboard.js') }}"></script>
 @endsection
 
 @section('content')

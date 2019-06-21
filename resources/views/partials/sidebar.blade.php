@@ -3,8 +3,8 @@
     <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
         <div class="kt-aside__brand-logo">
             <a href="/" class="font-weight-bold">
-                <img src="{{ asset('images/logo.png') }}">
-                <span>Ekometrija, UAB</span>
+                <img class="logo-image" src="{{ asset('images/logo.png') }}">
+                <span class="logo-text">Ekometrija, UAB</span>
             </a>
         </div>
         <div class="kt-aside__brand-tools">

@@ -162,7 +162,7 @@ class ContractsController extends Controller
         }
 
         Session::flash('message', 'Sutartis ' . $request->contract_nr . ' sukurta.');
-        return Redirect::route('contracts.edit', $contract->id);
+        return Redirect::route('contracts.objects.create', $contract->id);
     }
 
     public function edit( Contract $contract )
