@@ -46,8 +46,8 @@
     <link href="{{ asset('assets/demo/default/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/demo/default/skins/header/base/light.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/demo/default/skins/header/menu/light.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/demo/default/skins/brand/dark.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/demo/default/skins/aside/dark.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/demo/default/skins/brand/light.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/demo/default/skins/aside/light.min.css') }}" rel="stylesheet" type="text/css" />
 
     @yield('header-css')
 

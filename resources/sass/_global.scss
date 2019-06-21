@@ -58,11 +58,31 @@
     }
 }
 
+.kt-aside--fixed:not(.kt-aside--minimize) {
+    span {
+        display: none;
+    }
+
+    img {
+        width: 150px;
+        margin-left: -14px;
+    }
+}
+
+.kt-aside--minimize-hover,
 .kt-aside--minimize {
     .kt-aside__brand-logo {
         overflow: hidden;
         > a {
             white-space: nowrap;
+        }
+
+        span {
+            display: block;
+        }
+
+        img {
+            display: none;
         }
     }
 }
