@@ -133,7 +133,7 @@
                         let html = '';
 
                         params_arr.forEach((param) => {
-                            html += `<span class="kt-badge kt-badge--primary kt-badge--md kt-badge--inline kt-badge--pill mr-1">${param}</span>`;
+                            html += `<span class="param-badge">${param}</span>`;
                         });
 
                         return html;
