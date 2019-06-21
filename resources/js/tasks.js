@@ -91,7 +91,7 @@
 
                     return {
                         id: term,
-                        text: term + ' (naujas)'
+                        text: term
                     };
                 },
             });
