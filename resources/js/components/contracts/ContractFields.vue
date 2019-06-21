@@ -161,7 +161,7 @@
                 <div class="kt-list-timeline__item" v-for="(invoice,index) in invoices" :key="`invoice_${index}`">
                     <span class="kt-list-timeline__badge"></span>
                     <span class="kt-list-timeline__text">
-                        Sąsk. nr. {{ invoice.id }} Suma {{ invoice.total }} {{ invoice.status ? 'Apmokėta' : 'Neapmokėta' }}
+                        Sąsk. nr. <span class="underline">{{ invoice.nr ? invoice.nr : 'neįvestas' }}</span> Suma {{ invoice.total }} {{ invoice.status ? 'Apmokėta' : 'Neapmokėta' }}
                         <a href="javascript:" class="kt-badge kt-badge--brand kt-badge--inline" data-toggle="modal" data-target="#edit_invoice" @click="getInvoice(invoice.id)">redaguoti</a>
                         <a href="javascript:" class="kt-badge kt-badge--danger kt-badge--inline" @click.prevent="deleteInvoice(invoice.id)">trinti</a>
                     </span>
