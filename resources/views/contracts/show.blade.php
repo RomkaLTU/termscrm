@@ -70,10 +70,12 @@
                                         @endforeach
                                     </td>
                                 </tr>
+                                @hasrole('Admin')
                                 <tr>
                                     <th scope="row" class="bg-light">Sutarties suma:</th>
                                     <td>{{ $contract->contract_value }}</td>
                                 </tr>
+                                @endhasrole
                                 @hasrole('Admin')
                                     <tr>
                                         <th scope="row" class="bg-light">Sąskaitos:</th>
