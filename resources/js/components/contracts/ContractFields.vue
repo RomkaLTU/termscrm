@@ -100,7 +100,7 @@
             <label>Sutarties suma</label>
             <input type="number" class="form-control" v-model="formData.contract_value" name="contract_value" placeholder="Sutarties suma">
         </div>
-        <div class="form-group">
+        <div class="form-group" v-if="!creating">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_invoice"><i class="fa fa-plus"></i> Pridėti sąskaitą</button>
             <div class="modal fade" id="add_invoice" tabindex="-1" role="dialog" aria-labelledby="addInvoice" aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
@@ -155,7 +155,7 @@
                 </div>
             </div>
         </div>
-       <div class="font-weight-bold mb-3">Sąskaitos</div>
+       <div class="font-weight-bold mb-3" v-if="!creating">Sąskaitos</div>
         <div class="kt-list-timeline" v-if="invoices">
             <div class="kt-list-timeline__items">
                 <div class="kt-list-timeline__item" v-for="(invoice,index) in invoices" :key="`invoice_${index}`">
