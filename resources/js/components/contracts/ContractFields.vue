@@ -113,6 +113,10 @@
                         <div class="modal-body">
                             <div v-if="!creating">
                                 <div class="form-group">
+                                    <label for="invoice_nr" class="form-control-label">Sąskaitos nr:</label>
+                                    <input type="text" v-model="contractInvoiceData.nr" class="form-control" id="invoice_nr">
+                                </div>
+                                <div class="form-group">
                                     <label for="invoice_value" class="form-control-label">Sąskaita (Eur):</label>
                                     <input type="number" v-model="contractInvoiceData.total" class="form-control" id="invoice_value">
                                 </div>
@@ -174,6 +178,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="form-group">
+                            <label for="invoice_nr_edit" class="form-control-label">Sąskaitos nr:</label>
+                            <input type="text" v-model="editingInvoice.nr" class="form-control" id="invoice_nr_edit">
+                        </div>
                         <div class="form-group">
                             <label for="editable_invoice_value" class="form-control-label">Sąskaita (Eur):</label>
                             <input type="number" v-model="editingInvoice.total" class="form-control" id="editable_invoice_value">
@@ -247,6 +255,7 @@
                     contract_status: ( this.contract ? this.contract.contract_status : [] ),
                 },
                 contractInvoiceData: {
+                    nr: null,
                     contract_id: ( this.contract ? this.contract.id : false ),
                     total: null,
                     status: 0,
@@ -325,10 +334,12 @@
                 this.$http.post('invoices', this.contractInvoiceData).then((response) => {
                     const invoice = response.data;
 
-                    if ( typeof invoice.id !== 'undefined' ) {
+                    if ( typeof invoice.id !== 'undefined'  ) {
                         $('.modal').modal('hide');
                         this.invoices.push(invoice);
                         toastr.success("Sąskaita pridėta.");
+                    } else {
+                        toastr.error("Visi laukai yra privalomi.");
                     }
                 })
             },
