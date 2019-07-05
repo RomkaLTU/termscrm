@@ -43,6 +43,8 @@
             const pdfGenerateUrl = $this.attr('href');
             const taskids = $this.attr('data-taskids');
 
+            // console.log(`${pdfGenerateUrl}/?tasks=${taskids}`);
+
             window.location.href = `${pdfGenerateUrl}/?tasks=${taskids}`;
         });
 

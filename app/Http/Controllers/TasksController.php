@@ -306,6 +306,30 @@ class TasksController extends Controller
         <div style="width:800px;margin:0 auto;">
         ';
 
+        foreach ( $tasks_simple->pluck('obj')->unique() as $object ) {
+            $tasks = ObjTask::whereIn('id', $taskids)->where('object_id', $object->id)->where('special_task', 0)->get();
+
+            $tasks_simple = $tasks->filter(function($value){
+                return in_array( Str::camel( $value->researchArea->name ), ['orai','kita'] );
+            });
+
+            foreach ( $tasks_simple->groupBy('researchArea.id') as $tasks_distinct ) {
+                $pdf = PDF::loadView('pdf.tasks-simple', [
+                    'tasks' => $tasks_distinct,
+                ]);
+
+                $pdf_html[] = $pdf->html;
+            }
+        }
+
+        foreach ( $tasks_parameterless->groupBy('researchArea.id') as $tasks_distinct ) {
+            $pdf = PDF::loadView('pdf.tasks-parameterless', [
+                'tasks' => $tasks_distinct,
+            ]);
+
+            $pdf_html[] = $pdf->html;
+        }
+
         foreach( $tasks_full->pluck('obj')->unique() as $object ) {
             $tasks = ObjTask::whereIn('id', $taskids)->where('object_id', $object->id)->where('special_task', 0)->get();
 
@@ -347,22 +371,6 @@ class TasksController extends Controller
 
                 $pdf_html[] = $pdf->html;
             }
-
-            foreach ( $tasks_simple->groupBy('researchArea.id') as $tasks_distinct ) {
-                $pdf = PDF::loadView('pdf.tasks-simple', [
-                    'tasks' => $tasks_distinct,
-                ]);
-
-                $pdf_html[] = $pdf->html;
-            }
-
-            foreach ( $tasks_parameterless->groupBy('researchArea.id') as $tasks_distinct ) {
-                $pdf = PDF::loadView('pdf.tasks-parameterless', [
-                    'tasks' => $tasks_distinct,
-                ]);
-
-                $pdf_html[] = $pdf->html;
-            }
         }
 
         foreach ( $pdf_html as $doc ) {
@@ -376,7 +384,7 @@ class TasksController extends Controller
         </html>
         ';
 
-        return PDF::loadHTML($doc_html)->setPaper('a4')->setOption('header-html', $header)->download('ekometrija_darbai.pdf');
+        return PDF::loadHTML($doc_html)->setPaper('a4')->setOption('header-html', $header)->inline('ekometrija_darbai.pdf');
     }
 
     /**
