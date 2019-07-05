@@ -267,60 +267,116 @@ class TasksController extends Controller
         $taskids = explode(',', $request->tasks);
         $tasks = ObjTask::whereIn('id', $taskids)->where('special_task', 0)->get();
         $header = View::make('pdf.header')->render();
+        $pdf_html = [];
 
-        if ( in_array( Str::camel( $tasks->first()->researchArea->name ), ['orai','kita'] ) ) {
-            $pdf = PDF::loadView('pdf.tasks-simple', compact('tasks'));
-            $pdf->setPaper('a4');
-            $pdf->setOption('header-html', $header);
-            return $pdf->download(Carbon::now()->format('Y-m-d__') . $tasks->first()->researchArea->name . '.pdf');
+        $tasks_full = $tasks->filter(function($value){
+            return !in_array( Str::camel( $value->researchArea->name ), ['rasto_darbai','orai','kita'] );
+        });
+
+        $tasks_simple = $tasks->filter(function($value){
+            return in_array( Str::camel( $value->researchArea->name ), ['orai','kita'] );
+        });
+
+        $tasks_parameterless = $tasks->filter(function($value){
+            return in_array( Str::camel( $value->researchArea->name ), ['rasto_darbai'] );
+        });
+
+        $doc_html = '
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Terminų valdymo sistema - UAB Ekometrija</title>
+            <link href="https://terms.srv1.single5.com/css/tailwind.css" rel="stylesheet" type="text/css">
+            <style>
+                body {
+                    font-family: DejaVu Sans, sans-serif;
+                    font-size: 14px;
+                }
+                .user-input {
+                    border: none;
+                    border-bottom: 1px solid #333;
+                }
+                .page-break {
+                    page-break-after: always;
+                }
+            </style>
+        </head>
+        <body class="">
+        <div style="width:800px;margin:0 auto;">
+        ';
+
+        foreach( $tasks_full->pluck('obj')->unique() as $object ) {
+            $tasks = ObjTask::whereIn('id', $taskids)->where('object_id', $object->id)->where('special_task', 0)->get();
+
+            $tasks_full = $tasks->filter(function($value){
+                return !in_array( Str::camel( $value->researchArea->name ), ['rasto_darbai','orai','kita'] );
+            });
+
+            foreach ( $tasks_full->groupBy('researchArea.id') as $tasks_distinct ) {
+
+                $task = $tasks_distinct->first();
+                $obj = $task->obj;
+
+                $details_arr = [
+                    $obj->name,
+                    $obj->details,
+                ];
+
+                $supervisor = DB::table('obj_research_area')
+                    ->leftJoin('users', 'users.id', '=', 'obj_research_area.user_id')
+                    ->select('users.*')
+                    ->where('obj_id', $task->object_id)
+                    ->where('research_area_id', $task->research_area_id)->first();
+
+                if ( $supervisor ) {
+                    array_push($details_arr, $supervisor->name);
+                    array_push($details_arr, $supervisor->phone);
+                }
+
+                if ( !empty($obj->notes_1) ) {
+                    array_push( $details_arr, $obj->notes_1 );
+                }
+
+                $details = implode(', ', array_filter($details_arr));
+
+                $pdf = PDF::loadView('pdf.tasks', [
+                    'tasks' => $tasks_distinct,
+                    'details' => $details,
+                ]);
+
+                $pdf_html[] = $pdf->html;
+            }
+
+            foreach ( $tasks_simple->groupBy('researchArea.id') as $tasks_distinct ) {
+                $pdf = PDF::loadView('pdf.tasks-simple', [
+                    'tasks' => $tasks_distinct,
+                ]);
+
+                $pdf_html[] = $pdf->html;
+            }
+
+            foreach ( $tasks_parameterless->groupBy('researchArea.id') as $tasks_distinct ) {
+                $pdf = PDF::loadView('pdf.tasks-parameterless', [
+                    'tasks' => $tasks_distinct,
+                ]);
+
+                $pdf_html[] = $pdf->html;
+            }
         }
 
-        if ( in_array( Str::camel( $tasks->first()->researchArea->name ), ['rasto_darbai'] ) ) {
-            $pdf = PDF::loadView('pdf.tasks-parameterless', compact('tasks'));
-            $pdf->setPaper('a4');
-            $pdf->setOption('header-html', $header);
-            return $pdf->download(Carbon::now()->format('Y-m-d__') . $tasks->first()->researchArea->name . '.pdf');
+        foreach ( $pdf_html as $doc ) {
+            $doc_html .= $doc;
+            $doc_html .= '<div class="page-break"></div>';
         }
 
-        $task = $tasks->first();
-        $obj = $task->obj;
+        $doc_html .= '
+        </div>
+        </body>
+        </html>
+        ';
 
-        $details_arr = [
-            $obj->name,
-            $obj->details,
-        ];
-
-        $supervisor = DB::table('obj_research_area')
-            ->leftJoin('users', 'users.id', '=', 'obj_research_area.user_id')
-            ->select('users.*')
-            ->where('obj_id', $task->object_id)
-            ->where('research_area_id', $task->research_area_id)->first();
-
-        if ( $supervisor ) {
-            array_push($details_arr, $supervisor->name);
-            array_push($details_arr, $supervisor->phone);
-        }
-
-        if ( !empty($obj->notes_1) ) {
-            array_push( $details_arr, $obj->notes_1 );
-        }
-
-        $details = implode(', ', array_filter($details_arr));
-
-        $pdf = PDF::loadView('pdf.tasks', [
-            'tasks' => $tasks,
-            'details' => $details,
-        ]);
-
-        $pdf->setPaper('a4');
-        $pdf->setOption('header-html', $header);
-
-//        return view('pdf.tasks', [
-//            'tasks' => $tasks,
-//            'details' => $details,
-//        ]);
-
-        return $pdf->download(Carbon::now()->format('Y-m-d__') . 'protokolas.pdf');
+        return PDF::loadHTML($doc_html)->setPaper('a4')->setOption('header-html', $header)->inline('ekometrija_darbai.pdf');
     }
 
     /**

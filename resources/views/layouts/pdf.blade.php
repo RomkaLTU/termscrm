@@ -13,6 +13,9 @@
             border: none;
             border-bottom: 1px solid #333;
         }
+        .page-break {
+            page-break-after: always;
+        }
     </style>
 </head>
 <body class="">

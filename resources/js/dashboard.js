@@ -6,6 +6,7 @@
         const $table = $('#dtable');
         const model = $table.data('model');
         const $save_completed = $('#save_completed');
+        const $print_selected = $('#print_selected');
         const $completed_count = $('.completed_count');
         let checkedVisited = [];
 
@@ -21,13 +22,30 @@
 
             const checkedCount = checkedVisited.length;
 
+            $print_selected.attr( 'data-taskids', checkedVisited.join(',') );
+
             if ( checkedCount ) {
                 $save_completed.css('display','inline-block');
+                $print_selected.css('display','inline-block');
             } else {
                 $save_completed.css('display','none');
+                $print_selected.css('display','none');
             }
 
             $completed_count.text(checkedCount);
+        });
+        // check task
+
+        $(document).on('click', '#print_selected', function(e){
+            e.preventDefault();
+            const $this = $(this);
+
+            const pdfGenerateUrl = $this.attr('href');
+            const taskids = $this.attr('data-taskids');
+
+            console.log(`${pdfGenerateUrl}/?tasks=${taskids}`);
+
+            //window.location.href = `${pdfGenerateUrl}/?tasks=${taskids}`;
         });
 
         $save_completed.on('click',function(){
