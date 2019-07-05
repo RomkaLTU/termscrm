@@ -376,7 +376,7 @@ class TasksController extends Controller
         </html>
         ';
 
-        return PDF::loadHTML($doc_html)->setPaper('a4')->setOption('header-html', $header)->inline('ekometrija_darbai.pdf');
+        return PDF::loadHTML($doc_html)->setPaper('a4')->setOption('header-html', $header)->download('ekometrija_darbai.pdf');
     }
 
     /**
