@@ -14,7 +14,7 @@ class Obj extends Model implements HasMedia
 
     protected $guarded = ['id','media'];
 
-    protected $with = ['researchAreas','region'];
+    protected $with = ['researchAreas','region','contract'];
 
     public function researchAreas()
     {

@@ -35,4 +35,6 @@ $api->version('v1', [ 'prefix' => 'api' ], function ($api) {
 
     $api->get('contracts', 'App\Http\Controllers\Api\ContractsController@search');
 
+    $api->get('objects', 'App\Http\Controllers\Api\ObjsController@search');
+
 });
