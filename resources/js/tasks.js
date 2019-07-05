@@ -79,10 +79,16 @@
             window.location.href = `${pdfGenerateUrl}/?tasks=${taskids}`;
         });
 
+        let taggable = true;
+
+        if ( window.IS_ADMIN === '0' ) {
+            taggable = false;
+        }
+
         if ( $params.length ) {
             $params.select2({
                 placeholder: 'Pridėti parametrą',
-                tags: true,
+                tags: taggable,
                 createTag: function (params) {
                     const term = $.trim(params.term);
                     if (term === '') {

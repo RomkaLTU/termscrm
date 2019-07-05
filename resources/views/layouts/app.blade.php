@@ -11,6 +11,7 @@
         window.CSRF = '{{ csrf_token() }}';
         window.USER_ID = '{{ auth()->user()->id }}';
         window.USER_ROLES = JSON.parse('{!! Auth::user()->roles->pluck('name') !!}');
+        window.IS_ADMIN = '{{ auth()->user()->hasRole('Admin') ? 1 : 0 }}';
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>

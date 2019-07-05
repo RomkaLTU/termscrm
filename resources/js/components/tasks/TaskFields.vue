@@ -52,7 +52,7 @@
                                 {{ params_group.name }} - {{ params_group.taskparams.map(function(o) { return o["name"]; }).join(', ') }}
                             </option>
                         </select>
-                        <button type="button" class="btn btn-outline-hover-success btn-elevate btn-pill d-flex ml-2" data-toggle="modal" data-target="#task_params_groups_modal">
+                        <button v-if="is_admin" type="button" class="btn btn-outline-hover-success btn-elevate btn-pill d-flex ml-2" data-toggle="modal" data-target="#task_params_groups_modal">
                             <i class="flaticon-plus"></i>
                             Pridėti
                         </button>
@@ -189,6 +189,7 @@
             'task_params_selected',
             'task_params_groups',
             'task_params_groups_selected',
+            'is_admin'
         ],
         data() {
             return {

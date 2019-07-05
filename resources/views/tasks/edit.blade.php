@@ -31,6 +31,7 @@
                         :task_params_groups_selected="{{ $task_params_groups_selected }}"
                         :research_area="{{ json_encode($research_area) }}"
                         :research_areas="{{ json_encode($research_areas) }}"
+                        :is_admin="{{ auth()->user()->hasRole('Admin') ? 1 : 0 }}"
                     />
                 </div>
                 <div class="kt-portlet__foot">

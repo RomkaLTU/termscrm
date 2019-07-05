@@ -27,6 +27,7 @@
                         :task_params_selected="[]"
                         :task_params_groups="{{ $task_params_groups }}"
                         :task_params_groups_selected="[]"
+                        :is_admin="{{ auth()->user()->hasRole('Admin') ? 1 : 0 }}"
                         :contract="{{ $contract }}"/>
                 </div>
                 <div class="kt-portlet__foot">
