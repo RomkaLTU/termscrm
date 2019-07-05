@@ -40,7 +40,7 @@
                                         <i class="la la-trash"></i>
                                     </button>
                                     <div class="confirm-block">
-                                        <form action="contracts/${row.DT_RowData.rowid}" method="post">
+                                        <form action="/${model}/${row.DT_RowData.rowid}" method="post">
                                             <input type="hidden" name="_token" value="${window.CSRF}">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <div>

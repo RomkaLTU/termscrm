@@ -86,6 +86,11 @@ class UsersController extends Controller
 
     public function store( Request $request )
     {
+        if ( empty($request->role) ) {
+            Session::flash('error', 'Pasirinktei vartotojo rolę.');
+            return Redirect::back();
+        }
+
         try {
             $user = User::create( $request->except('role') );
             $user->syncRoles( $request->role );
