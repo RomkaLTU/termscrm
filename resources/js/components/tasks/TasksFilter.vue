@@ -78,6 +78,7 @@
                 document.getElementById("print_selected").style.display = 'none';
                 document.getElementById("tasksFilterForm").reset();
                 this.filter();
+                location.reload();
             },
             filter(){
                 const researchArea = document.getElementById('tyrimoSritis');
