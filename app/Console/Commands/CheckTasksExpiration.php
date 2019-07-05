@@ -46,11 +46,24 @@ class CheckTasksExpiration extends Command
             $q->where('contract_status','galiojanti');
         });
 
+        $active_contracts_query_2 = ObjTask::whereHas('contract', function($q){
+            $q->where('contract_status','galiojanti');
+        });
+
         $late_query = $active_contracts_query->where( function($q) {
 
-            // Liko 5 dienas arba jau veluoja
+            // Liko 14 dienas arba jau veluoja
             $q->orWhere( function($qq) {
-                $qq->whereBetween('due_date', [ Carbon::now(), Carbon::now()->addDay(5) ]);
+                $qq->whereBetween('due_date', [ Carbon::now()->addDay(3), Carbon::now()->addDay(14) ]);
+            } );
+
+        } );
+
+        $very_late_query = $active_contracts_query_2->where( function($q) {
+
+            // Liko 14 dienas arba jau veluoja
+            $q->orWhere( function($qq) {
+                $qq->whereBetween('due_date', [ Carbon::now(), Carbon::now()->addDay(3) ]);
             } );
 
             $q->orWhere( function($qq) {
@@ -72,7 +85,9 @@ class CheckTasksExpiration extends Command
             'late' => 1,
         ]);
 
-        dump($tasks_not_late);
+        $very_late_query->update([
+            'late' => 2,
+        ]);
 
         return false;
     }

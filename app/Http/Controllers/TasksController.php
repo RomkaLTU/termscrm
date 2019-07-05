@@ -11,6 +11,7 @@ use App\TaskParam;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -222,6 +223,8 @@ class TasksController extends Controller
 
         $task->taskParams()->sync( $this->task_params($request) );
         $task->paramGroups()->sync( $request->task_params_groups );
+
+        Artisan::call('check:tasks');
 
         Session::flash('message', 'Užduotis atnaujinta');
 

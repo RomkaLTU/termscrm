@@ -176,8 +176,12 @@
                             $(row).addClass('table-success');
                         }
 
-                        if ( data.DT_RowData.late ) {
+                        if ( data.DT_RowData.late === 1 ) {
                             $(row).addClass('table-warning');
+                        }
+
+                        if ( data.DT_RowData.late === 2 ) {
+                            $(row).addClass('table-danger');
                         }
                     },
                     'columnDefs': columnDefs,
