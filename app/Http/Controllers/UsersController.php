@@ -20,8 +20,10 @@ class UsersController extends Controller
         'updated_at',
     ];
 
-    public function index()
+    public function index(User $user)
     {
+        $this->authorize('index', $user);
+
         $users = User::all();
 
         return view('users.index', [
@@ -77,8 +79,10 @@ class UsersController extends Controller
         return $response;
     }
 
-    public function create()
+    public function create(User $user)
     {
+        $this->authorize('create', $user);
+
         return view('users.create', [
             'roles' => Role::all(),
         ]);
@@ -105,6 +109,8 @@ class UsersController extends Controller
 
     public function edit( User $user )
     {
+        $this->authorize('edit', $user);
+
         return view('users.edit', [
             'user' => $user,
             'roles' => Role::all(),
@@ -120,11 +126,13 @@ class UsersController extends Controller
             return Redirect::back();
         }
 
-        $user->syncRoles( $request->role );
+        if ( $user->hasRole('Admin') ) {
+            $user->syncRoles( $request->role );
+        }
 
         Session::flash('message', 'Vartotojas atnaujintas!');
 
-        return Redirect::to('users');
+        return Redirect::back();
     }
 
     public function destroy( User $user )

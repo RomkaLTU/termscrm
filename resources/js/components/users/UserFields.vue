@@ -12,7 +12,7 @@
             <label>El. pašto adresas</label>
             <input type="email" class="form-control" v-model="formData.email" name="email" placeholder="El. pašto adresas">
         </div>
-        <div class="form-group">
+        <div v-if="is_admin" class="form-group">
             <label>Rolė</label>
             <select
                 v-model="formData.role"
@@ -27,7 +27,8 @@
         </div>
         <div class="form-group">
             <label>Pareigos</label>
-            <input type="text" class="form-control" name="duties" v-model="formData.duties" placeholder="Pareigos">
+            <input v-if="is_admin" type="text" class="form-control" name="duties" v-model="formData.duties" placeholder="Pareigos">
+            <input v-else type="text" class="form-control" v-model="formData.duties" disabled>
         </div>
         <div class="form-group">
             <label>Slaptažodis</label>
@@ -39,11 +40,11 @@
 <script>
     export default {
         name: 'user-fields',
-        props: ['roles','user','user_role'],
+        props: ['roles','user','user_role','is_admin'],
         data() {
             return {
                 formData: {
-                    role: ( this.user_role ? this.user_role : null ),
+                    role: ( this.user_role ? this.user_role[0].id : null ),
                     name: ( this.user ? this.user.name : null ),
                     email: ( this.user ? this.user.email : null ),
                     phone: ( this.user ? this.user.phone : null ),

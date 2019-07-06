@@ -23,7 +23,7 @@ Route::group(['middleware' => ['auth:web'] ], function() {
     Route::get('contracts/{contract}/objects/{object}/tasks/json', 'TasksController@json');
 
     Route::get('users/json', 'UsersController@json');
-    Route::resource('users', 'UsersController')->middleware(['role:Admin']);
+    Route::resource('users', 'UsersController');
 
     Route::get('dashboard','DashboardController@index')->name('dashboard.index');
     Route::get('dashboard/json', 'DashboardController@json');

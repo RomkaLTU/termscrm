@@ -18,13 +18,20 @@
                 </div>
             </div>
             <div class="kt-portlet__body">
-                <user-fields :user="{{ $user }}" :user_role="{{ $user->roles()->first()->id }}" :roles="{{ $roles }}"></user-fields>
+                <user-fields
+                    :user="{{ $user }}"
+                    :user_role="{{ json_encode(auth()->user()->roles) }}"
+                    :is_admin="{{ auth()->user()->hasRole('Admin') ? 1 : 0 }}"
+                    :roles="{{ $roles }}">
+                </user-fields>
             </div>
             <div class="kt-portlet__foot">
                 <div class="row align-items-center">
                     <div class="col-lg-12">
                         <button type="submit" class="btn btn-success">{{ __('Atnaujinti') }}</button>
-                        <a href="{{ route('users.index') }}" class="btn btn-secondary">Nutraukti</a>
+                        @hasrole('Admin')
+                            <a href="{{ route('users.index') }}" class="btn btn-secondary">Nutraukti</a>
+                        @endhasrole
                     </div>
                 </div>
             </div>
