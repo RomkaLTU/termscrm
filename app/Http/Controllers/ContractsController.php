@@ -132,7 +132,7 @@ class ContractsController extends Controller
                 $this->mb_ucfirst($col->contract_status),
                 $col->validity_value,
                 $col->validity_extend_till_value,
-                ( auth()->user()->hasPermissionTo('view_invoices') ? str_replace('.00','',money_format('%i', $col->contract_value)) : null ),
+                ( auth()->user()->can('view_invoices') ? str_replace('.00','',money_format('%i', $col->contract_value)) : null ),
             ];
         }
 
