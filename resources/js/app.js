@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import store from './store'
+import Permissions from './Permissions';
 
 export const HTTP = axios.create({
     baseURL: window.API_DOMAIN,
@@ -11,6 +12,8 @@ export const HTTP = axios.create({
 });
 
 Vue.prototype.$http = HTTP;
+
+Vue.mixin(Permissions);
 
 /**
  * The following block of code may be used to automatically register your

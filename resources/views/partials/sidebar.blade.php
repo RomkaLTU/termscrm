@@ -48,7 +48,7 @@
                         <span class="kt-menu__link-text">{{ __('Darbai') }}</span>
                     </a>
                 </li>
-                @hasrole('Admin')
+                @can('manage_users')
                     <li class="kt-menu__section ">
                         <h4 class="kt-menu__section-text">{{ __('Vartotojai') }}</h4>
                         <i class="kt-menu__section-icon flaticon-more-v2"></i>
@@ -81,7 +81,7 @@
                             <span class="kt-menu__link-text">{{ __('Sukurti vartotoją') }}</span>
                         </a>
                     </li>
-                @endhasrole
+                @endcan
                 <li class="kt-menu__section ">
                     <h4 class="kt-menu__section-text">{{ __('Sutartys') }}</h4>
                     <i class="kt-menu__section-icon flaticon-more-v2"></i>
@@ -100,7 +100,7 @@
                         <span class="kt-menu__link-text">{{ __('Visos sutartys') }}</span>
                     </a>
                 </li>
-                @hasrole('Admin')
+                @can('manage_users')
                     <li class="kt-menu__item @if( Route::currentRouteName() == 'contracts.create' ) kt-menu__item--here  @endif">
                         <a href="{{ route('contracts.create') }}" class="kt-menu__link">
                             <span class="kt-menu__link-icon">
@@ -115,7 +115,7 @@
                             <span class="kt-menu__link-text">{{ __('Sukurti sutartį') }}</span>
                         </a>
                     </li>
-                @endhasrole
+                @endcan
             </ul>
         </div>
     </div>

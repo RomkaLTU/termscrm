@@ -6,9 +6,9 @@
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title">
                     {{ __('Sutartis') }}: <strong>{{ $contract->contract_nr }}</strong> &nbsp;
-                    @hasrole('Admin')
+                    @can('manage_contracts')
                         <a href="{{ route('contracts.edit', $contract->id) }}"><i class="fas fa-edit"></i></a>
-                    @endhasrole
+                    @endcan
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
@@ -70,13 +70,13 @@
                                         @endforeach
                                     </td>
                                 </tr>
-                                @hasrole('Admin')
+                                @can('view_invoices')
                                 <tr>
                                     <th scope="row" class="bg-light">Sutarties suma:</th>
                                     <td>{{ $contract->contract_value }}</td>
                                 </tr>
-                                @endhasrole
-                                @hasrole('Admin')
+                                @endcan
+                                @can('view_invoices')
                                     <tr>
                                         <th scope="row" class="bg-light">Sąskaitos:</th>
                                         <td>
@@ -95,8 +95,8 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endhasrole
-                                @hasrole('Admin')
+                                @endcan
+                                @can('view_attachments')
                                 <tr>
                                     <th scope="row" class="bg-light">Dokumentai:</th>
                                     <td>
@@ -107,7 +107,7 @@
                                         @endforeach
                                     </td>
                                 </tr>
-                                @endhasrole
+                                @endcan
                                 </tbody>
                             </table>
                         </div>

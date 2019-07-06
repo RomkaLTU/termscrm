@@ -28,9 +28,12 @@ Route::group(['middleware' => ['auth:web'] ], function() {
     Route::get('dashboard','DashboardController@index')->name('dashboard.index');
     Route::get('dashboard/json', 'DashboardController@json');
 
-    Route::get('contracts','ContractsController@index')->name('contracts.index');
-    Route::get('contracts/json', 'ContractsController@json');
-    Route::group(['middleware' => ['permission:edit_users']], function () {
+    Route::group(['middleware' => ['permission:view_contracts']], function () {
+        Route::get('contracts','ContractsController@index')->name('contracts.index');
+        Route::get('contracts/json', 'ContractsController@json');
+    });
+
+    Route::group(['middleware' => ['permission:manage_contracts']], function () {
         Route::post('contracts','ContractsController@store')->name('contracts.store');
         Route::get('contracts/create', 'ContractsController@create')->name('contracts.create');
         Route::delete('contracts/{contract}', 'ContractsController@destroy')->name('contracts.destroy');

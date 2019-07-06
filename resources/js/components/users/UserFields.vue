@@ -12,7 +12,7 @@
             <label>El. pašto adresas</label>
             <input type="email" class="form-control" v-model="formData.email" name="email" placeholder="El. pašto adresas">
         </div>
-        <div v-if="is_admin" class="form-group">
+        <div v-if="$can('manage_users')" class="form-group">
             <label>Rolė</label>
             <select
                 v-model="formData.role"
@@ -27,7 +27,7 @@
         </div>
         <div class="form-group">
             <label>Pareigos</label>
-            <input v-if="is_admin" type="text" class="form-control" name="duties" v-model="formData.duties" placeholder="Pareigos">
+            <input v-if="$can('manage_users')" type="text" class="form-control" name="duties" v-model="formData.duties" placeholder="Pareigos">
             <input v-else type="text" class="form-control" v-model="formData.duties" disabled>
         </div>
         <div class="form-group">

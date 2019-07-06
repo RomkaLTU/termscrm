@@ -11,6 +11,10 @@ class UserPolicy
 
     public function index(User $user)
     {
+        if ( $user->hasPermissionTo('manage_users') ) {
+            return true;
+        }
+
         return false;
     }
 
@@ -23,6 +27,10 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
+        if ( $user->hasPermissionTo('manage_users') ) {
+            return true;
+        }
+
         return false;
     }
 
@@ -34,12 +42,16 @@ class UserPolicy
      */
     public function create(User $user)
     {
+        if ( $user->hasPermissionTo('manage_users') ) {
+            return true;
+        }
+
         return false;
     }
 
     public function edit(User $user, User $model)
     {
-        if ( $user->id == $model->id ) {
+        if ( $user->hasPermissionTo('manage_users') || $user->id == $model->id ) {
             return true;
         }
 
@@ -55,6 +67,10 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
+        if ( $user->hasPermissionTo('manage_users') || $user->id == $model->id ) {
+            return true;
+        }
+
         return false;
     }
 
@@ -67,7 +83,11 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        //
+        if ( $user->hasPermissionTo('manage_users') ) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -79,7 +99,11 @@ class UserPolicy
      */
     public function restore(User $user, User $model)
     {
-        //
+        if ( $user->hasPermissionTo('manage_users') ) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -91,6 +115,10 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        //
+        if ( $user->hasPermissionTo('manage_users') ) {
+            return true;
+        }
+
+        return false;
     }
 }

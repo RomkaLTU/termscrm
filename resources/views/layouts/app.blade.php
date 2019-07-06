@@ -9,9 +9,14 @@
     <script>
         window.API_DOMAIN = '{{ env('APP_URL') }}/api';
         window.CSRF = '{{ csrf_token() }}';
-        window.USER_ID = '{{ auth()->user()->id }}';
-        window.USER_ROLES = JSON.parse('{!! Auth::user()->roles->pluck('name') !!}');
-        window.IS_ADMIN = '{{ auth()->user()->hasRole('Admin') ? 1 : 0 }}';
+        @auth
+            window.PERMISSIONS = {!! json_encode(Auth::user()->allPermissions, true) !!};
+            window.USER_ID = '{{ auth()->user()->id }}';
+            window.USER_ROLES = JSON.parse('{!! Auth::user()->roles->pluck('name') !!}');
+            window.IS_ADMIN = '{{ auth()->user()->hasRole('Admin') ? 1 : 0 }}';
+        @else
+            window.Permissions = [];
+        @endauth
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>

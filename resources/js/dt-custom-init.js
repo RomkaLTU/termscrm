@@ -28,6 +28,7 @@
                 {
                     'targets': -2,
                     'className': 'w-100px',
+
                 },
                 {
                     'targets': -1,
@@ -40,7 +41,7 @@
                         let edit_action_html = '';
                         let delete_action_html = '';
 
-                        if ( window.USER_ROLES.includes('Admin') ) {
+                        if ( window.PERMISSIONS.includes('manage_contracts') ) {
                             edit_action_html += `
                             <a href="/${model}/${row.DT_RowData.rowid}/edit" data-toggle="confirmation" class="btn btn-sm btn-clean btn-icon btn-icon-md">
                                 <i class="la la-edit"></i>
@@ -85,6 +86,10 @@
                 },
             ],
         });
+
+        if ( !window.PERMISSIONS.includes('view_invoices') ) {
+            $table.DataTable().column(-2).visible(false);
+        }
 
     });
 }(window.jQuery));

@@ -23,7 +23,7 @@
             <div class="kt-portlet__head-toolbar">
                 <div class="kt-portlet__head-wrapper">
                     <div class="kt-portlet__head-actions">
-                        @can('manage_users')
+                        @can('manage_contracts')
                             <a href="{{ route('contracts.create') }}" class="btn btn-brand btn-elevate btn-icon-sm">
                                 <i class="la la-plus"></i>
                                 {{ __('Nauja sutartis') }}

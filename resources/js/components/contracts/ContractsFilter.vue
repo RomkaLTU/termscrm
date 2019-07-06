@@ -116,40 +116,61 @@
                             className: 'nowrap',
                             'type':'html',
                             'render': function (data, type, row) {
-                                return `
-                            <div class="d-flex">
-                                <a href="/${model}/${row.DT_RowData.rowid}/edit" data-toggle="confirmation" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                    <i class="la la-edit"></i>
-                                </a>
-                                <div class="action-confirmation">
-                                    <button type="button" class="btn btn-sm btn-clean btn-icon btn-icon-md confirm_action">
-                                        <i class="la la-trash"></i>
-                                    </button>
-                                    <div class="confirm-block">
-                                        <form action="contracts/${row.DT_RowData.rowid}" method="post">
-                                            <input type="hidden" name="_token" value="${window.CSRF}">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <div>
-                                                <div class="d-flex">
-                                                    <button type="submit" rel="tooltip" data-toggle="confirmation" class="btn btn-sm btn-danger mr-1">
-                                                        Trinti
-                                                    </button>
-                                                    <button type="button" rel="tooltip" data-toggle="confirmation" class="btn btn-sm btn-clean close_confirmation">
-                                                        Atšaukti
-                                                    </button>
+
+                                let edit_action_html = '';
+                                let delete_action_html = '';
+
+                                if ( window.PERMISSIONS.includes('manage_contracts') ) {
+                                    edit_action_html += `
+                                    <a href="/${model}/${row.DT_RowData.rowid}/edit" data-toggle="confirmation" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                        <i class="la la-edit"></i>
+                                    </a>
+                                    `;
+
+                                    delete_action_html += `
+                                    <div class="action-confirmation">
+                                        <button type="button" class="btn btn-sm btn-clean btn-icon btn-icon-md confirm_action">
+                                            <i class="la la-trash"></i>
+                                        </button>
+                                        <div class="confirm-block">
+                                            <form action="contracts/${row.DT_RowData.rowid}" method="post">
+                                                <input type="hidden" name="_token" value="${window.CSRF}">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <div>
+                                                    <div class="d-flex">
+                                                        <button type="submit" rel="tooltip" data-toggle="confirmation" class="btn btn-sm btn-danger mr-1">
+                                                            Trinti
+                                                        </button>
+                                                        <button type="button" rel="tooltip" data-toggle="confirmation" class="btn btn-sm btn-clean close_confirmation">
+                                                            Atšaukti
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        `;
+                                    `;
+                                }
+
+                                return `
+                                    <div class="d-flex">
+                                        <a href="/${model}/${row.DT_RowData.rowid}" class="btn btn-sm btn-clean btn-icon btn-icon-md">
+                                            <i class="la la-eye"></i>
+                                        </a>
+                                        ${edit_action_html}
+                                        ${delete_action_html}
+                                    </div>
+                                `;
                             }
                         },
                     ],
                     'processing': true,
                     'serverSide': true,
                 });
+
+                if ( !window.PERMISSIONS.includes('view_invoices') ) {
+                    $table.DataTable().column(-2).visible(false);
+                }
             },
         },
     }
