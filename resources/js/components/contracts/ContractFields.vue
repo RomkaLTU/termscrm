@@ -155,8 +155,8 @@
                 </div>
             </div>
         </div>
-       <div class="font-weight-bold mb-3" v-if="!creating && $can('view_invoices')">Sąskaitos</div>
-        <div class="kt-list-timeline" v-if="invoices">
+        <div class="font-weight-bold mb-3" v-if="!creating && $can('view_invoices')">Sąskaitos</div>
+        <div class="kt-list-timeline" v-if="invoices && $can('view_invoices')">
             <div class="kt-list-timeline__items">
                 <div class="kt-list-timeline__item" v-for="(invoice,index) in invoices" :key="`invoice_${index}`">
                     <span class="kt-list-timeline__badge"></span>
@@ -169,7 +169,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="edit_invoice" tabindex="-1" role="dialog" aria-labelledby="editInvoice" aria-hidden="true">
+        <div v-if="$can('view_invoices')" class="modal fade" id="edit_invoice" tabindex="-1" role="dialog" aria-labelledby="editInvoice" aria-hidden="true">
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
