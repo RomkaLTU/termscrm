@@ -104,11 +104,49 @@
 
             // insertinam nauja parametra i DB
             $params.on('select2:select', function(e){
+
+                const selected_val = e.params.data.id;
+
                 if ( typeof e.params.data.element === 'undefined' ) {
                     $.post(window.API_DOMAIN + '/tasks/params', {
                         name: e.params.data.id
                     });
+                } else {
+                    $.get(window.API_DOMAIN + '/tasks/paramgroupsall', function(data){
+                        const groups = _.flatten( _.map(data,'taskparams') );
+
+                        const match = groups.filter((obj) => {
+                            return obj.id === Number(selected_val);
+                        });
+
+                        if ( match.length ) {
+                            const param_group_id = String( _.first(match).pivot.param_group_id );
+                            let selected_groups = $select2_task_params_groups.val();
+
+                            if ( !_.includes(selected_groups, param_group_id) ) {
+                                selected_groups.push(param_group_id);
+                            }
+
+                            $select2_task_params_groups.val(selected_groups);
+                            $select2_task_params_groups.trigger('change');
+                        }
+                    });
                 }
+            });
+
+            $params.on('select2:unselect', function(){
+                $.get(window.API_DOMAIN + '/tasks/paramgroupsall', function(data){
+                    const groups = _.flatten( _.map(data,'taskparams') );
+
+                    const match = groups.filter((obj) => {
+                        return _.includes( $params.val(), String(obj.id) );
+                    });
+
+                    const selected_groups = [...new Set(_.map(match, 'pivot').map(item => item.param_group_id))];
+
+                    $select2_task_params_groups.val(selected_groups);
+                    $select2_task_params_groups.trigger('change');
+                });
             });
         }
 
