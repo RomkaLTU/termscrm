@@ -121,3 +121,11 @@ label.error {
 .underline {
     text-decoration: underline;
 }
+
+.kt-checkbox>span {
+    border: 1px solid #9E9E9E !important;
+}
+
+.kt-checkbox>span:after {
+    border: solid #9e9d9e;
+}
