@@ -1,11 +1,12 @@
 {
-    "/js/app.js": "/js/app.js?id=4506926f1e3597f36fc4",
+    "/js/app.js": "/js/app.js?id=4bd88d63d51afac8abe9",
     "/css/app.css": "/css/app.css?id=bb7c744de9946bc6bf93",
     "/css/tailwind.css": "/css/tailwind.css?id=eeb25f558850a4817006",
     "/js/dashboard.js": "/js/dashboard.js?id=e60eddc08f6d5298c1a8",
-    "/js/dt-custom-init.js": "/js/dt-custom-init.js?id=76520c2962d8dcb3036d",
+    "/js/dt-custom-init.js": "/js/dt-custom-init.js?id=279dfc350c4fd7105b08",
     "/js/global.js": "/js/global.js?id=18852a9f00ea50f06f38",
     "/js/objects.js": "/js/objects.js?id=786415488b3f082dc161",
+    "/js/taskparams.js": "/js/taskparams.js?id=cba07aa3e0517c1510e6",
     "/js/tasks.js": "/js/tasks.js?id=e5f46699040b7aab28cb",
     "/js/users.js": "/js/users.js?id=6ae48809a6246ac0f6bf"
 }

@@ -31,6 +31,7 @@ $api->version('v1', [ 'prefix' => 'api' ], function ($api) {
     $api->get('tasks/paramgroup', 'App\Http\Controllers\Api\ObjTasksController@getGroup');
     $api->delete('tasks/paramgroups/{group}', 'App\Http\Controllers\Api\ObjTasksController@deleteGroup');
     $api->get('tasks/paramgroupsall', 'App\Http\Controllers\Api\ObjTasksController@getGroupAll');
+    $api->get('tasks/params', 'App\Http\Controllers\Api\ObjTasksController@get_params');
     $api->get('tasks/{task}', 'App\Http\Controllers\Api\TaskVisitsController@get_visits');
 
     $api->get('contracts', 'App\Http\Controllers\Api\ContractsController@search');

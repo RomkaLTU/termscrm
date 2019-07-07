@@ -64,4 +64,11 @@ class ObjTasksController extends Controller
             $group->delete();
         }
     }
+
+    public function get_params(Request $request)
+    {
+        return TaskParam::whereHas('researchAreas', function($q) use ($request){
+            $q->where('research_area_id', $request->ra);
+        })->get();
+    }
 }

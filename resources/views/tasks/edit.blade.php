@@ -25,7 +25,6 @@
                         :obj="{{ $obj }}"
                         :task="{{ $task }}"
                         :contract="{{ $contract }}"
-                        :task_params="{{ $task_params }}"
                         :task_params_selected="{{ $task_params_selected }}"
                         :task_params_groups="{{ $task_params_groups }}"
                         :task_params_groups_selected="{{ $task_params_groups_selected }}"

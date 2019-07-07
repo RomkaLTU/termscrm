@@ -27,8 +27,6 @@ class ContractsController extends Controller
 
     public function index()
     {
-        //dd( auth()->user()->can('view_contracts') );
-
         return view('contracts.index', [
 
         ]);

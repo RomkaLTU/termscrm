@@ -7,7 +7,7 @@
             </div>
             <div class="col-lg-6">
                 <label for="tyrimoSritys">Tyrimo sritis</label>
-                <select class="form-control" v-model="formData.research_area" name="research_area_id" id="tyrimoSritys">
+                <select class="form-control" v-model="formData.research_area" @change="getParams" name="research_area_id" id="tyrimoSritys">
                     <option v-for="area in research_areas" :key="`area_${area.id}`" :value="area.id">
                         {{ area.name }}
                     </option>
@@ -185,7 +185,6 @@
             'contract',
             'documents',
             'task',
-            'task_params',
             'task_params_selected',
             'task_params_groups',
             'task_params_groups_selected',
@@ -200,6 +199,7 @@
                     ecog: ['4'],
                 },
                 param_groups: false,
+                task_params: [],
                 task_params_groups_values: [],
                 task_params_group_name: '',
                 formData: {
@@ -225,10 +225,17 @@
             });
 
             this.task_params_groups_values = this.task_params_groups;
+
+            this.getParams();
         },
         methods: {
             dueDateChange(){
 
+            },
+            getParams() {
+                this.$http.get(`tasks/params/?ra=${this.formData.research_area}`).then((response) => {
+                    this.task_params = response.data;
+                });
             },
             getParamGroups() {
                 this.$http.get('tasks/paramgroup').then((response) => {
