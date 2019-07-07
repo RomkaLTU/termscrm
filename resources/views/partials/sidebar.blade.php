@@ -116,6 +116,7 @@
                         </a>
                     </li>
                 @endcan
+                @can('manage_params')
                 <li class="kt-menu__section ">
                     <h4 class="kt-menu__section-text">{{ __('Užduočių parametrai') }}</h4>
                     <i class="kt-menu__section-icon flaticon-more-v2"></i>
@@ -134,6 +135,7 @@
                         <span class="kt-menu__link-text">{{ __('Visi parametrai') }}</span>
                     </a>
                 </li>
+                @endcan
             </ul>
         </div>
     </div>

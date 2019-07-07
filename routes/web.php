@@ -25,8 +25,10 @@ Route::group(['middleware' => ['auth:web'] ], function() {
     Route::get('users/json', 'UsersController@json');
     Route::resource('users', 'UsersController');
 
-    Route::get('taskparams/json', 'TaskParamsController@json');
-    Route::resource('taskparams', 'TaskParamsController');
+    Route::group(['middleware' => ['permission:manage_params']], function () {
+        Route::get('taskparams/json', 'TaskParamsController@json');
+        Route::resource('taskparams', 'TaskParamsController');
+    });
 
     Route::get('dashboard','DashboardController@index')->name('dashboard.index');
     Route::get('dashboard/json', 'DashboardController@json');
