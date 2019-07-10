@@ -103,7 +103,7 @@ class ObjsController extends Controller
             'name' => 'required',
         ]);
 
-        $obj = Obj::create( $request->except('_token', 'research_area', 'ra_supervisor') );
+        $obj = Obj::create( $request->except('_token', 'research_area', 'ra_supervisor','documents') );
 
         $contract->objs()->attach( $obj->id );
 
@@ -167,7 +167,7 @@ class ObjsController extends Controller
             'research_area' => 'required|array|min:1',
         ]);
 
-        $object->update( $request->except('_method','_token','research_area','ra_supervisor') );
+        $object->update( $request->except('_method','_token','research_area','ra_supervisor','documents') );
 
         $ra_users_arr = [];
 
