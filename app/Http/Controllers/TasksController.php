@@ -387,6 +387,10 @@ class TasksController extends Controller
         </html>
         ';
 
+        if ( empty($pdf_html) ) {
+            return Redirect::back();
+        }
+
         return PDF::loadHTML($doc_html)->setPaper('a4')->setOption('header-html', $header)->download('ekometrija_darbai.pdf');
     }
 
