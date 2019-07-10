@@ -129,3 +129,18 @@ label.error {
 .kt-checkbox>span:after {
     border: solid #9e9d9e;
 }
+
+.flaticon-more {
+    color: #5767dd !important;
+}
+
+.kt-header-mobile__toggler.kt-header-mobile__toggler--left {
+    span {
+        background: #5767dd !important;
+        
+        &:after,
+        &:before {
+            background: #5767dd !important;
+        }
+    }
+}
