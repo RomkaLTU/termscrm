@@ -58,6 +58,7 @@
                 $('.visited').prop('checked', false);
                 checkedVisited = [];
                 $save_completed.css('display','none');
+                $print_selected.css('display','none');
 
                 $table.DataTable().ajax.reload(null, false);
             });
