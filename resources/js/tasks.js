@@ -59,7 +59,7 @@
                 checked: checkedVisited,
                 user_id: window.USER_ID,
             }).then(() => {
-                window.toastr.success('Apsilankymai išsaugoti');
+                window.toastr.success('Atlikta');
                 $('.visited').prop('checked', false);
                 checkedVisited = [];
                 $save_completed.css('display','none');

@@ -181,6 +181,16 @@
                     this.$http.delete(`media/${file.id}`);
                 }
             },
+
+            fileAdded(file){
+                const a = document.createElement('a');
+
+                a.setAttribute('href',file.url);
+                a.setAttribute('class','dz-remove dz-remove-download');
+                a.innerHTML = "atsisiųsti";
+                file.previewTemplate.appendChild(a);
+            },
+
             visitTimeChange() {
                 this.formData.visit_time_req = null;
                 $('#visit_time_req').val('').change();

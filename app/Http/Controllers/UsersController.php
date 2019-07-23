@@ -126,7 +126,7 @@ class UsersController extends Controller
             return Redirect::back();
         }
 
-        if ( $user->hasRole('Admin') ) {
+        if ( auth()->user()->hasRole('Admin') ) {
             $user->syncRoles( $request->role );
         }
 

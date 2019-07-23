@@ -40,11 +40,11 @@
 <script>
     export default {
         name: 'user-fields',
-        props: ['roles','user','user_role','is_admin'],
+        props: ['roles','user','user_role','is_admin','editing_user_role'],
         data() {
             return {
                 formData: {
-                    role: ( this.user_role ? this.user_role[0].id : null ),
+                    role: ( this.editing_user_role ? this.editing_user_role[0].id : null ),
                     name: ( this.user ? this.user.name : null ),
                     email: ( this.user ? this.user.email : null ),
                     phone: ( this.user ? this.user.phone : null ),

@@ -310,7 +310,6 @@
             },
 
             fileAdded(file){
-                console.log(file);
                 const a = document.createElement('a');
                 a.setAttribute('href',file.url);
                 a.setAttribute('class','dz-remove dz-remove-download');
