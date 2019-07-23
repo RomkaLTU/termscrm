@@ -97,6 +97,7 @@
             <vue-dropzone
                 ref="myVueDropzone"
                 id="dropzone"
+                @vdropzone-file-added="fileAdded"
                 @vdropzone-success="fileUploaded"
                 @vdropzone-removed-file="fileRemoved"
                 :options="dropzoneOptions"></vue-dropzone>
@@ -106,6 +107,13 @@
         </div>
     </div>
 </template>
+
+<style lang="scss">
+    .dz-remove-download {
+        right: 15px;
+        left: auto;
+    }
+</style>
 
 <script>
     import Datepicker from 'vuejs-datepicker'
@@ -145,7 +153,8 @@
                     thumbnailHeight: 150,
                     addRemoveLinks: true,
                     maxFilesize: 5,
-                    headers: { "X-CSRF-TOKEN": window.CSRF }
+                    headers: { "X-CSRF-TOKEN": window.CSRF },
+                    dictRemoveFile: "Trinti",
                 },
                 files: [],
             }
@@ -184,7 +193,6 @@
 
             fileAdded(file){
                 const a = document.createElement('a');
-
                 a.setAttribute('href',file.url);
                 a.setAttribute('class','dz-remove dz-remove-download');
                 a.innerHTML = "atsisiųsti";
