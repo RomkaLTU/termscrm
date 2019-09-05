@@ -21,10 +21,11 @@ class DashboardController extends Controller
     {
         $query = ObjTask::whereHas('contract', function($q){
             $q->where('contract_status','galiojanti');
-            $q->orWhereNotNull('requiring_int');
         });
 
-        $query->doesntHave('visits');
+        $query->where(function($q){
+            $q->doesntHave('visits')->orWhereNotNull('requiring_int');
+        });
 
         $recordsTotal = $query->count();
         $recordsFiltered = $recordsTotal;
@@ -79,20 +80,22 @@ class DashboardController extends Controller
                 $due_date = $col->requiring_int . ' (' . $col->due_date . ')';
             }
 
-            $col_data[] = [
-                'DT_RowData' => [
-                    'taskid' => $col->id,
-                    'objectid' => $col->obj->id,
-                    'contractid' => $col->contract->id,
-                    'special' => $col->special_task,
-                    'late' => $col->late,
-                ],
-                $col->obj->name,
-                $col->obj->region['name'],
-                $col->researchArea->name,
-                $col->name,
-                $due_date,
-            ];
+            if ( is_object($col->contract) && is_object($col->obj) ) {
+                $col_data[] = [
+                    'DT_RowData' => [
+                        'taskid' => $col->id,
+                        'objectid' => $col->obj->id,
+                        'contractid' => $col->contract->id,
+                        'special' => $col->special_task,
+                        'late' => $col->late,
+                    ],
+                    $col->obj->name,
+                    $col->obj->region['name'],
+                    $col->researchArea->name,
+                    $col->name,
+                    $due_date,
+                ];
+            }
         }
 
         return [
