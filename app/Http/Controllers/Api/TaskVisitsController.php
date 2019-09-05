@@ -41,17 +41,21 @@ class TaskVisitsController extends Controller
     {
         $current_day_of_month = Carbon::now()->format('d');
         $current_month_middle = Carbon::now()->startOfMonth()->addDay(intval(Carbon::now()->daysInMonth / 2))->format('Y-m-d');
+        $next_month_middle = Carbon::now()->addMonth()->startOfMonth()->addDay(intval(Carbon::now()->daysInMonth / 2))->format('Y-m-d');
         $current_month_last_day = Carbon::now()->endOfMonth()->format('Y-m-d');
+        $next_month_last_day = Carbon::now()->addMonth()->endOfMonth()->format('Y-m-d');
         $current_last_of_quarter = Carbon::now()->lastOfQuarter()->format('Y-m-d');
+        $next_last_of_quarter = Carbon::now()->addMonths(3)->lastOfQuarter()->format('Y-m-d');
         $middle_of_current_year = Carbon::now()->year . '-06-15';
+        $middle_of_next_year = Carbon::now()->addYear()->year . '-06-15';
 
         switch ($task->requiring_int)
         {
             case '2k. / mėn.':
                 if ( $current_day_of_month <= $current_month_middle ) {
-                    $due_date = $current_month_middle;
+                    $due_date = $next_month_middle;
                 } else {
-                    $due_date = $current_month_last_day;
+                    $due_date = $next_month_last_day;
                 }
 
                 $task->update([
@@ -62,21 +66,21 @@ class TaskVisitsController extends Controller
 
             case '1k. / mėn.':
                 $task->update([
-                    'due_date' => $current_month_last_day,
+                    'due_date' => $next_month_last_day,
                 ]);
                 break;
 
             case '1k. / ketv.':
                 $task->update([
-                    'due_date' => $current_last_of_quarter,
+                    'due_date' => $next_last_of_quarter,
                 ]);
                 break;
 
             case '2k. / met.':
-                if ( Carbon::now()->format('Y-m-d') < $middle_of_current_year ) {
-                    $due_date = $middle_of_current_year;
+                if ( Carbon::now()->format('Y-m-d') < $middle_of_next_year ) {
+                    $due_date = $middle_of_next_year;
                 } else {
-                    $due_date = Carbon::now()->endOfYear()->format('Y-m-d');
+                    $due_date = Carbon::now()->addYear()->endOfYear()->format('Y-m-d');
                 }
 
                 $task->update([
@@ -86,7 +90,7 @@ class TaskVisitsController extends Controller
 
             case '1k. / met.':
                 $task->update([
-                    'due_date' => Carbon::now()->endOfYear()->format('Y-m-d'),
+                    'due_date' => Carbon::now()->addYear()->endOfYear()->format('Y-m-d'),
                 ]);
                 break;
         }
