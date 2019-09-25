@@ -15,7 +15,7 @@
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
                         <h3 class="kt-portlet__head-title">
-                            {{ __('Redaguoti sutarties') }} <a href="{{ route('contracts.edit', $contract->id) }}">{{ $contract->contract_nr }}</a>
+                            {{ __('Redaguoti sutarties') }} <a href="{{ route('contracts.show', $contract->id) }}">{{ $contract->contract_nr }}</a>
                             objektą <a href="{{ route('contracts.objects.edit', [$contract->id,$obj->id]) }}">{{ $obj->name }}</a>
                         </h3>
                     </div>
